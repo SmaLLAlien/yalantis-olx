@@ -1,0 +1,6 @@
+public
+build
+node_modules
+.eslintrc.js
+.prettierrc.js
+serviceWorker.js
