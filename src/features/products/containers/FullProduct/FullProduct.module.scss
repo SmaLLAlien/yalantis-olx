@@ -1,0 +1,17 @@
+@import 'src/global/styles/main';
+
+.container {
+  background: var(--backgroundColor);
+  color: var(--textColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.product {
+  width: 80%;
+  height: 500px;
+}

@@ -1,5 +1,7 @@
-@import "global/styles/main";
+@import 'global/styles/main';
 
 .App {
-  color: var(--color-primary)
+  min-height: 100vh;
+  min-width: 480px;
+  background: var(--backgroundColor);
 }

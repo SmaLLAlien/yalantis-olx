@@ -1,0 +1,2 @@
+export const PRODUCTS_LOADED = 'PRODUCTS_LOADED';
+export const PRODUCT_CHOSEN = 'PRODUCT_CHOSEN';
