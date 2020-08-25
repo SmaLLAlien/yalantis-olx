@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { CURRENCY } from '../../../../global/constants';
 import classes from './Basket.module.scss';
+import { productType } from '../../types/types';
 
-const Basket = (props) => {
+export const Basket = (props) => {
   const { products } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
@@ -27,9 +28,7 @@ const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} 
-              {' '}
-              {CURRENCY}
+              {product.pieces * product.price} {CURRENCY}
             </div>
           </div>
         </div>
@@ -40,10 +39,6 @@ const Basket = (props) => {
   return <div className={classes.basket}>{productsElements}</div>;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.purchasing,
-  };
+Basket.propTypes = {
+  products: PropTypes.arrayOf(productType).isRequired,
 };
-
-export default connect(mapStateToProps, null)(Basket);

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from '../../../../core/api';
 import { URLs } from '../../../../global/constants';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
-import * as actionTypes from '../../../store/actionsTypes';
+import { matchType, productType } from '../../types/types';
 
-const FullProduct = (props) => {
+export const FullProduct = (props) => {
   const [fullProduct, setFullProduct] = useState(null);
   const [error, setError] = useState(null);
 
@@ -26,8 +26,9 @@ const FullProduct = (props) => {
   }, []);
 
   const buyHandler = (event, product) => {
+    const { purchasing } = props;
     event.stopPropagation();
-    props.onAddToBasketProduct(product);
+    props.onAddToBasketProduct(product, purchasing);
   };
 
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
@@ -50,11 +51,8 @@ const FullProduct = (props) => {
   return <div className={classes.container}>{product}</div>;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddToBasketProduct: (product) =>
-      dispatch({ type: actionTypes.PRODUCT_CHOSEN, payload: product }),
-  };
+FullProduct.propTypes = {
+  purchasing: PropTypes.arrayOf(productType).isRequired,
+  onAddToBasketProduct: PropTypes.func.isRequired,
+  match: matchType.isRequired,
 };
-
-export default connect(null, mapDispatchToProps)(FullProduct);

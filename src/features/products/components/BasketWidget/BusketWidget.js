@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import classes from './BasketWidget.module.scss';
 import basket from '../../../../global/images/basket.svg';
 import { CURRENCY, Routes } from '../../../../global/constants';
 
-const BasketWidget = (props) => {
+export const BasketWidget = (props) => {
   const { total } = props;
 
   return (
@@ -17,9 +17,8 @@ const BasketWidget = (props) => {
             style={{ background: `url(${basket}) no-repeat` }}
           />
           <div className={classes.basket__counter}>
-            {total} 
             {' '}
-            {CURRENCY}
+            {total} {CURRENCY}
           </div>
         </div>
       </Link>
@@ -27,10 +26,6 @@ const BasketWidget = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    total: state.totalPurchasingPrice,
-  };
+BasketWidget.propTypes = {
+  total: PropTypes.number.isRequired,
 };
-
-export default connect(mapStateToProps, null)(BasketWidget);

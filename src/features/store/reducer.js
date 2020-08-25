@@ -16,30 +16,13 @@ const reducer = (state = initialState, action) => {
         products: state.products.concat(payload),
       };
 
-    case actionTypes.PRODUCT_CHOSEN:
-      const newPayload = { ...payload, pieces: 1 };
-      const temp = [...state.purchasing];
-      temp.push(newPayload);
-      const res = temp.reduce((acc, obj) => {
-        const index = acc.findIndex((elm) => {
-          return elm.id === obj.id;
-        });
-        if (index === -1) {
-          return acc.concat({ ...obj });
-        }
-        acc[index].pieces += obj.pieces;
-        return acc;
-      }, []);
-      const price = res.reduce((acc, obj) => {
-        acc += obj.price * obj.pieces;
-        return acc;
-      }, 0);
-
+    case actionTypes.PRODUCT_CHOSEN: {
       return {
         ...state,
-        purchasing: res,
-        totalPurchasingPrice: price,
+        purchasing: payload.result,
+        totalPurchasingPrice: payload.price,
       };
+    }
 
     default:
       return state;

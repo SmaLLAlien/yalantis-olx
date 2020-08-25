@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from '../../../../core/api';
-import * as actionTypes from '../../../store/actionsTypes';
 import { Routes, URLs } from '../../../../global/constants';
 import Product from '../../components/Product/Product';
 import classes from './Products.module.scss';
+import { historyType, productType } from '../../types/types';
 
-const Products = (props) => {
-  const { products } = props;
+export const Products = (props) => {
+  const { products, onAddToBasketProduct } = props;
   const [loadError, setError] = useState(null);
 
   useEffect(() => {
@@ -23,12 +23,19 @@ const Products = (props) => {
   }, []);
 
   const buyHandler = (event, product) => {
+    const { purchasing } = props;
     event.stopPropagation();
-    props.onAddToBasketProduct(product);
+    onAddToBasketProduct(product, purchasing);
   };
 
-  const openDetailHandler = (id) => {
-    props.history.push(`${Routes.PRODUCTS}/${id}`);
+  const openDetailHandler = (event, id) => {
+    const { nativeEvent } = event;
+    if (
+      (nativeEvent instanceof KeyboardEvent && event.key === 'Enter') ||
+      nativeEvent instanceof MouseEvent
+    ) {
+      props.history.push(`${Routes.PRODUCTS}/${id}`);
+    }
   };
 
   return (
@@ -40,7 +47,10 @@ const Products = (props) => {
           <div
             className={classes.products__link}
             key={product.id}
-            onClick={() => openDetailHandler(product.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(event) => openDetailHandler(event, product.id)}
+            onClick={(event) => openDetailHandler(event, product.id)}
           >
             <Product
               className={classes.products__item}
@@ -54,19 +64,10 @@ const Products = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.products,
-  };
+Products.propTypes = {
+  products: PropTypes.arrayOf(productType).isRequired,
+  purchasing: PropTypes.arrayOf(productType).isRequired,
+  onLoadProducts: PropTypes.func.isRequired,
+  onAddToBasketProduct: PropTypes.func.isRequired,
+  history: historyType.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoadProducts: (products) =>
-      dispatch({ type: actionTypes.PRODUCTS_LOADED, payload: products }),
-    onAddToBasketProduct: (product) =>
-      dispatch({ type: actionTypes.PRODUCT_CHOSEN, payload: product }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Products);

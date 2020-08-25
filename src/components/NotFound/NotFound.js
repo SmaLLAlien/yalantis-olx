@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import classes from './NotFound.module.scss';
-import {Link} from "react-router-dom";
-import {Routes} from "../../global/constants";
+import { Routes } from '../../global/constants';
 
 const NotFound = () => (
   <Link to={Routes.PRODUCTS} className={classes.link}>
@@ -9,6 +9,6 @@ const NotFound = () => (
       <p className={classes.text}>404</p>
     </div>
   </Link>
-)
+);
 
 export default NotFound;
