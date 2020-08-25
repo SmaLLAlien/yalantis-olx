@@ -9,6 +9,7 @@ import { matchType, productType } from '../../types/types';
 export const FullProduct = (props) => {
   const [fullProduct, setFullProduct] = useState(null);
   const [error, setError] = useState(null);
+  const { match } = props;
 
   useEffect(() => {
     const loadProduct = () => {
@@ -23,7 +24,7 @@ export const FullProduct = (props) => {
     };
 
     loadProduct();
-  }, [props.match.params.id]);
+  }, [match.params.id]);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;

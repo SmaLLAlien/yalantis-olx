@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import BasketWidget from '../../features/products/components/BasketWidget';
-import { Routes } from '../../global/constants';
-import { locationType } from '../../features/products/types/types';
+import BasketWidget from '../../containers/BasketWidget';
+import { Routes } from '../../../../global/constants';
+import { locationType } from '../../types/types';
 
 const Header = (props) => {
   const { location } = props;

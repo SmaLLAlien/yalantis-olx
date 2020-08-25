@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLoadProducts: (products) =>
-       dispatch({ type: actionTypes.PRODUCTS_LOADED, payload: products }),
+      dispatch({ type: actionTypes.PRODUCTS_LOADED, payload: products }),
 
     onAddToBasketProduct: (product, purchasing) => {
       const payload = onProductChosen(product, purchasing);
