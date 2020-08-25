@@ -7,20 +7,20 @@ import classes from './Products.module.scss';
 import { historyType, productType } from '../../types/types';
 
 export const Products = (props) => {
-  const { products, onAddToBasketProduct } = props;
+  const { products, onAddToBasketProduct, onLoadProducts } = props;
   const [loadError, setError] = useState(null);
 
   useEffect(() => {
     axios(`${URLs.PRODUCTS}`)
       .then((response) => {
         if (!products.length) {
-          props.onLoadProducts(response.data.items);
+          onLoadProducts(response.data.items);
         }
         setError(null);
         return response;
       })
       .catch((error) => setError(error));
-  }, []);
+  }, [products]);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;

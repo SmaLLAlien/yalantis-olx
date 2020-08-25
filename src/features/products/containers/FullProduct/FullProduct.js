@@ -23,7 +23,7 @@ export const FullProduct = (props) => {
     };
 
     loadProduct();
-  }, []);
+  }, [props.match.params.id]);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;
