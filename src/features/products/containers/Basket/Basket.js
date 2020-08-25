@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CURRENCY } from '../../../../global/constants';
+import { Link } from 'react-router-dom';
+import { CURRENCY, Routes } from '../../../../global/constants';
 import classes from './Basket.module.scss';
 import { productType } from '../../types/types';
 
@@ -28,7 +29,9 @@ export const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} {CURRENCY}
+              {product.pieces * product.price} 
+              {' '}
+              {CURRENCY}
             </div>
           </div>
         </div>
@@ -36,7 +39,14 @@ export const Basket = (props) => {
     });
   }
 
-  return <div className={classes.basket}>{productsElements}</div>;
+  return (
+    <div className={classes.basket}>
+      <Link to={Routes.PRODUCTS} className={classes.back}>
+        Back to products
+      </Link>
+      {productsElements}
+    </div>
+  );
 };
 
 Basket.propTypes = {

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import axios from '../../../../core/api';
-import { URLs } from '../../../../global/constants';
+import { Routes, URLs } from '../../../../global/constants';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
 import { matchType, productType } from '../../types/types';
@@ -49,7 +50,14 @@ export const FullProduct = (props) => {
     product = <div className={classes.product__error}>{error.toString()}</div>;
   }
 
-  return <div className={classes.container}>{product}</div>;
+  return (
+    <div className={classes.container}>
+      <Link to={Routes.PRODUCTS} className={classes.back}>
+        Back to products
+      </Link>
+      {product}
+    </div>
+  );
 };
 
 FullProduct.propTypes = {
