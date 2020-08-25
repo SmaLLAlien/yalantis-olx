@@ -3,7 +3,7 @@ import { BasketWidget } from './BusketWidget';
 
 const mapStateToProps = (state) => {
   return {
-    total: state.totalPurchasingPrice,
+    total: state.productState.totalPurchasingPrice,
   };
 };
 

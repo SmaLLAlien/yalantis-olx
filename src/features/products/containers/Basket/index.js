@@ -3,7 +3,7 @@ import { Basket } from './Basket';
 
 const mapStateToProps = (state) => {
   return {
-    products: state.purchasing,
+    products: state.productState.purchasing,
   };
 };
 
