@@ -24,6 +24,22 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.DECREASE_CHOSEN: {
+      return {
+        ...state,
+        purchasing: payload.result,
+        totalPurchasingPrice: payload.price,
+      };
+    }
+
+    case actionTypes.INCREASE_CHOSEN: {
+      return {
+        ...state,
+        purchasing: payload.result,
+        totalPurchasingPrice: payload.price,
+      };
+    }
+
     default:
       return state;
   }

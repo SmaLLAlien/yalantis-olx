@@ -19,7 +19,7 @@ const countPrice = (arr) => {
   }, 0);
 };
 
-const onProductChosen = (payload, purchasing) => {
+export const onProductChosen = (payload, purchasing) => {
   const newPayload = { ...payload, pieces: 1 };
   const temp = [...purchasing];
   temp.push(newPayload);
@@ -30,4 +30,19 @@ const onProductChosen = (payload, purchasing) => {
   return { result, price };
 };
 
-export default onProductChosen;
+export const changePiecesCount = (id, array, type) => {
+  const temp = [...array];
+  const index = temp.findIndex((elm) => {
+    return elm.id === id;
+  });
+  const obj = { ...temp[index] };
+  obj.pieces = type === '-' ? obj.pieces - 1 : obj.pieces + 1;
+  obj.pieces = obj.pieces <= 1 ? 1 : obj.pieces;
+  temp[index] = obj;
+  const price = countPrice(temp);
+
+  return {
+    result: temp,
+    price,
+  };
+};
