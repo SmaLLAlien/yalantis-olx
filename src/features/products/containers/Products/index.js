@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { onProductChosen } from '../../../../helpers/helpers';
 import { Products } from './Products';
 import { getBasketProducts, getProducts } from '../../store/selectors';
-import {fetchProducts} from "../../store/actions";
+import {fetchProducts, onAddToBasketProduct} from "../../store/actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,10 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchProducts,
-  onAddToBasketProduct: (product, purchasing) => {
-    const payload = onProductChosen(product, purchasing);
-    // dispatch({ type: actionTypes.PRODUCT_CHOSEN, payload });
-  },
+  onAddToBasketProduct
 }
 
 // const mapDispatchToProps = (dispatch) => {

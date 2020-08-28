@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   purchasing: [],
   totalPurchasingPrice: 0,
+  detailedProduct: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -38,6 +39,13 @@ const reducer = (state = initialState, action) => {
         purchasing: payload.result,
         totalPurchasingPrice: payload.price,
       };
+    }
+
+    case actionTypes.PRODUCT_DETAIL_LOADED: {
+      return {
+        ...state,
+        detailedProduct: payload
+      }
     }
 
     default:

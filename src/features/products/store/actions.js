@@ -1,5 +1,6 @@
-import {DECREASE_CHOSEN, INCREASE_CHOSEN, PRODUCT_CHOSEN, PRODUCTS_LOADED} from "./actionsTypes";
+import {DECREASE_CHOSEN, INCREASE_CHOSEN, PRODUCT_CHOSEN, PRODUCT_DETAIL_LOADED, PRODUCTS_LOADED} from "./actionsTypes";
 import {URLs} from "../../../global/constants";
+import {onProductChosen} from "../../../helpers/helpers";
 
 export const productLoaded = payload => {
   return {
@@ -29,7 +30,24 @@ export const decreaseChosen = payload => {
   }
 }
 
-export const fetchProducts = () => async (dispatch, _, api) => {
+export const productDetailLoaded = (payload) => {
+  return {
+    type: PRODUCT_DETAIL_LOADED,
+    payload
+  }
+}
+
+export const fetchProducts = () => async (dispatch, state, api) => {
   const {data} = await api(URLs.PRODUCTS);
   dispatch(productLoaded(data.items));
 };
+
+export const fetchProduct = (id) => async (dispatch, _, api) => {
+  const {data} = await api(`${URLs.PRODUCTS}/${id}`);
+  return dispatch(productDetailLoaded(data))
+}
+
+export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
+  const payload = onProductChosen(product, purchasing);
+  dispatch({ type: PRODUCT_CHOSEN, payload });
+}

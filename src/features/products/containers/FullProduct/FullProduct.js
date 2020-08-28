@@ -1,36 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import axios from '../../../../core/api';
-import { Routes, URLs } from '../../../../global/constants';
+import { Routes } from '../../../../global/constants';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
 import { matchType, productType } from '../../types/types';
 
 export const FullProduct = (props) => {
-  const [fullProduct, setFullProduct] = useState(null);
   const [error, setError] = useState(null);
-  const { match } = props;
+  const { match, fetchProduct, fullProduct, onAddToBasketProduct } = props;
 
   useEffect(() => {
-    const loadProduct = () => {
-      if (props.match.params.id) {
-        axios(`${URLs.PRODUCTS}/${props.match.params.id}`)
-          .then(({ data }) => {
-            setError(null);
-            setFullProduct(data);
-          })
-          .catch((err) => setError(err));
-      }
-    };
+    if (match.params.id) {
+      fetchProduct(match.params.id);
+    }
 
-    loadProduct();
-  }, [match.params.id]);
+  }, []);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;
     event.stopPropagation();
-    props.onAddToBasketProduct(product, purchasing);
+    onAddToBasketProduct(product, purchasing);
   };
 
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
@@ -63,5 +53,6 @@ export const FullProduct = (props) => {
 FullProduct.propTypes = {
   purchasing: PropTypes.arrayOf(productType).isRequired,
   onAddToBasketProduct: PropTypes.func.isRequired,
+  fetchProduct: PropTypes.func.isRequired,
   match: matchType.isRequired,
 };
