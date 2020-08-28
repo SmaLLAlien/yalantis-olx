@@ -9,7 +9,7 @@ import NotFound from '../NotFound/NotFound';
 const AppRoutes = () => (
   <Switch>
     <Route path={Routes.PRODUCTS} exact component={Products} />
-    <Route path={`${Routes.PRODUCTS}/:id`} exact component={FullProduct} />
+    <Route path={Routes.PRODUCT} exact component={FullProduct} />
     <Route path={Routes.BASKET} exact component={Basket} />
 
     <Route exact path="/">

@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 import { onProductChosen } from '../../../../helpers/helpers';
 import * as actionTypes from '../../store/actionsTypes';
 import { FullProduct } from './FullProduct';
+import { getBasketProducts } from '../../store/selectors';
 
 const mapStateToProps = (state) => {
   return {
-    purchasing: state.productState.purchasing,
+    purchasing: getBasketProducts(state),
   };
 };
 

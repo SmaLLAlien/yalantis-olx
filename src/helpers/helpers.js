@@ -21,8 +21,7 @@ const countPrice = (arr) => {
 
 export const onProductChosen = (payload, purchasing) => {
   const newPayload = { ...payload, pieces: 1 };
-  const temp = [...purchasing];
-  temp.push(newPayload);
+  const temp = [...purchasing, newPayload];
 
   const result = groupingArrayById(temp);
   const price = countPrice(result);

@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import { BasketWidget } from './BusketWidget';
+import { getTotalBasketPrice } from '../../store/selectors';
 
 const mapStateToProps = (state) => {
   return {
-    total: state.productState.totalPurchasingPrice,
+    total: getTotalBasketPrice(state),
   };
 };
 

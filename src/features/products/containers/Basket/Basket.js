@@ -43,9 +43,7 @@ export const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} 
-              {' '}
-              {CURRENCY}
+              {product.pieces * product.price} {CURRENCY}
             </div>
           </div>
         </div>
@@ -59,15 +57,12 @@ export const Basket = (props) => {
         Back to products
       </Link>
       <div className={classes.basket__info}>
-        Number of products:
-        {' '}
+        Number of products:{' '}
         {products.reduce((acc, product) => acc + product.pieces, 0)}
       </div>
       <div className={classes.basket__info}>
         Total price:
-        {total} 
-        {' '}
-        {CURRENCY}
+        {total} {CURRENCY}
       </div>
       {productsElements}
     </div>

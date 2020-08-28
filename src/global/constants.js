@@ -1,5 +1,6 @@
 export const Routes = {
   PRODUCTS: '/products',
+  PRODUCT: '/products/:id',
   BASKET: '/basket',
 };
 
