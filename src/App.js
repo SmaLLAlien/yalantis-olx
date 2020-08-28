@@ -6,9 +6,8 @@ import AppRoutes from './components/AppRoutes/AppRoutes';
 import classes from './App.module.scss';
 import {configureStore} from "./core/configureStore";
 
-const initialState = {};
 
-const store = configureStore(initialState);
+const store = configureStore();
 
 function App() {
   return (

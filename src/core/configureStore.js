@@ -10,5 +10,3 @@ export const configureStore = (initialState = {}) => createStore(
   initialState,
   composeEnhancers(applyMiddleware(thunk.withExtraArgument(api)))
 )
-
-

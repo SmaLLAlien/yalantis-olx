@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actionsTypes';
 import { onProductChosen } from '../../../../helpers/helpers';
 import { Products } from './Products';
 import { getBasketProducts, getProducts } from '../../store/selectors';
+import {fetchProducts} from "../../store/actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -11,16 +11,23 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoadProducts: (products) =>
-      dispatch({ type: actionTypes.PRODUCTS_LOADED, payload: products }),
+const mapDispatchToProps = {
+  fetchProducts,
+  onAddToBasketProduct: (product, purchasing) => {
+    const payload = onProductChosen(product, purchasing);
+    // dispatch({ type: actionTypes.PRODUCT_CHOSEN, payload });
+  },
+}
 
-    onAddToBasketProduct: (product, purchasing) => {
-      const payload = onProductChosen(product, purchasing);
-      dispatch({ type: actionTypes.PRODUCT_CHOSEN, payload });
-    },
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchProducts: () => dispatch(fetchProducts()),
+//
+//     onAddToBasketProduct: (product, purchasing) => {
+//       const payload = onProductChosen(product, purchasing);
+//       dispatch({ type: actionTypes.PRODUCT_CHOSEN, payload });
+//     },
+//   };
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

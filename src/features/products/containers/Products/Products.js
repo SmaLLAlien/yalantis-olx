@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from '../../../../core/api';
-import { Routes, URLs } from '../../../../global/constants';
+import { Routes } from '../../../../global/constants';
 import Product from '../../components/Product/Product';
 import classes from './Products.module.scss';
 import { historyType, productType } from '../../types/types';
 
 export const Products = (props) => {
-  const { products, onAddToBasketProduct, onLoadProducts } = props;
+  const { products, onAddToBasketProduct, fetchProducts } = props;
   const [loadError, setError] = useState(null);
 
   useEffect(() => {
-    axios(`${URLs.PRODUCTS}`)
-      .then((response) => {
-        if (!products.length) {
-          onLoadProducts(response.data.items);
-        }
-        setError(null);
-        return response;
-      })
-      .catch((error) => setError(error));
-  }, [products]);
+    if (!products.length) {
+      fetchProducts();
+    }
+  }, [])
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;
@@ -67,7 +60,7 @@ export const Products = (props) => {
 Products.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
   purchasing: PropTypes.arrayOf(productType).isRequired,
-  onLoadProducts: PropTypes.func.isRequired,
+  fetchProducts: PropTypes.func.isRequired,
   onAddToBasketProduct: PropTypes.func.isRequired,
   history: historyType.isRequired,
 };
