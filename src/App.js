@@ -1,15 +1,14 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import AppHeader from './features/products/components/Header/Header';
 import AppRoutes from './components/AppRoutes/AppRoutes';
 import classes from './App.module.scss';
-import rootReducer from './core/rootReducer';
+import {configureStore} from "./core/configureStore";
 
 const initialState = {};
 
-const store = createStore(rootReducer, initialState);
+const store = configureStore(initialState);
 
 function App() {
   return (
