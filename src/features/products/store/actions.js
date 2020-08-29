@@ -59,7 +59,7 @@ export const productDetailLoaded = (payload) => {
 
 export const fetchProducts = () => async (dispatch, state, api) => {
   try {
-    const {data} = await api(URLs.PRODUCTS);
+    const {data} = await api.get(URLs.PRODUCTS);
     dispatch(loadingSucceeded());
     return dispatch(productsLoaded(data.items));
   } catch (error) {
@@ -72,7 +72,7 @@ export const fetchProducts = () => async (dispatch, state, api) => {
 
 export const fetchProduct = (id) => async (dispatch, _, api) => {
   try {
-    const {data} = await api(`${URLs.PRODUCTS}/${id}`);
+    const {data} = await api.get(`${URLs.PRODUCTS}/${id}s`);
     dispatch(loadingSucceeded());
     return dispatch(productDetailLoaded(data))
   } catch (error) {
