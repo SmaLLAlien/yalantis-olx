@@ -20,7 +20,7 @@ export const FullProduct = (props) => {
     if (match.params.id) {
       fetchProduct(match.params.id);
     }
-  }, []);
+  }, [match.params.id]);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;
