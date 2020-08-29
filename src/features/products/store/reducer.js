@@ -4,7 +4,7 @@ const initialState = {
   products: [],
   purchasing: [],
   totalPurchasingPrice: 0,
-  detailedProduct: null
+  detailedProduct: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PRODUCTS_LOADED:
       return {
         ...state,
-        products: state.products.concat(payload),
+        products: payload,
       };
 
     case actionTypes.PRODUCT_CHOSEN: {
@@ -44,8 +44,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PRODUCT_DETAIL_LOADED: {
       return {
         ...state,
-        detailedProduct: payload
-      }
+        detailedProduct: payload,
+      };
     }
 
     default:

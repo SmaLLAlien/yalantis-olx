@@ -4,87 +4,100 @@ import {
   PRODUCT_CHOSEN,
   PRODUCT_DETAIL_LOADED,
   PRODUCTS_LOADED,
-  LOADING_FAILED, LOADING_SUCCEEDED
-} from "./actionsTypes";
-import {URLs} from "../../../global/constants";
-import {onProductChosen} from "../../../helpers/helpers";
+  LOADING_FAILED,
+  LOADING_SUCCEEDED,
+  LOADING,
+} from './actionsTypes';
+import { URLs } from '../../../global/constants';
+import { onProductChosen } from '../../../helpers/helpers';
 
-export const productsLoaded = payload => {
+export const productsLoaded = (payload) => {
   return {
     type: PRODUCTS_LOADED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const loadingFailed = payload => {
+export const loadingFailed = (payload) => {
   return {
     type: LOADING_FAILED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const loadingSucceeded = () => {
   return {
     type: LOADING_SUCCEEDED,
-  }
-}
+  };
+};
 
-export const productChosen = payload => {
+export const loading = () => {
+  return {
+    type: LOADING,
+  };
+};
+
+export const productChosen = (payload) => {
   return {
     type: PRODUCT_CHOSEN,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const increaseChosen = payload => {
+export const increaseChosen = (payload) => {
   return {
     type: INCREASE_CHOSEN,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const decreaseChosen = payload => {
+export const decreaseChosen = (payload) => {
   return {
     type: DECREASE_CHOSEN,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const productDetailLoaded = (payload) => {
   return {
     type: PRODUCT_DETAIL_LOADED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const fetchProducts = () => async (dispatch, state, api) => {
+  dispatch(loading());
   try {
-    const {data} = await api.get(URLs.PRODUCTS);
+    const { data } = await api.get(URLs.PRODUCTS);
     dispatch(loadingSucceeded());
     return dispatch(productsLoaded(data.items));
   } catch (error) {
     if (error.message) {
-      dispatch(loadingFailed(error.message))
+      return dispatch(loadingFailed(error.message));
     }
+    return dispatch(
+      loadingFailed('Something is wrong, please try again later'),
+    );
   }
-
 };
 
 export const fetchProduct = (id) => async (dispatch, _, api) => {
+  dispatch(loading());
   try {
-    const {data} = await api.get(`${URLs.PRODUCTS}/${id}s`);
+    const { data } = await api.get(`${URLs.PRODUCTS}/${id}`);
     dispatch(loadingSucceeded());
-    return dispatch(productDetailLoaded(data))
+    return dispatch(productDetailLoaded(data));
   } catch (error) {
     if (error.message) {
-      dispatch(loadingFailed(error.message))
+      return dispatch(loadingFailed(error.message));
     }
+    return dispatch(
+      loadingFailed('Something is wrong, please try again later'),
+    );
   }
-
-
-}
+};
 
 export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
   const payload = onProductChosen(product, purchasing);
   dispatch({ type: PRODUCT_CHOSEN, payload });
-}
+};

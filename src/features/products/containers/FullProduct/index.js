@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import { FullProduct } from './FullProduct';
-import {getBasketProducts, getDetailedProduct, getHttpError} from '../../store/selectors';
-import {fetchProduct, onAddToBasketProduct} from "../../store/actions";
+import {
+  getBasketProducts,
+  getDetailedProduct,
+  getHttpError,
+} from '../../store/selectors';
+import { fetchProduct, onAddToBasketProduct } from '../../store/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,7 +17,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchProduct,
-  onAddToBasketProduct
-}
+  onAddToBasketProduct,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullProduct);

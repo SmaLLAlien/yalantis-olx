@@ -4,16 +4,16 @@ import { Routes } from '../../../../global/constants';
 import Product from '../../components/Product/Product';
 import classes from './Products.module.scss';
 import { historyType, productType } from '../../types/types';
-import Errors from "../../components/Errors/Errors";
+import Errors from '../../components/Errors/Errors';
 
 export const Products = (props) => {
   const { products, onAddToBasketProduct, fetchProducts, serverError } = props;
 
   useEffect(() => {
-    if (!products.length) {
-      fetchProducts();
-    }
-  }, [])
+    // if (!products.length) {
+    fetchProducts();
+    // }
+  }, []);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;
@@ -65,4 +65,9 @@ Products.propTypes = {
   fetchProducts: PropTypes.func.isRequired,
   onAddToBasketProduct: PropTypes.func.isRequired,
   history: historyType.isRequired,
+  serverError: PropTypes.string,
+};
+
+Products.defaultProps = {
+  serverError: null,
 };

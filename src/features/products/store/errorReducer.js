@@ -1,7 +1,7 @@
 import * as actionTypes from './actionsTypes';
 
 const initialState = {
-  serverErrors: null
+  serverErrors: null,
 };
 
 export const errorReducer = (state = initialState, action) => {
@@ -11,18 +11,25 @@ export const errorReducer = (state = initialState, action) => {
     case actionTypes.LOADING_FAILED: {
       return {
         ...state,
-        serverErrors: payload
-      }
+        serverErrors: payload,
+      };
+    }
+
+    case actionTypes.LOADING: {
+      return {
+        ...state,
+        serverErrors: null,
+      };
     }
 
     case actionTypes.LOADING_SUCCEEDED: {
       return {
         ...state,
-        serverErrors: null
-      }
+        serverErrors: null,
+      };
     }
 
     default:
       return state;
   }
-}
+};

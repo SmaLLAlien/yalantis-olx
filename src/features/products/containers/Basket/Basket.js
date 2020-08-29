@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { CURRENCY, Routes } from '../../../../global/constants';
 import classes from './Basket.module.scss';
 import { productType } from '../../types/types';
+import BasketTotalInfo from '../../components/BasketTotalInfo/BasketTotalInfo';
+import PiecesControl from '../../components/PiecesControl/PiecesControl';
 
 export const Basket = (props) => {
   const { products, decrease, increase, total } = props;
@@ -26,24 +28,24 @@ export const Basket = (props) => {
             <div className={classes.product__pieces}>
               Pieces:
               {product.pieces}
-              <button
-                type="button"
-                className={classes.product__decrease}
-                onClick={() => decrease(product.id, products)}
+              <PiecesControl
+                btnClass="product__decrease"
+                clicked={() => decrease(product.id, products)}
               >
                 -
-              </button>
-              <button
-                type="button"
-                className={classes.product__increase}
-                onClick={() => increase(product.id, products)}
+              </PiecesControl>
+              <PiecesControl
+                btnClass="product__increase"
+                clicked={() => increase(product.id, products)}
               >
                 +
-              </button>
+              </PiecesControl>
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} {CURRENCY}
+              {product.pieces * product.price} 
+              {' '}
+              {CURRENCY}
             </div>
           </div>
         </div>
@@ -56,14 +58,7 @@ export const Basket = (props) => {
       <Link to={Routes.PRODUCTS} className={classes.back}>
         Back to products
       </Link>
-      <div className={classes.basket__info}>
-        Number of products:{' '}
-        {products.reduce((acc, product) => acc + product.pieces, 0)}
-      </div>
-      <div className={classes.basket__info}>
-        Total price:
-        {total} {CURRENCY}
-      </div>
+      <BasketTotalInfo total={total} products={products} />
       {productsElements}
     </div>
   );

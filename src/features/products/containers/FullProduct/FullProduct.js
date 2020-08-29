@@ -8,13 +8,18 @@ import { matchType, productType } from '../../types/types';
 import Errors from '../../components/Errors/Errors';
 
 export const FullProduct = (props) => {
-  const { match, fetchProduct, fullProduct, onAddToBasketProduct, serverError } = props;
+  const {
+    match,
+    fetchProduct,
+    fullProduct,
+    onAddToBasketProduct,
+    serverError,
+  } = props;
 
   useEffect(() => {
     if (match.params.id) {
       fetchProduct(match.params.id);
     }
-
   }, []);
 
   const buyHandler = (event, product) => {
@@ -37,9 +42,14 @@ export const FullProduct = (props) => {
   }
 
   if (serverError) {
-    product = <div className={classes.product__error}>
-      <Errors error={serverError} showError={() => fetchProduct(match.params.id)} />
-    </div>;
+    product = (
+      <div className={classes.product__error}>
+        <Errors
+          error={serverError}
+          showError={() => fetchProduct(match.params.id)}
+        />
+      </div>
+    );
   }
 
   return (
@@ -58,4 +68,10 @@ FullProduct.propTypes = {
   fetchProduct: PropTypes.func.isRequired,
   match: matchType.isRequired,
   serverError: PropTypes.string,
+  fullProduct: productType,
+};
+
+FullProduct.defaultProps = {
+  serverError: null,
+  fullProduct: null,
 };

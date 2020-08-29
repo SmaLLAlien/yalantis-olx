@@ -1,0 +1,12 @@
+.product {
+  &__increase,
+  &__decrease {
+    margin-left: 15px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    outline: none;
+    background: var(--yellow-gradient);
+    border-radius: 5px;
+  }
+}
