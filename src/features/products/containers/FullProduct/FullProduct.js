@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Routes } from '../../../../global/constants';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
 import { matchType, productType } from '../../types/types';
+import Errors from '../../components/Errors/Errors';
 
 export const FullProduct = (props) => {
-  const [error, setError] = useState(null);
-  const { match, fetchProduct, fullProduct, onAddToBasketProduct } = props;
+  const { match, fetchProduct, fullProduct, onAddToBasketProduct, serverError } = props;
 
   useEffect(() => {
     if (match.params.id) {
@@ -25,7 +25,7 @@ export const FullProduct = (props) => {
 
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
 
-  if (fullProduct && !error) {
+  if (fullProduct && !serverError) {
     product = (
       <div className={classes.product}>
         <Product
@@ -36,8 +36,10 @@ export const FullProduct = (props) => {
     );
   }
 
-  if (error) {
-    product = <div className={classes.product__error}>{error.toString()}</div>;
+  if (serverError) {
+    product = <div className={classes.product__error}>
+      <Errors error={serverError} showError={() => fetchProduct(match.params.id)} />
+    </div>;
   }
 
   return (
@@ -55,4 +57,5 @@ FullProduct.propTypes = {
   onAddToBasketProduct: PropTypes.func.isRequired,
   fetchProduct: PropTypes.func.isRequired,
   match: matchType.isRequired,
+  serverError: PropTypes.string,
 };

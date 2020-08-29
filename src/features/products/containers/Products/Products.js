@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Routes } from '../../../../global/constants';
 import Product from '../../components/Product/Product';
 import classes from './Products.module.scss';
 import { historyType, productType } from '../../types/types';
+import Errors from "../../components/Errors/Errors";
 
 export const Products = (props) => {
-  const { products, onAddToBasketProduct, fetchProducts } = props;
-  const [loadError, setError] = useState(null);
+  const { products, onAddToBasketProduct, fetchProducts, serverError } = props;
 
   useEffect(() => {
     if (!products.length) {
@@ -33,8 +33,10 @@ export const Products = (props) => {
 
   return (
     <div className={classes.products}>
-      {loadError ? (
-        <div className={classes.products__error}>{loadError.toString()}</div>
+      {serverError ? (
+        <div className={classes.products__error}>
+          <Errors error={serverError} showError={() => fetchProducts()} />
+        </div>
       ) : (
         products.map((product) => (
           <div

@@ -1,11 +1,31 @@
-import {DECREASE_CHOSEN, INCREASE_CHOSEN, PRODUCT_CHOSEN, PRODUCT_DETAIL_LOADED, PRODUCTS_LOADED} from "./actionsTypes";
+import {
+  DECREASE_CHOSEN,
+  INCREASE_CHOSEN,
+  PRODUCT_CHOSEN,
+  PRODUCT_DETAIL_LOADED,
+  PRODUCTS_LOADED,
+  LOADING_FAILED, LOADING_SUCCEEDED
+} from "./actionsTypes";
 import {URLs} from "../../../global/constants";
 import {onProductChosen} from "../../../helpers/helpers";
 
-export const productLoaded = payload => {
+export const productsLoaded = payload => {
   return {
     type: PRODUCTS_LOADED,
     payload
+  }
+}
+
+export const loadingFailed = payload => {
+  return {
+    type: LOADING_FAILED,
+    payload
+  }
+}
+
+export const loadingSucceeded = () => {
+  return {
+    type: LOADING_SUCCEEDED,
   }
 }
 
@@ -38,13 +58,30 @@ export const productDetailLoaded = (payload) => {
 }
 
 export const fetchProducts = () => async (dispatch, state, api) => {
-  const {data} = await api(URLs.PRODUCTS);
-  dispatch(productLoaded(data.items));
+  try {
+    const {data} = await api(URLs.PRODUCTS);
+    dispatch(loadingSucceeded());
+    return dispatch(productsLoaded(data.items));
+  } catch (error) {
+    if (error.message) {
+      dispatch(loadingFailed(error.message))
+    }
+  }
+
 };
 
 export const fetchProduct = (id) => async (dispatch, _, api) => {
-  const {data} = await api(`${URLs.PRODUCTS}/${id}`);
-  return dispatch(productDetailLoaded(data))
+  try {
+    const {data} = await api(`${URLs.PRODUCTS}/${id}`);
+    dispatch(loadingSucceeded());
+    return dispatch(productDetailLoaded(data))
+  } catch (error) {
+    if (error.message) {
+      dispatch(loadingFailed(error.message))
+    }
+  }
+
+
 }
 
 export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
