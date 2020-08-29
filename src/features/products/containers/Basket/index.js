@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import { Basket } from './Basket';
-import * as actionType from '../../store/actionsTypes';
-import { changePiecesCount } from '../../../../helpers/helpers';
 import { getBasketProducts, getTotalBasketPrice } from '../../store/selectors';
+import {
+  decreaseProductPieces,
+  increaseProductPieces,
+} from '../../store/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -11,17 +13,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    decrease: (id, purchasedProducts) => {
-      const payload = changePiecesCount(id, purchasedProducts, '-');
-      dispatch({ type: actionType.DECREASE_CHOSEN, payload });
-    },
-    increase: (id, purchasedProducts) => {
-      const payload = changePiecesCount(id, purchasedProducts, '+');
-      dispatch({ type: actionType.INCREASE_CHOSEN, payload });
-    },
-  };
+const mapDispatchToProps = {
+  decreaseProductPieces,
+  increaseProductPieces,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);

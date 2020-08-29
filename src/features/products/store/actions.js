@@ -9,7 +9,7 @@ import {
   LOADING,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
-import { onProductChosen } from '../../../helpers/helpers';
+import { changePiecesCount, onProductChosen } from '../../../helpers/helpers';
 
 export const productsLoaded = (payload) => {
   return {
@@ -99,5 +99,15 @@ export const fetchProduct = (id) => async (dispatch, _, api) => {
 
 export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
   const payload = onProductChosen(product, purchasing);
-  dispatch({ type: PRODUCT_CHOSEN, payload });
+  dispatch(productChosen(payload));
+};
+
+export const decreaseProductPieces = (id, purchasedProducts) => (dispatch) => {
+  const payload = changePiecesCount(id, purchasedProducts, '-');
+  dispatch(decreaseChosen(payload));
+};
+
+export const increaseProductPieces = (id, purchasedProducts) => (dispatch) => {
+  const payload = changePiecesCount(id, purchasedProducts, '+');
+  dispatch(increaseChosen(payload));
 };

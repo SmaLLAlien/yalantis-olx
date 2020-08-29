@@ -18,9 +18,7 @@ export const BasketWidget = (props) => {
           />
           <div className={classes.basket__counter}>
             {' '}
-            {total} 
-            {' '}
-            {CURRENCY}
+            {total} {CURRENCY}
           </div>
         </div>
       </Link>

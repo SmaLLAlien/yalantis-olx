@@ -8,7 +8,12 @@ import BasketTotalInfo from '../../components/BasketTotalInfo/BasketTotalInfo';
 import PiecesControl from '../../components/PiecesControl/PiecesControl';
 
 export const Basket = (props) => {
-  const { products, decrease, increase, total } = props;
+  const {
+    products,
+    decreaseProductPieces,
+    increaseProductPieces,
+    total,
+  } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
       The basket is empty. But it&apos;s never too late to fix it :)
@@ -30,22 +35,20 @@ export const Basket = (props) => {
               {product.pieces}
               <PiecesControl
                 btnClass="product__decrease"
-                clicked={() => decrease(product.id, products)}
+                clicked={() => decreaseProductPieces(product.id, products)}
               >
                 -
               </PiecesControl>
               <PiecesControl
                 btnClass="product__increase"
-                clicked={() => increase(product.id, products)}
+                clicked={() => increaseProductPieces(product.id, products)}
               >
                 +
               </PiecesControl>
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} 
-              {' '}
-              {CURRENCY}
+              {product.pieces * product.price} {CURRENCY}
             </div>
           </div>
         </div>
@@ -66,7 +69,7 @@ export const Basket = (props) => {
 
 Basket.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
-  increase: PropTypes.func.isRequired,
-  decrease: PropTypes.func.isRequired,
+  increaseProductPieces: PropTypes.func.isRequired,
+  decreaseProductPieces: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
 };
