@@ -1,0 +1,55 @@
+@import 'src/global/styles/main';
+
+.products {
+  background: var(--backgroundColor);
+  color: var(--textColor);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  min-width: 480px;
+  box-sizing: border-box;
+
+  &__error {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+  }
+
+  &__link {
+    color: var(--textColor);
+    text-decoration: none;
+    width: 25%;
+    height: 200px;
+    margin: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+  }
+
+  &__link:hover {
+    box-shadow: 0 0 5px 0 #ff8a00;
+  }
+
+  &__item {
+    height: 200px;
+  }
+}
+
+@media all and (max-width: 1000px) {
+  .products {
+    &__link {
+      width: 40%;
+    }
+  }
+}
+
+@media all and (max-width: 680px) {
+  .products {
+    &__link {
+      width: 100%;
+    }
+  }
+}

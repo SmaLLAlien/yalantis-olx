@@ -1,0 +1,31 @@
+@import 'src/global/styles/main';
+
+.container {
+  background: var(--backgroundColor);
+  color: var(--textColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.back {
+  display: block;
+  text-decoration: none;
+  font-size: 1.5em;
+  color: var(--textColor);
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  background: var(--yellow-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.product {
+  width: 80%;
+  height: 500px;
+}

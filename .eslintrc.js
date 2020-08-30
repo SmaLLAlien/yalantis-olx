@@ -1,6 +1,7 @@
 module.exports = {
     "parser": "babel-eslint",
     "parserOptions": {
+        "ecmaVersion": 6,
         "sourceType": "module",
         "allowImportExportEverywhere": false,
         "codeFrame": false
@@ -15,6 +16,7 @@ module.exports = {
         "prefer-promise-reject-errors": ["off"],
         "react/jsx-filename-extension": ["off"],
         "react/prop-types": ["warn"],
-        "no-return-assign": ["off"]
+        "no-return-assign": ["off"],
+        "import/prefer-default-export": "off",
     }
 }
