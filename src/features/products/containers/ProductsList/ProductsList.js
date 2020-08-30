@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../../../global/constants';
 import classes from './ProductsList.module.scss';
@@ -10,10 +10,12 @@ import { productType } from '../../types/types';
 const ProductsList = (props) => {
   const { products, onAddToBasketProduct, fetchProducts, serverError } = props;
   const history = useHistory();
+  const params = useLocation();
+  const searValue = params.search.slice(1).split('=')[1];
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts(searValue);
+  }, [searValue]);
 
   const buyHandler = (event, product) => {
     const { purchasing } = props;

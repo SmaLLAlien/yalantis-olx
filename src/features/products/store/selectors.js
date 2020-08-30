@@ -4,3 +4,5 @@ export const getTotalBasketPrice = (state) =>
   state.productState.totalPurchasingPrice;
 export const getDetailedProduct = (state) => state.productState.detailedProduct;
 export const getHttpError = (state) => state.httpErrors.serverErrors;
+export const getOrigins = (state) => state.productState.origins;
+// export const getChosenOrigins = (state) => state.productState.origins.filter(origin => origin.checked);

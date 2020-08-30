@@ -45,3 +45,7 @@ export const changePiecesCount = (id, array, type) => {
     price,
   };
 };
+
+export const normalizeOrigins = (origins) => origins.map(origin => {
+  return {...origin, checked: false}
+})

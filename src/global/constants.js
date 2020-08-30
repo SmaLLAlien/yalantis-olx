@@ -6,6 +6,7 @@ export const Routes = {
 
 export const URLs = {
   PRODUCTS: '/products',
+  ORIGINS: '/products-origins',
 };
 
 export const CURRENCY = 'UAH';

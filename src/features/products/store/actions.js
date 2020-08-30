@@ -6,10 +6,10 @@ import {
   PRODUCTS_LOADED,
   LOADING_FAILED,
   LOADING_SUCCEEDED,
-  LOADING,
+  LOADING, ORIGINS_LOADED, ORIGINS_CHECKED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
-import { changePiecesCount, onProductChosen } from '../../../helpers/helpers';
+import {changePiecesCount, normalizeOrigins, onProductChosen} from '../../../helpers/helpers';
 
 export const productsLoaded = (payload) => {
   return {
@@ -65,10 +65,21 @@ export const productDetailLoaded = (payload) => {
   };
 };
 
-export const fetchProducts = () => async (dispatch, state, api) => {
-  dispatch(loading());
+export const originsLoaded = payload => {
+  return {
+    type: ORIGINS_LOADED,
+    payload
+  }
+}
+
+export const fetchProducts = (originsIds) => async (dispatch, state, api) => {
+
+  const value = originsIds ? originsIds.split('.').join(',') : null;
+  const params = {
+    origins: value,
+  };
   try {
-    const { data } = await api.get(URLs.PRODUCTS);
+    const { data } = await api.get(URLs.PRODUCTS, {params});
     dispatch(loadingSucceeded());
     return dispatch(productsLoaded(data.items));
   } catch (error) {
@@ -97,6 +108,35 @@ export const fetchProduct = (id) => async (dispatch, _, api) => {
   }
 };
 
+export const fetchOrigins = (searchValues) => async (dispatch, _, api) => {
+  console.log(searchValues, 'fetchOrigins');
+  dispatch(loading());
+  try {
+    let {data} = await api.get(URLs.ORIGINS);
+    let items = [...data.items];
+    dispatch(loadingSucceeded());
+
+    items = normalizeOrigins(data.items);
+
+    items = items.map(origin => {
+      if (searchValues.indexOf(origin.value) !== -1 ) {
+        origin.checked = true;
+        return origin;
+      }
+      return origin;
+    })
+    console.log(items, 'ITEMS')
+    return dispatch(originsLoaded(items));
+  } catch (error) {
+    if (error.message) {
+      return dispatch(loadingFailed(error.message));
+    }
+    return dispatch(
+      loadingFailed('Something is wrong, please try again later'),
+    );
+  }
+}
+
 export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
   const payload = onProductChosen(product, purchasing);
   dispatch(productChosen(payload));
@@ -111,3 +151,9 @@ export const increaseProductPieces = (id, purchasedProducts) => (dispatch) => {
   const payload = changePiecesCount(id, purchasedProducts, '+');
   dispatch(increaseChosen(payload));
 };
+
+export const manageOrigins = (payload) => dispatch => {
+  console.log(payload);
+  dispatch({type: ORIGINS_CHECKED, payload})
+}
+
