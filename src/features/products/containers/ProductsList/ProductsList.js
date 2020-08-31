@@ -11,7 +11,7 @@ const ProductsList = (props) => {
   const { products, onAddToBasketProduct, fetchProducts, serverError } = props;
   const history = useHistory();
   const params = useLocation();
-  const searValue = params.search.slice(1).split('=')[1];
+  const searValue = params.search;
 
   useEffect(() => {
     fetchProducts(searValue);

@@ -10,3 +10,5 @@ export const URLs = {
 };
 
 export const CURRENCY = 'UAH';
+
+export const MAX_PRICE_DEFAULT = '1500'

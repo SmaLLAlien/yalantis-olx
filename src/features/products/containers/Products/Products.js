@@ -3,38 +3,65 @@ import ProductsList from '../ProductsList';
 import PropTypes from 'prop-types'
 import {originType} from "../../types/types";
 import OriginFilter from "../../components/OriginFilter/OriginFilter";
-import {useLocation, useHistory} from 'react-router-dom'
-import {manageOrigins} from "../../store/actions";
+import {useHistory} from 'react-router-dom'
+import PriceRange from "../PriceRange/PriceRange";
+import {getQueryVariable} from "../../../../helpers/helpers";
 
 export const Products = (props) => {
   const {productOrigins, fetchOrigins, manageOrigins} = props;
   const history = useHistory();
-  const params = useLocation();
-  const searchValue = params.search.slice(1).split('=')[1];
-  const searchValues = searchValue ? searchValue.split('.') : [];
+  const originsQuery =  getQueryVariable('origins');
+  const originsArrayFromUrl = originsQuery ? originsQuery.split(',') : [];
 
   useEffect(() => {
-    fetchOrigins(searchValues);
+    fetchOrigins(originsArrayFromUrl);
   }, [])
 
   const onOriginCheckedHandler = (origin) => {
-    console.log(origin, 'ORIGIN');
-    if (searchValues.includes(origin.value)) {
-      const index = searchValues.findIndex(search => search === origin.value);
-      searchValues.splice(index, 1);
+
+
+    if (originsArrayFromUrl.includes(origin.value)) {
+      const index = originsArrayFromUrl.findIndex(search => search === origin.value);
+      originsArrayFromUrl.splice(index, 1);
     } else {
-      searchValues.push(origin.value);
+      originsArrayFromUrl.push(origin.value);
     }
 
-    manageOrigins(origin)
+    let newQuery = null;
+    let minPrice = getQueryVariable('minPrice');
+    let maxPrice = getQueryVariable('maxPrice');
+
+    if (minPrice) {
+      newQuery = new URLSearchParams({origins:originsArrayFromUrl.join(','), minPrice, maxPrice}).toString();
+    } else {
+      newQuery = new URLSearchParams({origins: originsArrayFromUrl.join(',')}).toString();
+    }
+
+    manageOrigins(origin);
     history.push({
-      search: "?" + new URLSearchParams({origins: searchValues.join('.')}).toString()
+      search: newQuery
     })
+  }
+
+  const setPrice = (minPrice, maxPrice) => {
+    let newQuery = null;
+    let origins = getQueryVariable('origins');
+
+    if (origins) {
+      newQuery = new URLSearchParams({origins, minPrice, maxPrice}).toString();
+    } else {
+      newQuery = new URLSearchParams({minPrice, maxPrice}).toString();
+    }
+
+    history.push({
+          search: newQuery
+        })
   }
 
   return (
     <React.Fragment>
       <OriginFilter origins={productOrigins} checkedOriginHandler={(origin) => onOriginCheckedHandler(origin)} />
+      <PriceRange changedPrice = {(minPrice, maxPrice) => setPrice(minPrice, maxPrice)} />
       <ProductsList />
     </React.Fragment>
   );

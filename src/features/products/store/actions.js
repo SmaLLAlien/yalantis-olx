@@ -72,14 +72,9 @@ export const originsLoaded = payload => {
   }
 }
 
-export const fetchProducts = (originsIds) => async (dispatch, state, api) => {
-
-  const value = originsIds ? originsIds.split('.').join(',') : null;
-  const params = {
-    origins: value,
-  };
+export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
-    const { data } = await api.get(URLs.PRODUCTS, {params});
+    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`);
     dispatch(loadingSucceeded());
     return dispatch(productsLoaded(data.items));
   } catch (error) {
@@ -153,7 +148,9 @@ export const increaseProductPieces = (id, purchasedProducts) => (dispatch) => {
 };
 
 export const manageOrigins = (payload) => dispatch => {
-  console.log(payload);
   dispatch({type: ORIGINS_CHECKED, payload})
 }
 
+// export const setPriceRange = payload => dispatch => {
+//   dispatch({type: RANGE_PRICE_CHANGED, payload})
+// }

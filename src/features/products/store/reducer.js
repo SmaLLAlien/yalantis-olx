@@ -1,11 +1,14 @@
 import * as actionTypes from './actionsTypes';
+import {MAX_PRICE_DEFAULT} from "../../../global/constants";
 
 const initialState = {
   products: [],
   purchasing: [],
   totalPurchasingPrice: 0,
   detailedProduct: null,
-  origins: null
+  origins: null,
+  minRangePrice: 0,
+  maxRangePrice: MAX_PRICE_DEFAULT
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,7 +71,6 @@ const reducer = (state = initialState, action) => {
         origins: temp,
       };
     }
-
 
     default:
       return state;
