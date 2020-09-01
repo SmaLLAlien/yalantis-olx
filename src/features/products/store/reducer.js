@@ -1,5 +1,6 @@
 import * as actionTypes from './actionsTypes';
-import {MAX_PRICE_DEFAULT} from "../../../global/constants";
+import { MAX_PRICE_DEFAULT } from '../../../global/constants';
+import { checkOrigins } from '../../../helpers/helpers';
 
 const initialState = {
   products: [],
@@ -8,7 +9,7 @@ const initialState = {
   detailedProduct: null,
   origins: null,
   minRangePrice: 0,
-  maxRangePrice: MAX_PRICE_DEFAULT
+  maxRangePrice: MAX_PRICE_DEFAULT,
 };
 
 const reducer = (state = initialState, action) => {
@@ -60,15 +61,11 @@ const reducer = (state = initialState, action) => {
     }
 
     case actionTypes.ORIGINS_CHECKED: {
-      const temp = [...state.origins];
-      const index = temp.findIndex(origin => origin.value === payload.value);
-      const origin = {...temp[index]};
-      origin.checked = !origin.checked;
-      temp[index] = origin;
+      const newOrigins = checkOrigins(state, payload);
 
       return {
         ...state,
-        origins: temp,
+        origins: newOrigins,
       };
     }
 

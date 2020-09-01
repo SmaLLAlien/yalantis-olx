@@ -5,4 +5,3 @@ export const getTotalBasketPrice = (state) =>
 export const getDetailedProduct = (state) => state.productState.detailedProduct;
 export const getHttpError = (state) => state.httpErrors.serverErrors;
 export const getOrigins = (state) => state.productState.origins;
-

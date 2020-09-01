@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../../../global/constants';
 import classes from './ProductsList.module.scss';

@@ -14,8 +14,8 @@ export const productType = shape({
 export const originType = shape({
   value: string,
   displayName: string,
-  checked: bool
-})
+  checked: bool,
+});
 
 export const matchType = shape({
   params: shape({

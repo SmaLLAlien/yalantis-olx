@@ -6,10 +6,16 @@ import {
   PRODUCTS_LOADED,
   LOADING_FAILED,
   LOADING_SUCCEEDED,
-  LOADING, ORIGINS_LOADED, ORIGINS_CHECKED,
+  LOADING,
+  ORIGINS_LOADED,
+  ORIGINS_CHECKED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
-import {changePiecesCount, normalizeOrigins, onProductChosen} from '../../../helpers/helpers';
+import {
+  changePiecesCount,
+  normalizeOrigins,
+  onProductChosen,
+} from '../../../helpers/helpers';
 
 export const productsLoaded = (payload) => {
   return {
@@ -65,12 +71,12 @@ export const productDetailLoaded = (payload) => {
   };
 };
 
-export const originsLoaded = payload => {
+export const originsLoaded = (payload) => {
   return {
     type: ORIGINS_LOADED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
@@ -104,23 +110,22 @@ export const fetchProduct = (id) => async (dispatch, _, api) => {
 };
 
 export const fetchOrigins = (searchValues) => async (dispatch, _, api) => {
-  console.log(searchValues, 'fetchOrigins');
   dispatch(loading());
   try {
-    let {data} = await api.get(URLs.ORIGINS);
-    let items = [...data.items];
+    const { data } = await api.get(URLs.ORIGINS);
     dispatch(loadingSucceeded());
 
-    items = normalizeOrigins(data.items);
+    let items = normalizeOrigins(data.items);
 
-    items = items.map(origin => {
-      if (searchValues.indexOf(origin.value) !== -1 ) {
-        origin.checked = true;
-        return origin;
+    items = items.map((origin) => {
+      if (searchValues.indexOf(origin.value) !== -1) {
+        const temp = { ...origin };
+        temp.checked = true;
+        return temp;
       }
       return origin;
-    })
-    console.log(items, 'ITEMS')
+    });
+
     return dispatch(originsLoaded(items));
   } catch (error) {
     if (error.message) {
@@ -130,7 +135,7 @@ export const fetchOrigins = (searchValues) => async (dispatch, _, api) => {
       loadingFailed('Something is wrong, please try again later'),
     );
   }
-}
+};
 
 export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
   const payload = onProductChosen(product, purchasing);
@@ -147,10 +152,6 @@ export const increaseProductPieces = (id, purchasedProducts) => (dispatch) => {
   dispatch(increaseChosen(payload));
 };
 
-export const manageOrigins = (payload) => dispatch => {
-  dispatch({type: ORIGINS_CHECKED, payload})
-}
-
-// export const setPriceRange = payload => dispatch => {
-//   dispatch({type: RANGE_PRICE_CHANGED, payload})
-// }
+export const manageOrigins = (payload) => (dispatch) => {
+  dispatch({ type: ORIGINS_CHECKED, payload });
+};

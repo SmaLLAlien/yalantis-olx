@@ -46,17 +46,29 @@ export const changePiecesCount = (id, array, type) => {
   };
 };
 
-export const normalizeOrigins = (origins) => origins.map(origin => {
-  return {...origin, checked: false}
-})
+export const normalizeOrigins = (origins) =>
+  origins.map((origin) => {
+    return { ...origin, checked: false };
+  });
 
 export const getQueryVariable = (variable) => {
-  let query = window.location.search.substring(1);
-  let vars = query.split('&');
-  for (let i = 0; i < vars.length; i++) {
-    let pair = vars[i].split('=');
+  const query = window.location.search.substring(1);
+  const vars = query.split('&');
+  for (let i = 0; i < vars.length; i += 1) {
+    const pair = vars[i].split('=');
     if (decodeURIComponent(pair[0]) === variable) {
       return decodeURIComponent(pair[1]);
     }
   }
-}
+  return null;
+};
+
+export const checkOrigins = (state, payload) => {
+  const temp = [...state.origins];
+  const index = temp.findIndex((origin) => origin.value === payload.value);
+  const origin = { ...temp[index] };
+  origin.checked = !origin.checked;
+  temp[index] = origin;
+
+  return temp;
+};

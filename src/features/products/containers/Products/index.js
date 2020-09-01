@@ -1,18 +1,17 @@
+import { connect } from 'react-redux';
 import { Products } from './Products';
-import {connect} from 'react-redux'
-import { getOrigins} from "../../store/selectors";
-import {fetchOrigins, fetchProducts, manageOrigins} from "../../store/actions";
+import { getOrigins } from '../../store/selectors';
+import { fetchOrigins, manageOrigins } from '../../store/actions';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     productOrigins: getOrigins(state),
-  }
-}
+  };
+};
 
 const mapDispatchToProps = {
   fetchOrigins,
-  fetchProducts,
-  manageOrigins
-}
+  manageOrigins,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
