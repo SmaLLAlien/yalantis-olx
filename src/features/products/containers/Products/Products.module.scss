@@ -1,0 +1,19 @@
+.products {
+  display: flex;
+
+  &__controls {
+    width: 200px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+}
+
+@media all and (max-width: 960px) {
+  .products {
+    flex-direction: column;
+
+    &__controls {
+      width: 100%;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { originType } from '../../types/types';
 import OriginFilter from '../../components/OriginFilter/OriginFilter';
 import PriceRange from '../PriceRange/PriceRange';
 import { getQueryVariable } from '../../../../helpers/helpers';
+import classes from './Products.module.scss';
 
 export const Products = (props) => {
   const { productOrigins, fetchOrigins, manageOrigins } = props;
@@ -66,14 +67,18 @@ export const Products = (props) => {
 
   return (
     <>
-      <OriginFilter
-        origins={productOrigins}
-        checkedOriginHandler={(origin) => onOriginCheckedHandler(origin)}
-      />
-      <PriceRange
-        changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
-      />
-      <ProductsList />
+     <div className={classes.products}>
+       <div className={classes.products__controls}>
+         <OriginFilter
+           origins={productOrigins}
+           checkedOriginHandler={(origin) => onOriginCheckedHandler(origin)}
+         />
+         <PriceRange
+           changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
+         />
+       </div>
+       <ProductsList />
+     </div>
     </>
   );
 };
