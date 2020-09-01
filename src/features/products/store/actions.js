@@ -8,7 +8,7 @@ import {
   LOADING_SUCCEEDED,
   LOADING,
   ORIGINS_LOADED,
-  ORIGINS_CHECKED,
+  ORIGINS_CHECKED, BASKET_PRODUCT_DELETED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -155,3 +155,7 @@ export const increaseProductPieces = (id, purchasedProducts) => (dispatch) => {
 export const manageOrigins = (payload) => (dispatch) => {
   dispatch({ type: ORIGINS_CHECKED, payload });
 };
+
+export const deleteProductFromBasket = payload => dispatch => {
+  dispatch({type: BASKET_PRODUCT_DELETED, payload})
+}

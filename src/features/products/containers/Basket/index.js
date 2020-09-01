@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Basket } from './Basket';
 import { getBasketProducts, getTotalBasketPrice } from '../../store/selectors';
 import {
-  decreaseProductPieces,
+  decreaseProductPieces, deleteProductFromBasket,
   increaseProductPieces,
 } from '../../store/actions';
 
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   decreaseProductPieces,
   increaseProductPieces,
+  deleteProductFromBasket
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);

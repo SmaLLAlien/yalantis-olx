@@ -69,6 +69,15 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.BASKET_PRODUCT_DELETED: {
+      const temp = state.purchasing.filter(product => product.id !== payload);
+
+      return {
+        ...state,
+        purchasing: temp,
+      };
+    }
+
     default:
       return state;
   }

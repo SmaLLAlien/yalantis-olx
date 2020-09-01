@@ -13,12 +13,14 @@ export const Basket = (props) => {
     decreaseProductPieces,
     increaseProductPieces,
     total,
+    deleteProductFromBasket
   } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
       The basket is empty. But it&apos;s never too late to fix it :)
     </div>
   );
+
 
   if (products.length) {
     productsElements = products.map((product) => {
@@ -48,11 +50,18 @@ export const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} 
+              {product.pieces * product.price}
               {' '}
               {CURRENCY}
             </div>
           </div>
+          <button
+            type='button'
+            className={classes.product__delete}
+            onClick={() => deleteProductFromBasket(product.id)}
+          >
+            x
+          </button>
         </div>
       );
     });
@@ -73,5 +82,6 @@ Basket.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
   increaseProductPieces: PropTypes.func.isRequired,
   decreaseProductPieces: PropTypes.func.isRequired,
+  deleteProductFromBasket: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
 };
