@@ -2,10 +2,12 @@
   display: flex;
 
   &__controls {
-    width: 200px;
+    min-width: 250px;
+    width: 20%;
     padding: 20px;
     box-sizing: border-box;
   }
+
 }
 
 @media all and (max-width: 960px) {

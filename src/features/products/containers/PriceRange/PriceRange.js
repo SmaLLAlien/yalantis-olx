@@ -30,24 +30,58 @@ const PriceRange = (props) => {
   };
 
   const isDisabled = () => {
-    return isMinPriceChanged() || isMaxPriceChanged();
+    return !(isMinPriceChanged() || isMaxPriceChanged());
   };
 
   const setPrice = () => {
-    if (isDisabled()) {
+    if (!isDisabled()) {
       changedPrice(minPrice, maxPrice);
     }
   };
 
+  const resetPrice = () => {
+    if (!isDisabled()) {
+      setMaxPrice('1500');
+      setMinPrice('0');
+      changedPrice('0', '1500');
+    }
+  }
+
+  const onEnter = (e) => {
+    if (!isDisabled() && e.key === 'Enter') {
+      changedPrice(minPrice, maxPrice);
+    }
+  }
+
   return (
     <div className={classes.range}>
-      <div>{minPrice}</div>
-      <input type="text" value={minPrice} onChange={minPriceHandler} />
-      <input type="text" value={maxPrice} onChange={maxPriceHandler} />
-      <div>{maxPrice}</div>
-      <button type="button" disabled={!isDisabled()} onClick={() => setPrice()}>
-        Apply
-      </button>
+      <div className={classes.range__header}>Price</div>
+      <div className={classes.range__control}>
+        <input
+          className={classes.range__input}
+          type="text"
+          value={minPrice}
+          onChange={minPriceHandler}
+          onKeyDown={onEnter}
+        />
+      </div>
+      <div className={classes.range__control}>
+        <input
+          className={classes.range__input}
+          type="text"
+          value={maxPrice}
+          onChange={maxPriceHandler}
+          onKeyDown={onEnter}
+        />
+      </div>
+      <div className={classes.range__buttons}>
+        <button type="button" disabled={isDisabled()} onClick={() => setPrice()}>
+          Apply
+        </button>
+        <button type="button" disabled={isDisabled()} onClick={() => resetPrice()}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 };

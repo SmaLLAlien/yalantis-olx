@@ -8,23 +8,15 @@ const Origin = (props) => {
 
   return (
     <div className={classes.origin}>
-      <input className={classes.origin__control}
-             type="checkbox"
-             id={origin.value}
-             checked={origin.checked}
-             onChange={() => clicked(origin)}
+      <input
+        className={classes.origin__control}
+        type="checkbox"
+        id={origin.value}
+        checked={origin.checked}
+        onChange={() => clicked(origin)}
       />
       <label className={classes.origin__label} htmlFor={origin.value}>{origin.displayName}</label>
     </div>
-    // <label htmlFor={origin.value}>
-    //   <input
-    //     type="checkbox"
-    //     id={origin.value}
-    //     checked={origin.checked}
-    //     onChange={() => clicked(origin)}
-    //   />
-    //   {origin.displayName}
-    // </label>
   );
 };
 

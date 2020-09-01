@@ -7,7 +7,7 @@ const initialState = {
   purchasing: [],
   totalPurchasingPrice: 0,
   detailedProduct: null,
-  origins: null,
+  origins: [],
   minRangePrice: 0,
   maxRangePrice: MAX_PRICE_DEFAULT,
 };

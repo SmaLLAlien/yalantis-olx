@@ -48,7 +48,9 @@ export const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} {CURRENCY}
+              {product.pieces * product.price} 
+              {' '}
+              {CURRENCY}
             </div>
           </div>
         </div>

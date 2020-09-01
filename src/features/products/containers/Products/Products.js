@@ -67,18 +67,20 @@ export const Products = (props) => {
 
   return (
     <>
-     <div className={classes.products}>
-       <div className={classes.products__controls}>
-         <OriginFilter
-           origins={productOrigins}
-           checkedOriginHandler={(origin) => onOriginCheckedHandler(origin)}
-         />
-         <PriceRange
-           changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
-         />
-       </div>
-       <ProductsList />
-     </div>
+      <div className={classes.products}>
+        <div className={classes.products__controls}>
+          <OriginFilter
+            className={classes.products__filter}
+            origins={productOrigins}
+            checkedOriginHandler={(origin) => onOriginCheckedHandler(origin)}
+          />
+          <hr />
+          <PriceRange
+            changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
+          />
+        </div>
+        <div><ProductsList /></div>
+      </div>
     </>
   );
 };

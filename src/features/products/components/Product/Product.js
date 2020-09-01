@@ -16,7 +16,9 @@ const Product = (props) => {
       </div>
       <div className={classes.product__price}>
         Price:
-        {product.price} {CURRENCY}
+        {product.price} 
+        {' '}
+        {CURRENCY}
       </div>
       <button
         type="button"
