@@ -1,6 +1,6 @@
 import * as actionTypes from './actionsTypes';
 import { MAX_PRICE_DEFAULT } from '../../../global/constants';
-import { checkOrigins } from '../../../helpers/helpers';
+import {checkOrigins} from '../../../helpers/helpers';
 
 const initialState = {
   products: [],
@@ -11,6 +11,7 @@ const initialState = {
   minRangePrice: 0,
   maxRangePrice: MAX_PRICE_DEFAULT,
 };
+
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -70,11 +71,11 @@ const reducer = (state = initialState, action) => {
     }
 
     case actionTypes.BASKET_PRODUCT_DELETED: {
-      const temp = state.purchasing.filter(product => product.id !== payload);
 
       return {
         ...state,
-        purchasing: temp,
+        purchasing: payload.purchasing,
+        totalPurchasingPrice: payload.price
       };
     }
 

@@ -11,7 +11,7 @@ const groupingArrayById = (array) => {
   }, []);
 };
 
-const countPrice = (arr) => {
+export const countPrice = (arr) => {
   return arr.reduce((acc, obj) => {
     let temp = acc;
     temp += obj.price * obj.pieces;

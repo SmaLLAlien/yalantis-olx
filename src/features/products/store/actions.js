@@ -12,7 +12,7 @@ import {
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
-  changePiecesCount,
+  changePiecesCount, countPrice,
   normalizeOrigins,
   onProductChosen,
 } from '../../../helpers/helpers';
@@ -156,6 +156,11 @@ export const manageOrigins = (payload) => (dispatch) => {
   dispatch({ type: ORIGINS_CHECKED, payload });
 };
 
-export const deleteProductFromBasket = payload => dispatch => {
-  dispatch({type: BASKET_PRODUCT_DELETED, payload})
+export const deleteProductFromBasket = payload => (dispatch, getState) => {
+  const {productState: {purchasing}} = getState();
+  const temp = purchasing.filter(product => product.id !== payload);
+  const price = countPrice(temp);
+  const newPayload = {purchasing: temp, price}
+
+  dispatch({type: BASKET_PRODUCT_DELETED, payload: newPayload});
 }
