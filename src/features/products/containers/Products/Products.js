@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProductsList from '../ProductsList';
+import Pagination from '../../components/Pagination/Pagination'
 import { originType } from '../../types/types';
 import OriginFilter from '../../components/OriginFilter/OriginFilter';
 import PriceRange from '../PriceRange/PriceRange';
@@ -9,7 +10,7 @@ import { getQueryVariable } from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
 
 export const Products = (props) => {
-  const { productOrigins, fetchOrigins, manageOrigins } = props;
+  const { productOrigins, fetchOrigins, manageOrigins, currentPage, perPage, totalItems } = props;
   const history = useHistory();
   const originsQuery = getQueryVariable('origins');
   const originsArrayFromUrl = originsQuery ? originsQuery.split(',') : [];
@@ -49,21 +50,61 @@ export const Products = (props) => {
   };
 
   const setPrice = (minPrice, maxPrice) => {
-    let newQuery;
+    let newQuery = {};
     const origins = getQueryVariable('origins');
 
     if (origins) {
-      newQuery = new URLSearchParams({
-        origins,
-        minPrice,
-        maxPrice,
-      }).toString();
-    } else {
-      newQuery = new URLSearchParams({ minPrice, maxPrice }).toString();
+      newQuery.origins = origins;
     }
 
+    newQuery.minPrice = minPrice;
+    newQuery.maxPrice = maxPrice;
+
+
+    newQuery = new URLSearchParams(newQuery).toString();
     history.push({search: newQuery});
   };
+
+  const pageChanged = (pageNumber) => {
+    let newQuery = {};
+    const origins = getQueryVariable('origins');
+    const minPrice = getQueryVariable('minPrice');
+    const maxPrice = getQueryVariable('maxPrice');
+
+    if (origins) {
+      newQuery.origins = origins;
+    }
+
+    if (minPrice) {
+      newQuery.minPrice = minPrice;
+      newQuery.maxPrice = maxPrice;
+    }
+
+    newQuery.page = pageNumber
+
+    newQuery = new URLSearchParams(newQuery).toString();
+    history.push({search: newQuery});
+  }
+
+  const perPageChanged = (perPageNumber) => {
+    let newQuery = {};
+    const origins = getQueryVariable('origins');
+    const minPrice = getQueryVariable('minPrice');
+    const maxPrice = getQueryVariable('maxPrice');
+
+    if (origins) {
+      newQuery.origins = origins;
+    }
+
+    if (minPrice) {
+      newQuery.minPrice = minPrice;
+      newQuery.maxPrice = maxPrice;
+    }
+
+    newQuery.perPage = perPageNumber;
+    newQuery = new URLSearchParams(newQuery).toString();
+    history.push({search: newQuery});
+  }
 
   return (
     <>
@@ -80,6 +121,15 @@ export const Products = (props) => {
           />
         </div>
         <div><ProductsList /></div>
+
+      </div>
+      <div>
+        <Pagination
+        currentPage={currentPage}
+        perPage={perPage}
+        totalItems={totalItems}
+        pageChanged={(page) => pageChanged(page)}
+        perPageClicked={(perPage) => perPageChanged(perPage)} />
       </div>
     </>
   );

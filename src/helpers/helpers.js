@@ -72,3 +72,13 @@ export const checkOrigins = (state, payload) => {
 
   return temp;
 };
+
+export const makePages = (length) => {
+  const temp = [];
+  if (length) {
+    for (let i = 1; i <= length; i++) {
+      temp[i] = i;
+    }
+  }
+  return temp;
+}

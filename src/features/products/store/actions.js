@@ -8,7 +8,7 @@ import {
   LOADING_SUCCEEDED,
   LOADING,
   ORIGINS_LOADED,
-  ORIGINS_CHECKED, BASKET_PRODUCT_DELETED,
+  ORIGINS_CHECKED, BASKET_PRODUCT_DELETED, PER_PAGE_CHANGED, PAGE_CHANGED, TOTAL_ITEMS_CHANGED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -78,10 +78,34 @@ export const originsLoaded = (payload) => {
   };
 };
 
+export const pageChanged = (payload) => {
+  return {
+    type: PAGE_CHANGED,
+    payload,
+  };
+};
+
+export const perPageChanged = (payload) => {
+  return {
+    type: PER_PAGE_CHANGED,
+    payload,
+  };
+};
+
+export const totalItemsChanged = (payload) => {
+  return {
+    type: TOTAL_ITEMS_CHANGED,
+    payload,
+  };
+}
+
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
     const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`);
     dispatch(loadingSucceeded());
+    dispatch(totalItemsChanged(data.totalItems));
+    dispatch(perPageChanged(data.perPage));
+    dispatch(pageChanged(data.page));
     return dispatch(productsLoaded(data.items));
   } catch (error) {
     if (error.message) {
