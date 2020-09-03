@@ -1,6 +1,6 @@
-import * as actionTypes from './actionsTypes';
-import { MAX_PRICE_DEFAULT } from '../../../global/constants';
-import {checkOrigins} from '../../../helpers/helpers';
+import * as actionTypes from '../actionsTypes';
+import { MAX_PRICE_DEFAULT } from '../../../../global/constants';
+import {checkOrigins} from '../../../../helpers/helpers';
 
 const initialState = {
   products: [],

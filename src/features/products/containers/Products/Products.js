@@ -33,21 +33,6 @@ export const Products = (props) => {
     let newQuery = makeParams();
     newQuery.origins = originsArrayFromUrl.join(',');
     newQuery = new URLSearchParams(newQuery).toString();
-    console.log(newQuery);
-    // const minPrice = getQueryVariable('minPrice');
-    // const maxPrice = getQueryVariable('maxPrice');
-    //
-    // if (minPrice) {
-    //   newQuery = new URLSearchParams({
-    //     origins: originsArrayFromUrl.join(','),
-    //     minPrice,
-    //     maxPrice,
-    //   }).toString();
-    // } else {
-    //   newQuery = new URLSearchParams({
-    //     origins: originsArrayFromUrl.join(','),
-    //   }).toString();
-    // }
 
     manageOrigins(origin);
     history.push({search: newQuery});
@@ -100,10 +85,11 @@ export const Products = (props) => {
       </div>
       <div>
         <Pagination
-        currentPage={currentPage}
-        perPage={perPage}
-        totalItems={totalItems}
-        pageChanged={(page) => pageChanged(page)}/>
+          currentPage={currentPage}
+          perPage={perPage}
+          totalItems={totalItems}
+          pageChanged={(page) => pageChanged(page)}
+        />
       </div>
     </>
   );

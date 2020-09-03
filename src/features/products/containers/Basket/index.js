@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Basket } from './Basket';
-import { getBasketProducts, getTotalBasketPrice } from '../../store/selectors';
+import { getBasketProducts, getTotalBasketPrice } from '../../store/selectors/selectors';
 import {
   decreaseProductPieces, deleteProductFromBasket,
   increaseProductPieces,

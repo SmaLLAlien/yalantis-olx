@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import productReducer from '../features/products/store/reducer';
-import { errorReducer } from '../features/products/store/errorReducer';
-import {pageReducer} from "../features/products/store/pageReducer";
+import productReducer from '../features/products/store/reducers/reducer';
+import { errorReducer } from '../features/products/store/reducers/errorReducer';
+import {pageReducer} from "../features/products/store/reducers/pageReducer";
 
 const rootReducer = combineReducers({
   productState: productReducer,

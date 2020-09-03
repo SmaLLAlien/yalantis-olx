@@ -84,7 +84,7 @@ export const makePages = (length) => {
 }
 
 export const  makeParams = () => {
-  let newQuery = {};
+  const newQuery = {};
   const origins = getQueryVariable('origins');
   const minPrice = getQueryVariable('minPrice');
   const maxPrice = getQueryVariable('maxPrice');

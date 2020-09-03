@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import {PER_PAGE_MENU} from "../../../../global/constants";
-import classes from './PerPage.module.scss'
+import classes from './PerPage.module.scss';
 
 const PerPage = props => {
   const { perPage, perPageClicked } = props;
@@ -21,6 +22,11 @@ const PerPage = props => {
       </select>
     </div>
   )
+}
+
+PerPage.propTypes = {
+  perPage: PropTypes.number.isRequired,
+  perPageClicked: PropTypes.func.isRequired,
 }
 
 export default PerPage;

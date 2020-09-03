@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import ProductsList from './ProductsList';
 import {
   getBasketProducts,
-  getHttpError,
   getProducts,
-} from '../../store/selectors';
+} from '../../store/selectors/selectors';
 import { fetchProducts, onAddToBasketProduct } from '../../store/actions';
+import {getHttpError} from "../../store/selectors/httpErrorSelectors";
 
 const mapStateToProps = (state) => {
   return {

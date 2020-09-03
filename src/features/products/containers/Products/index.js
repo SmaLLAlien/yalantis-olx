@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { Products } from './Products';
-import { getOrigins } from '../../store/selectors';
+import { getOrigins } from '../../store/selectors/selectors';
 import { fetchOrigins, manageOrigins } from '../../store/actions';
-import {getCurrentPage, getPerPage, getTotalItems} from "../../store/pageSelectors";
+import {getCurrentPage, getPerPage, getTotalItems} from "../../store/selectors/pageSelectors";
 
 const mapStateToProps = (state) => {
   return {
