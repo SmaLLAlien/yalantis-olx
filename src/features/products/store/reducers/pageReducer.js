@@ -1,9 +1,9 @@
-import * as actionTypes from "../actionsTypes";
+import * as actionTypes from '../actionsTypes';
 
 const initialState = {
   currentPage: 1,
   perPage: 50,
-  totalItems: 0
+  totalItems: 0,
 };
 
 export const pageReducer = (state = initialState, action) => {
@@ -34,4 +34,4 @@ export const pageReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

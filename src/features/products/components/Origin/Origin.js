@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { originType } from '../../types/types';
-import classes from './Origin.module.scss'
+import classes from './Origin.module.scss';
 
 const Origin = (props) => {
   const { origin, clicked } = props;
@@ -15,7 +15,9 @@ const Origin = (props) => {
         checked={origin.checked}
         onChange={() => clicked(origin)}
       />
-      <label className={classes.origin__label} htmlFor={origin.value}>{origin.displayName}</label>
+      <label className={classes.origin__label} htmlFor={origin.value}>
+        {origin.displayName}
+      </label>
     </div>
   );
 };

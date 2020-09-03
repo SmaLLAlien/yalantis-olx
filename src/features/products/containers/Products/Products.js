@@ -2,16 +2,23 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProductsList from '../ProductsList';
-import Pagination from '../../components/Pagination/Pagination'
+import Pagination from '../../components/Pagination/Pagination';
 import { originType } from '../../types/types';
 import OriginFilter from '../../components/OriginFilter/OriginFilter';
 import PriceRange from '../PriceRange/PriceRange';
-import {getQueryVariable, makeParams} from '../../../../helpers/helpers';
+import { getQueryVariable, makeParams } from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
-import PerPage from "../../components/PerPage/PerPage";
+import PerPage from '../../components/PerPage/PerPage';
 
 export const Products = (props) => {
-  const { productOrigins, fetchOrigins, manageOrigins, currentPage, perPage, totalItems } = props;
+  const {
+    productOrigins,
+    fetchOrigins,
+    manageOrigins,
+    currentPage,
+    perPage,
+    totalItems,
+  } = props;
   const history = useHistory();
   const originsQuery = getQueryVariable('origins');
   const originsArrayFromUrl = originsQuery ? originsQuery.split(',') : [];
@@ -35,7 +42,7 @@ export const Products = (props) => {
     newQuery = new URLSearchParams(newQuery).toString();
 
     manageOrigins(origin);
-    history.push({search: newQuery});
+    history.push({ search: newQuery });
   };
 
   const setPrice = (minPrice, maxPrice) => {
@@ -45,23 +52,23 @@ export const Products = (props) => {
     newQuery.maxPrice = maxPrice;
 
     newQuery = new URLSearchParams(newQuery).toString();
-    history.push({search: newQuery});
+    history.push({ search: newQuery });
   };
 
   const pageChanged = (pageNumber) => {
     let newQuery = makeParams();
-    newQuery.page = pageNumber
-    newQuery.perPage = perPage
+    newQuery.page = pageNumber;
+    newQuery.perPage = perPage;
     newQuery = new URLSearchParams(newQuery).toString();
-    history.push({search: newQuery});
-  }
+    history.push({ search: newQuery });
+  };
 
   const perPageChanged = (perPageNumber) => {
     let newQuery = makeParams();
     newQuery.perPage = perPageNumber;
     newQuery = new URLSearchParams(newQuery).toString();
-    history.push({search: newQuery});
-  }
+    history.push({ search: newQuery });
+  };
 
   return (
     <>
@@ -77,11 +84,14 @@ export const Products = (props) => {
             changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
           />
 
-
-          <PerPage perPage={perPage} perPageClicked={(perPage) => perPageChanged(perPage)} />
+          <PerPage
+            perPage={perPage}
+            perPageClicked={(perPageNumber) => perPageChanged(perPageNumber)}
+          />
         </div>
-        <div><ProductsList /></div>
-
+        <div>
+          <ProductsList />
+        </div>
       </div>
       <div>
         <Pagination
@@ -99,5 +109,7 @@ Products.propTypes = {
   fetchOrigins: PropTypes.func.isRequired,
   manageOrigins: PropTypes.func.isRequired,
   productOrigins: PropTypes.arrayOf(originType).isRequired,
+  currentPage: PropTypes.number.isRequired,
+  perPage: PropTypes.number.isRequired,
+  totalItems: PropTypes.number.isRequired,
 };
-

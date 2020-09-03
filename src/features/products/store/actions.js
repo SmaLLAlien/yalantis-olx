@@ -8,11 +8,16 @@ import {
   LOADING_SUCCEEDED,
   LOADING,
   ORIGINS_LOADED,
-  ORIGINS_CHECKED, BASKET_PRODUCT_DELETED, PER_PAGE_CHANGED, PAGE_CHANGED, TOTAL_ITEMS_CHANGED,
+  ORIGINS_CHECKED,
+  BASKET_PRODUCT_DELETED,
+  PER_PAGE_CHANGED,
+  PAGE_CHANGED,
+  TOTAL_ITEMS_CHANGED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
-  changePiecesCount, countPrice,
+  changePiecesCount,
+  countPrice,
   normalizeOrigins,
   onProductChosen,
 } from '../../../helpers/helpers';
@@ -97,7 +102,7 @@ export const totalItemsChanged = (payload) => {
     type: TOTAL_ITEMS_CHANGED,
     payload,
   };
-}
+};
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
@@ -180,11 +185,13 @@ export const manageOrigins = (payload) => (dispatch) => {
   dispatch({ type: ORIGINS_CHECKED, payload });
 };
 
-export const deleteProductFromBasket = payload => (dispatch, getState) => {
-  const {productState: {purchasing}} = getState();
-  const temp = purchasing.filter(product => product.id !== payload);
+export const deleteProductFromBasket = (payload) => (dispatch, getState) => {
+  const {
+    productState: { purchasing },
+  } = getState();
+  const temp = purchasing.filter((product) => product.id !== payload);
   const price = countPrice(temp);
-  const newPayload = {purchasing: temp, price}
+  const newPayload = { purchasing: temp, price };
 
-  dispatch({type: BASKET_PRODUCT_DELETED, payload: newPayload});
-}
+  dispatch({ type: BASKET_PRODUCT_DELETED, payload: newPayload });
+};

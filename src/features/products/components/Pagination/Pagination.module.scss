@@ -6,11 +6,10 @@
 .pagination {
   color: var(--textColor);
 
-
   &__page,
   &__prev,
   &__next,
-  &__active{
+  &__active {
     width: 30px;
     height: 30px;
     background: transparent;

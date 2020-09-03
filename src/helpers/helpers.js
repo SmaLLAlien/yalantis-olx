@@ -76,14 +76,14 @@ export const checkOrigins = (state, payload) => {
 export const makePages = (length) => {
   const temp = [];
   if (length) {
-    for (let i = 1; i <= length; i++) {
+    for (let i = 1; i <= length; i += 1) {
       temp[i] = i;
     }
   }
   return temp;
-}
+};
 
-export const  makeParams = () => {
+export const makeParams = () => {
   const newQuery = {};
   const origins = getQueryVariable('origins');
   const minPrice = getQueryVariable('minPrice');
@@ -104,4 +104,4 @@ export const  makeParams = () => {
   }
 
   return newQuery;
-}
+};

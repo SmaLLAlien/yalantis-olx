@@ -45,13 +45,13 @@ const PriceRange = (props) => {
       setMinPrice('0');
       changedPrice('0', '1500');
     }
-  }
+  };
 
   const onEnter = (e) => {
     if (!isDisabled() && e.key === 'Enter') {
       changedPrice(minPrice, maxPrice);
     }
-  }
+  };
 
   return (
     <div className={classes.range}>
@@ -75,10 +75,18 @@ const PriceRange = (props) => {
         />
       </div>
       <div className={classes.range__buttons}>
-        <button type="button" disabled={isDisabled()} onClick={() => setPrice()}>
+        <button
+          type="button"
+          disabled={isDisabled()}
+          onClick={() => setPrice()}
+        >
           Apply
         </button>
-        <button type="button" disabled={isDisabled()} onClick={() => resetPrice()}>
+        <button
+          type="button"
+          disabled={isDisabled()}
+          onClick={() => resetPrice()}
+        >
           Reset
         </button>
       </div>
