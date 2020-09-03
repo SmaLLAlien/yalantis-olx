@@ -82,3 +82,26 @@ export const makePages = (length) => {
   }
   return temp;
 }
+
+export const  makeParams = () => {
+  let newQuery = {};
+  const origins = getQueryVariable('origins');
+  const minPrice = getQueryVariable('minPrice');
+  const maxPrice = getQueryVariable('maxPrice');
+  const perPage = getQueryVariable('perPage');
+
+  if (origins) {
+    newQuery.origins = origins;
+  }
+
+  if (minPrice) {
+    newQuery.minPrice = minPrice;
+    newQuery.maxPrice = maxPrice;
+  }
+
+  if (perPage) {
+    newQuery.perPage = perPage;
+  }
+
+  return newQuery;
+}

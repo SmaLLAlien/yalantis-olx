@@ -1,28 +1,35 @@
 import React from "react";
 import classes from './Pagination.module.scss'
 import {makePages} from "../../../../helpers/helpers";
-import {PER_PAGE_MENU} from "../../../../global/constants";
 
 const Pagination = props => {
-  const { currentPage, perPage, totalItems, pageChanged, perPageClicked } = props;
+  const { currentPage, perPage, totalItems, pageChanged } = props;
   const numberOfPages = Math.ceil(totalItems / perPage);
   const pages = makePages(numberOfPages);
-  const perPageMenu = PER_PAGE_MENU;
 
   return (
     <React.Fragment>
-      <div className={classes.pagination}>
-        {
-          pages.map(page => <button onClick={() => pageChanged(page)} key={page}>{page}</button>)
-        }
-      </div>
-      <div>
-        {
-          perPageMenu.map(perPageNumber =>  <button onClick={() => perPageClicked(perPageNumber)} key={perPageNumber}>{perPageNumber}</button>)
-        }
-      </div>
-      <button onClick={() => pageChanged(currentPage - 1)}>BACK</button>
-      <button onClick={() => pageChanged(currentPage + 1)}>GO</button>
+        <div className={classes.container}>
+          <button
+            disabled={currentPage === 1 || numberOfPages === 0}
+            className={classes.pagination__prev}
+            onClick={() => pageChanged(currentPage - 1)}>&#8826;</button>
+
+          <div className={classes.pagination}>
+            {
+              pages.map(page => <button
+                className={currentPage === page ? classes.pagination__active : classes.pagination__page}
+                onClick={() => pageChanged(page)}
+                key={page}>{page}</button>
+              )
+            }
+          </div>
+
+          <button
+            disabled={currentPage === numberOfPages || numberOfPages === 0}
+            className={classes.pagination__next}
+            onClick={() => pageChanged(currentPage + 1)}>&#8827;</button>
+        </div>
     </React.Fragment>
   )
 }

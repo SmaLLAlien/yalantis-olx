@@ -6,8 +6,9 @@ import Pagination from '../../components/Pagination/Pagination'
 import { originType } from '../../types/types';
 import OriginFilter from '../../components/OriginFilter/OriginFilter';
 import PriceRange from '../PriceRange/PriceRange';
-import { getQueryVariable } from '../../../../helpers/helpers';
+import {getQueryVariable, makeParams} from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
+import PerPage from "../../components/PerPage/PerPage";
 
 export const Products = (props) => {
   const { productOrigins, fetchOrigins, manageOrigins, currentPage, perPage, totalItems } = props;
@@ -29,78 +30,49 @@ export const Products = (props) => {
       originsArrayFromUrl.push(origin.value);
     }
 
-    let newQuery;
-    const minPrice = getQueryVariable('minPrice');
-    const maxPrice = getQueryVariable('maxPrice');
-
-    if (minPrice) {
-      newQuery = new URLSearchParams({
-        origins: originsArrayFromUrl.join(','),
-        minPrice,
-        maxPrice,
-      }).toString();
-    } else {
-      newQuery = new URLSearchParams({
-        origins: originsArrayFromUrl.join(','),
-      }).toString();
-    }
+    let newQuery = makeParams();
+    newQuery.origins = originsArrayFromUrl.join(',');
+    newQuery = new URLSearchParams(newQuery).toString();
+    console.log(newQuery);
+    // const minPrice = getQueryVariable('minPrice');
+    // const maxPrice = getQueryVariable('maxPrice');
+    //
+    // if (minPrice) {
+    //   newQuery = new URLSearchParams({
+    //     origins: originsArrayFromUrl.join(','),
+    //     minPrice,
+    //     maxPrice,
+    //   }).toString();
+    // } else {
+    //   newQuery = new URLSearchParams({
+    //     origins: originsArrayFromUrl.join(','),
+    //   }).toString();
+    // }
 
     manageOrigins(origin);
     history.push({search: newQuery});
   };
 
   const setPrice = (minPrice, maxPrice) => {
-    let newQuery = {};
-    const origins = getQueryVariable('origins');
-
-    if (origins) {
-      newQuery.origins = origins;
-    }
+    let newQuery = makeParams();
 
     newQuery.minPrice = minPrice;
     newQuery.maxPrice = maxPrice;
-
 
     newQuery = new URLSearchParams(newQuery).toString();
     history.push({search: newQuery});
   };
 
   const pageChanged = (pageNumber) => {
-    let newQuery = {};
-    const origins = getQueryVariable('origins');
-    const minPrice = getQueryVariable('minPrice');
-    const maxPrice = getQueryVariable('maxPrice');
-
-    if (origins) {
-      newQuery.origins = origins;
-    }
-
-    if (minPrice) {
-      newQuery.minPrice = minPrice;
-      newQuery.maxPrice = maxPrice;
-    }
-
+    let newQuery = makeParams();
     newQuery.page = pageNumber
-
+    newQuery.perPage = perPage
     newQuery = new URLSearchParams(newQuery).toString();
     history.push({search: newQuery});
   }
 
   const perPageChanged = (perPageNumber) => {
-    let newQuery = {};
-    const origins = getQueryVariable('origins');
-    const minPrice = getQueryVariable('minPrice');
-    const maxPrice = getQueryVariable('maxPrice');
-
-    if (origins) {
-      newQuery.origins = origins;
-    }
-
-    if (minPrice) {
-      newQuery.minPrice = minPrice;
-      newQuery.maxPrice = maxPrice;
-    }
-
+    let newQuery = makeParams();
     newQuery.perPage = perPageNumber;
     newQuery = new URLSearchParams(newQuery).toString();
     history.push({search: newQuery});
@@ -119,6 +91,9 @@ export const Products = (props) => {
           <PriceRange
             changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
           />
+
+
+          <PerPage perPage={perPage} perPageClicked={(perPage) => perPageChanged(perPage)} />
         </div>
         <div><ProductsList /></div>
 
@@ -128,8 +103,7 @@ export const Products = (props) => {
         currentPage={currentPage}
         perPage={perPage}
         totalItems={totalItems}
-        pageChanged={(page) => pageChanged(page)}
-        perPageClicked={(perPage) => perPageChanged(perPage)} />
+        pageChanged={(page) => pageChanged(page)}/>
       </div>
     </>
   );
@@ -140,3 +114,4 @@ Products.propTypes = {
   manageOrigins: PropTypes.func.isRequired,
   productOrigins: PropTypes.arrayOf(originType).isRequired,
 };
+

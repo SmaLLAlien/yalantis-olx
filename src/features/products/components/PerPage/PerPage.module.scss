@@ -1,0 +1,18 @@
+.selectWrapper {
+  margin-top: 20px;
+  color: var(--textColor);
+}
+
+.select {
+  background: transparent;
+  color: var(--textColor);
+  padding: 5px;
+
+  &__option {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+    padding: 5px;
+    text-align: center;
+  }
+}
+
