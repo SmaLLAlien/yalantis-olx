@@ -83,7 +83,7 @@ export const Products = (props) => {
           <PriceRange
             changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
           />
-
+          <hr />
           <PerPage
             perPage={perPage}
             perPageClicked={(perPageNumber) => perPageChanged(perPageNumber)}
