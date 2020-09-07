@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProductsList from '../ProductsList';
@@ -21,11 +21,13 @@ export const Products = (props) => {
   } = props;
   const history = useHistory();
   const originsQuery = getQueryVariable('origins');
-  const originsArrayFromUrl = originsQuery ? originsQuery.split(',') : [];
+  const originsArrayFromUrl = useMemo(() => {
+    return originsQuery ? originsQuery.split(',') : [];
+  }, [originsQuery])
 
   useEffect(() => {
     fetchOrigins(originsArrayFromUrl);
-  }, []);
+  }, [originsArrayFromUrl]);
 
   const onOriginCheckedHandler = (origin) => {
     if (originsArrayFromUrl.includes(origin.value)) {
