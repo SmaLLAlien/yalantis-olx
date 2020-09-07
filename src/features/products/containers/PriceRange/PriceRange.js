@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classes from './PriceRange.module.scss';
-import { MAX_PRICE_DEFAULT } from '../../../../global/constants';
-import { getQueryVariable } from '../../../../helpers/helpers';
+import {MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT} from '../../../../global/constants';
+import {getQueryVariable, isDisabled} from '../../../../helpers/helpers';
 
 const PriceRange = (props) => {
   const minUrlPrice = getQueryVariable('minPrice') || 0;
@@ -21,34 +21,22 @@ const PriceRange = (props) => {
     setMinPrice(target.value);
   };
 
-  const isMinPriceChanged = () => {
-    return minPrice !== '0' && +minPrice > 0 && +minPrice < +maxPrice;
-  };
-
-  const isMaxPriceChanged = () => {
-    return maxPrice !== '1500' && +maxPrice > 0 && +minPrice < +maxPrice;
-  };
-
-  const isDisabled = () => {
-    return !(isMinPriceChanged() || isMaxPriceChanged());
-  };
-
   const setPrice = () => {
-    if (!isDisabled()) {
+    if (!isDisabled(minPrice, maxPrice)) {
       changedPrice(minPrice, maxPrice);
     }
   };
 
   const resetPrice = () => {
-    if (!isDisabled()) {
-      setMaxPrice('1500');
-      setMinPrice('0');
-      changedPrice('0', '1500');
+    if (!isDisabled(minPrice, maxPrice)) {
+      setMaxPrice(MAX_PRICE_DEFAULT);
+      setMinPrice(MIN_PRICE_DEFAULT);
+      changedPrice(MIN_PRICE_DEFAULT, MAX_PRICE_DEFAULT);
     }
   };
 
   const onEnter = (e) => {
-    if (!isDisabled() && e.key === 'Enter') {
+    if (!isDisabled(minPrice, maxPrice) && e.key === 'Enter') {
       changedPrice(minPrice, maxPrice);
     }
   };
@@ -77,14 +65,14 @@ const PriceRange = (props) => {
       <div className={classes.range__buttons}>
         <button
           type="button"
-          disabled={isDisabled()}
+          disabled={isDisabled(minPrice, maxPrice)}
           onClick={() => setPrice()}
         >
           Apply
         </button>
         <button
           type="button"
-          disabled={isDisabled()}
+          disabled={isDisabled(minPrice, maxPrice)}
           onClick={() => resetPrice()}
         >
           Reset

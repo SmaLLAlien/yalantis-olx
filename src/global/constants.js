@@ -12,5 +12,6 @@ export const URLs = {
 export const CURRENCY = 'UAH';
 
 export const MAX_PRICE_DEFAULT = '1500';
+export const MIN_PRICE_DEFAULT = '0';
 
 export const PER_PAGE_MENU = [10, 25, 50];

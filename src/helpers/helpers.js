@@ -105,3 +105,15 @@ export const makeParams = () => {
 
   return newQuery;
 };
+
+const isMinPriceChanged = (minPrice, maxPrice) => {
+  return minPrice !== '0' && +minPrice > 0 && +minPrice < +maxPrice;
+};
+
+const isMaxPriceChanged = (minPrice, maxPrice) => {
+  return maxPrice !== '1500' && +maxPrice > 0 && +minPrice < +maxPrice;
+};
+
+export const isDisabled = (minPrice, maxPrice) => {
+  return !(isMinPriceChanged(minPrice, maxPrice) || isMaxPriceChanged(minPrice, maxPrice));
+}
