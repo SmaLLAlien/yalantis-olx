@@ -4,6 +4,7 @@ const initialState = {
   currentPage: 1,
   perPage: 50,
   totalItems: 0,
+  originUrlState: []
 };
 
 export const pageReducer = (state = initialState, action) => {
@@ -28,6 +29,13 @@ export const pageReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: payload,
+      };
+    }
+
+    case actionTypes.GOT_ORIGINS_FROM_URL: {
+      return {
+        ...state,
+        originUrlState: payload,
       };
     }
 

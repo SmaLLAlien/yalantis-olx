@@ -12,7 +12,7 @@ import {
   BASKET_PRODUCT_DELETED,
   PER_PAGE_CHANGED,
   PAGE_CHANGED,
-  TOTAL_ITEMS_CHANGED,
+  TOTAL_ITEMS_CHANGED, GOT_ORIGINS_FROM_URL,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -138,7 +138,7 @@ export const fetchProduct = (id) => async (dispatch, _, api) => {
   }
 };
 
-export const fetchOrigins = (searchValues) => async (dispatch, _, api) => {
+export const fetchOrigins = () => async (dispatch, getState, api) => {
   dispatch(loading());
   try {
     const { data } = await api.get(URLs.ORIGINS);
@@ -146,6 +146,8 @@ export const fetchOrigins = (searchValues) => async (dispatch, _, api) => {
 
     let items = normalizeOrigins(data.items);
 
+
+    const searchValues = getState().pageState.originUrlState;
     items = items.map((origin) => {
       if (searchValues.indexOf(origin.value) !== -1) {
         const temp = { ...origin };
@@ -195,3 +197,7 @@ export const deleteProductFromBasket = (payload) => (dispatch, getState) => {
 
   dispatch({ type: BASKET_PRODUCT_DELETED, payload: newPayload });
 };
+
+export const setOriginQueryToStore = (payload) => dispatch => {
+  dispatch({ type: GOT_ORIGINS_FROM_URL, payload: payload });
+}

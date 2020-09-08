@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classes from './PriceRange.module.scss';
 import {MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT} from '../../../../global/constants';
-import {getQueryVariable, isDisabled} from '../../../../helpers/helpers';
+import {getQueryVariable, isDisabledPriceRange} from '../../../../helpers/helpers';
 
 const PriceRange = (props) => {
   const minUrlPrice = getQueryVariable('minPrice') || 0;
@@ -22,13 +22,13 @@ const PriceRange = (props) => {
   };
 
   const setPrice = () => {
-    if (!isDisabled(minPrice, maxPrice)) {
+    if (!isDisabledPriceRange(minPrice, maxPrice)) {
       changedPrice(minPrice, maxPrice);
     }
   };
 
   const resetPrice = () => {
-    if (!isDisabled(minPrice, maxPrice)) {
+    if (!isDisabledPriceRange(minPrice, maxPrice)) {
       setMaxPrice(MAX_PRICE_DEFAULT);
       setMinPrice(MIN_PRICE_DEFAULT);
       changedPrice(MIN_PRICE_DEFAULT, MAX_PRICE_DEFAULT);
@@ -36,7 +36,7 @@ const PriceRange = (props) => {
   };
 
   const onEnter = (e) => {
-    if (!isDisabled(minPrice, maxPrice) && e.key === 'Enter') {
+    if (!isDisabledPriceRange(minPrice, maxPrice) && e.key === 'Enter') {
       changedPrice(minPrice, maxPrice);
     }
   };
@@ -65,14 +65,14 @@ const PriceRange = (props) => {
       <div className={classes.range__buttons}>
         <button
           type="button"
-          disabled={isDisabled(minPrice, maxPrice)}
+          disabled={isDisabledPriceRange(minPrice, maxPrice)}
           onClick={() => setPrice()}
         >
           Apply
         </button>
         <button
           type="button"
-          disabled={isDisabled(minPrice, maxPrice)}
+          disabled={isDisabledPriceRange(minPrice, maxPrice)}
           onClick={() => resetPrice()}
         >
           Reset

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProductsList from '../ProductsList';
@@ -6,9 +6,10 @@ import Pagination from '../../components/Pagination/Pagination';
 import { originType } from '../../types/types';
 import OriginFilter from '../../components/OriginFilter/OriginFilter';
 import PriceRange from '../PriceRange/PriceRange';
-import { getQueryVariable, makeParams } from '../../../../helpers/helpers';
+import {makeParams, refactorOriginsSearch} from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
 import PerPage from '../../components/PerPage/PerPage';
+import {useOriginQuery} from "../../hooks/useOriginQuery";
 
 export const Products = (props) => {
   const {
@@ -18,26 +19,25 @@ export const Products = (props) => {
     currentPage,
     perPage,
     totalItems,
+    setOriginQueryToStore
   } = props;
   const history = useHistory();
-  const originsQuery = getQueryVariable('origins');
-  const originsArrayFromUrl = useMemo(() => {
-    return originsQuery ? originsQuery.split(',') : [];
-  }, [originsQuery])
+  const originsArrayFromUrl = useOriginQuery();
 
   useEffect(() => {
-    fetchOrigins(originsArrayFromUrl);
-  }, [originsArrayFromUrl]);
+    const storeOrigins = () => {
+      setOriginQueryToStore(originsArrayFromUrl);
+    }
+    storeOrigins();
+  }, [originsArrayFromUrl])
+
+
+  useEffect(() => {
+    fetchOrigins();
+  }, []);
 
   const onOriginCheckedHandler = (origin) => {
-    if (originsArrayFromUrl.includes(origin.value)) {
-      const index = originsArrayFromUrl.findIndex(
-        (search) => search === origin.value,
-      );
-      originsArrayFromUrl.splice(index, 1);
-    } else {
-      originsArrayFromUrl.push(origin.value);
-    }
+    refactorOriginsSearch(origin, originsArrayFromUrl);
 
     let newQuery = makeParams();
     newQuery.origins = originsArrayFromUrl.join(',');
