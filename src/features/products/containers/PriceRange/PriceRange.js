@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classes from './PriceRange.module.scss';
-import {MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT} from '../../../../global/constants';
-import {getQueryVariable, isDisabledPriceRange} from '../../../../helpers/helpers';
+import {
+  MAX_PRICE_DEFAULT,
+  MIN_PRICE_DEFAULT,
+} from '../../../../global/constants';
+import {
+  getQueryVariable,
+  isDisabledPriceRange,
+} from '../../../../helpers/helpers';
 
 const PriceRange = (props) => {
   const minUrlPrice = getQueryVariable('minPrice') || 0;

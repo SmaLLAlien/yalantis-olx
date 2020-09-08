@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import classes from './ToTop.module.scss'
+import React, { useEffect, useState } from 'react';
+import classes from './ToTop.module.scss';
 
 const ToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -11,33 +11,25 @@ const ToTop = () => {
       } else {
         setVisible(false);
       }
-    }
-    document.addEventListener("scroll", toggle);
+    };
+    document.addEventListener('scroll', toggle);
 
     return () => document.removeEventListener('scroll', toggle);
-  }, [])
+  }, []);
 
-  const scrollToTop = () =>{
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  }
+  };
 
-  const top = visible
-    ? (
-      <button
-        type='button'
-        onClick={scrollToTop}
-        className={classes.top}
-      >
-        &#8593;
-      </button>
-)
-    : null
-  return (
-    <>{top}</>
-  )
-}
+  const top = visible ? (
+    <button type="button" onClick={scrollToTop} className={classes.top}>
+      &#8593;
+    </button>
+  ) : null;
+  return <>{top}</>;
+};
 
-export default ToTop
+export default ToTop;

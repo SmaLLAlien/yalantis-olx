@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProductsList from '../ProductsList';
@@ -6,10 +6,10 @@ import Pagination from '../../components/Pagination/Pagination';
 import { originType } from '../../types/types';
 import OriginFilter from '../../components/OriginFilter/OriginFilter';
 import PriceRange from '../PriceRange/PriceRange';
-import {makeParams, refactorOriginsSearch} from '../../../../helpers/helpers';
+import { makeParams, refactorOriginsSearch } from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
 import PerPage from '../../components/PerPage/PerPage';
-import {useOriginQuery} from "../../hooks/useOriginQuery";
+import { useOriginQuery } from '../../hooks/useOriginQuery';
 
 export const Products = (props) => {
   const {
@@ -19,7 +19,7 @@ export const Products = (props) => {
     currentPage,
     perPage,
     totalItems,
-    setOriginQueryToStore
+    setOriginQueryToStore,
   } = props;
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();
@@ -27,10 +27,9 @@ export const Products = (props) => {
   useEffect(() => {
     const storeOrigins = () => {
       setOriginQueryToStore(originsArrayFromUrl);
-    }
+    };
     storeOrigins();
-  }, [originsArrayFromUrl])
-
+  }, [originsArrayFromUrl]);
 
   useEffect(() => {
     fetchOrigins();
@@ -110,6 +109,7 @@ export const Products = (props) => {
 Products.propTypes = {
   fetchOrigins: PropTypes.func.isRequired,
   manageOrigins: PropTypes.func.isRequired,
+  setOriginQueryToStore: PropTypes.func.isRequired,
   productOrigins: PropTypes.arrayOf(originType).isRequired,
   currentPage: PropTypes.number.isRequired,
   perPage: PropTypes.number.isRequired,

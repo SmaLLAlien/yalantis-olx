@@ -1,5 +1,5 @@
-import {useLocation} from "react-router-dom";
-import {useMemo} from "react";
+import { useLocation } from 'react-router-dom';
+import { useMemo } from 'react';
 
 export const useOriginQuery = () => {
   const location = new URLSearchParams(useLocation().search);
@@ -7,7 +7,7 @@ export const useOriginQuery = () => {
 
   const array = useMemo(() => {
     return origins ? origins.split(',') : [];
-  },[origins])
+  }, [origins]);
 
   return array;
-}
+};

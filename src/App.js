@@ -5,7 +5,7 @@ import AppHeader from './features/products/components/Header/Header';
 import AppRoutes from './components/AppRoutes/AppRoutes';
 import classes from './App.module.scss';
 import { configureStore } from './core/configureStore';
-import ToTop from "./features/products/containers/ToTop/ToTop";
+import ToTop from './features/products/containers/ToTop/ToTop';
 
 const store = configureStore();
 

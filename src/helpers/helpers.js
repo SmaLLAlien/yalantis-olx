@@ -1,4 +1,4 @@
-import {MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT} from "../global/constants";
+import { MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT } from '../global/constants';
 
 const groupingArrayById = (array) => {
   return array.reduce((acc, obj) => {
@@ -109,16 +109,23 @@ export const makeParams = () => {
 };
 
 const isMinPriceChanged = (minPrice, maxPrice) => {
-  return minPrice !== MIN_PRICE_DEFAULT && +minPrice > 0 && +minPrice < +maxPrice;
+  return (
+    minPrice !== MIN_PRICE_DEFAULT && +minPrice > 0 && +minPrice < +maxPrice
+  );
 };
 
 const isMaxPriceChanged = (minPrice, maxPrice) => {
-  return maxPrice !== MAX_PRICE_DEFAULT && +maxPrice > 0 && +minPrice < +maxPrice;
+  return (
+    maxPrice !== MAX_PRICE_DEFAULT && +maxPrice > 0 && +minPrice < +maxPrice
+  );
 };
 
 export const isDisabledPriceRange = (minPrice, maxPrice) => {
-  return !(isMinPriceChanged(minPrice, maxPrice) || isMaxPriceChanged(minPrice, maxPrice));
-}
+  return !(
+    isMinPriceChanged(minPrice, maxPrice) ||
+    isMaxPriceChanged(minPrice, maxPrice)
+  );
+};
 
 export const refactorOriginsSearch = (newOrigin, originsArray) => {
   if (originsArray.includes(newOrigin.value)) {
@@ -129,4 +136,4 @@ export const refactorOriginsSearch = (newOrigin, originsArray) => {
   } else {
     originsArray.push(newOrigin.value);
   }
-}
+};

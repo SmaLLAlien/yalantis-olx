@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import { Products } from './Products';
 import { getOrigins } from '../../store/selectors/selectors';
-import {fetchOrigins, manageOrigins, setOriginQueryToStore} from '../../store/actions';
+import {
+  fetchOrigins,
+  manageOrigins,
+  setOriginQueryToStore,
+} from '../../store/actions';
 import {
   getCurrentPage,
   getPerPage,
@@ -20,7 +24,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   fetchOrigins,
   manageOrigins,
-  setOriginQueryToStore
+  setOriginQueryToStore,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

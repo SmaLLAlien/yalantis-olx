@@ -4,7 +4,7 @@ const initialState = {
   currentPage: 1,
   perPage: 50,
   totalItems: 0,
-  originUrlState: []
+  originUrlState: [],
 };
 
 export const pageReducer = (state = initialState, action) => {
