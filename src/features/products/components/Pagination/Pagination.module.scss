@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.pagination {
+  color: var(--textColor);
+
+  &__page,
+  &__prev,
+  &__next,
+  &__active {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    outline: none;
+    color: var(--textColor);
+    border: 1px solid;
+    border-image-slice: 1;
+    border-image-source: var(--yellow-gradient);
+    margin: 5px;
+  }
+
+  &__page:hover,
+  &__prev:hover,
+  &__next:hover,
+  &__active {
+    color: green;
+  }
+
+  &__prev:disabled,
+  &__next:disabled {
+    visibility: hidden;
+  }
+}

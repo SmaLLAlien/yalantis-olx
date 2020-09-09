@@ -7,9 +7,21 @@ import {
   LOADING_FAILED,
   LOADING_SUCCEEDED,
   LOADING,
+  ORIGINS_LOADED,
+  ORIGINS_CHECKED,
+  BASKET_PRODUCT_DELETED,
+  PER_PAGE_CHANGED,
+  PAGE_CHANGED,
+  TOTAL_ITEMS_CHANGED,
+  GOT_ORIGINS_FROM_URL,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
-import { changePiecesCount, onProductChosen } from '../../../helpers/helpers';
+import {
+  changePiecesCount,
+  countPrice,
+  normalizeOrigins,
+  onProductChosen,
+} from '../../../helpers/helpers';
 
 export const productsLoaded = (payload) => {
   return {
@@ -65,11 +77,41 @@ export const productDetailLoaded = (payload) => {
   };
 };
 
-export const fetchProducts = () => async (dispatch, state, api) => {
-  dispatch(loading());
+export const originsLoaded = (payload) => {
+  return {
+    type: ORIGINS_LOADED,
+    payload,
+  };
+};
+
+export const pageChanged = (payload) => {
+  return {
+    type: PAGE_CHANGED,
+    payload,
+  };
+};
+
+export const perPageChanged = (payload) => {
+  return {
+    type: PER_PAGE_CHANGED,
+    payload,
+  };
+};
+
+export const totalItemsChanged = (payload) => {
+  return {
+    type: TOTAL_ITEMS_CHANGED,
+    payload,
+  };
+};
+
+export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
-    const { data } = await api.get(URLs.PRODUCTS);
+    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`);
     dispatch(loadingSucceeded());
+    dispatch(totalItemsChanged(data.totalItems));
+    dispatch(perPageChanged(data.perPage));
+    dispatch(pageChanged(data.page));
     return dispatch(productsLoaded(data.items));
   } catch (error) {
     if (error.message) {
@@ -97,6 +139,35 @@ export const fetchProduct = (id) => async (dispatch, _, api) => {
   }
 };
 
+export const fetchOrigins = () => async (dispatch, getState, api) => {
+  dispatch(loading());
+  try {
+    const { data } = await api.get(URLs.ORIGINS);
+    dispatch(loadingSucceeded());
+
+    let items = normalizeOrigins(data.items);
+
+    const searchValues = getState().pageState.originUrlState;
+    items = items.map((origin) => {
+      if (searchValues.indexOf(origin.value) !== -1) {
+        const temp = { ...origin };
+        temp.checked = true;
+        return temp;
+      }
+      return origin;
+    });
+
+    return dispatch(originsLoaded(items));
+  } catch (error) {
+    if (error.message) {
+      return dispatch(loadingFailed(error.message));
+    }
+    return dispatch(
+      loadingFailed('Something is wrong, please try again later'),
+    );
+  }
+};
+
 export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
   const payload = onProductChosen(product, purchasing);
   dispatch(productChosen(payload));
@@ -110,4 +181,23 @@ export const decreaseProductPieces = (id, purchasedProducts) => (dispatch) => {
 export const increaseProductPieces = (id, purchasedProducts) => (dispatch) => {
   const payload = changePiecesCount(id, purchasedProducts, '+');
   dispatch(increaseChosen(payload));
+};
+
+export const manageOrigins = (payload) => (dispatch) => {
+  dispatch({ type: ORIGINS_CHECKED, payload });
+};
+
+export const deleteProductFromBasket = (payload) => (dispatch, getState) => {
+  const {
+    productState: { purchasing },
+  } = getState();
+  const temp = purchasing.filter((product) => product.id !== payload);
+  const price = countPrice(temp);
+  const newPayload = { purchasing: temp, price };
+
+  dispatch({ type: BASKET_PRODUCT_DELETED, payload: newPayload });
+};
+
+export const setOriginQueryToStore = (payload) => (dispatch) => {
+  dispatch({ type: GOT_ORIGINS_FROM_URL, payload });
 };

@@ -1,0 +1,14 @@
+@import 'src/global/styles/main';
+
+.origin-filter {
+  color: var(--textColor);
+  margin-bottom: 20px;
+}
+
+@media all and (max-width: 960px) {
+  .origin-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

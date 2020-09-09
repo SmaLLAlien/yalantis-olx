@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { BasketWidget } from './BusketWidget';
-import { getTotalBasketPrice } from '../../store/selectors';
+import { getTotalBasketPrice } from '../../store/selectors/selectors';
 
 const mapStateToProps = (state) => {
   return {

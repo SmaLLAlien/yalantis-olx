@@ -1,23 +1,23 @@
 import { connect } from 'react-redux';
-import { FullProduct } from './FullProduct';
+import ProductsList from './ProductsList';
 import {
   getBasketProducts,
-  getDetailedProduct,
+  getProducts,
 } from '../../store/selectors/selectors';
-import { fetchProduct, onAddToBasketProduct } from '../../store/actions';
+import { fetchProducts, onAddToBasketProduct } from '../../store/actions';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
 
 const mapStateToProps = (state) => {
   return {
+    products: getProducts(state),
     purchasing: getBasketProducts(state),
-    fullProduct: getDetailedProduct(state),
     serverError: getHttpError(state),
   };
 };
 
 const mapDispatchToProps = {
-  fetchProduct,
+  fetchProducts,
   onAddToBasketProduct,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FullProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

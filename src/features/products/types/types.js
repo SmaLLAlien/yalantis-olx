@@ -11,6 +11,12 @@ export const productType = shape({
   pieces: number,
 });
 
+export const originType = shape({
+  value: string,
+  displayName: string,
+  checked: bool,
+});
+
 export const matchType = shape({
   params: shape({
     id: string.isRequired,

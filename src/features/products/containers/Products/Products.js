@@ -1,73 +1,117 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Routes } from '../../../../global/constants';
-import Product from '../../components/Product/Product';
+import { useHistory } from 'react-router-dom';
+import ProductsList from '../ProductsList';
+import Pagination from '../../components/Pagination/Pagination';
+import { originType } from '../../types/types';
+import OriginFilter from '../../components/OriginFilter/OriginFilter';
+import PriceRange from '../PriceRange/PriceRange';
+import { makeParams, refactorOriginsSearch } from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
-import { historyType, productType } from '../../types/types';
-import Errors from '../../components/Errors/Errors';
+import PerPage from '../../components/PerPage/PerPage';
+import { useOriginQuery } from '../../hooks/useOriginQuery';
 
 export const Products = (props) => {
-  const { products, onAddToBasketProduct, fetchProducts, serverError } = props;
+  const {
+    productOrigins,
+    fetchOrigins,
+    manageOrigins,
+    currentPage,
+    perPage,
+    totalItems,
+    setOriginQueryToStore,
+  } = props;
+  const history = useHistory();
+  const originsArrayFromUrl = useOriginQuery();
 
   useEffect(() => {
-    // if (!products.length) {
-    fetchProducts();
-    // }
+    const storeOrigins = () => {
+      setOriginQueryToStore(originsArrayFromUrl);
+    };
+    storeOrigins();
+  }, [originsArrayFromUrl]);
+
+  useEffect(() => {
+    fetchOrigins();
   }, []);
 
-  const buyHandler = (event, product) => {
-    const { purchasing } = props;
-    event.stopPropagation();
-    onAddToBasketProduct(product, purchasing);
+  const onOriginCheckedHandler = (origin) => {
+    refactorOriginsSearch(origin, originsArrayFromUrl);
+
+    let newQuery = makeParams();
+    newQuery.origins = originsArrayFromUrl.join(',');
+    newQuery = new URLSearchParams(newQuery).toString();
+
+    manageOrigins(origin);
+    history.push({ search: newQuery });
   };
 
-  const openDetailHandler = (event, id) => {
-    const { nativeEvent } = event;
-    if (
-      (nativeEvent instanceof KeyboardEvent && event.key === 'Enter') ||
-      nativeEvent instanceof MouseEvent
-    ) {
-      props.history.push(`${Routes.PRODUCTS}/${id}`);
-    }
+  const setPrice = (minPrice, maxPrice) => {
+    let newQuery = makeParams();
+
+    newQuery.minPrice = minPrice;
+    newQuery.maxPrice = maxPrice;
+
+    newQuery = new URLSearchParams(newQuery).toString();
+    history.push({ search: newQuery });
+  };
+
+  const pageChanged = (pageNumber) => {
+    let newQuery = makeParams();
+    newQuery.page = pageNumber;
+    newQuery.perPage = perPage;
+    newQuery = new URLSearchParams(newQuery).toString();
+    history.push({ search: newQuery });
+  };
+
+  const perPageChanged = (perPageNumber) => {
+    let newQuery = makeParams();
+    newQuery.perPage = perPageNumber;
+    newQuery = new URLSearchParams(newQuery).toString();
+    history.push({ search: newQuery });
   };
 
   return (
-    <div className={classes.products}>
-      {serverError ? (
-        <div className={classes.products__error}>
-          <Errors error={serverError} showError={() => fetchProducts()} />
+    <>
+      <div className={classes.products}>
+        <div className={classes.products__controls}>
+          <OriginFilter
+            className={classes.products__filter}
+            origins={productOrigins}
+            checkedOriginHandler={(origin) => onOriginCheckedHandler(origin)}
+          />
+          <hr />
+          <PriceRange
+            changedPrice={(minPrice, maxPrice) => setPrice(minPrice, maxPrice)}
+          />
+          <hr />
+          <PerPage
+            perPage={perPage}
+            perPageClicked={(perPageNumber) => perPageChanged(perPageNumber)}
+          />
         </div>
-      ) : (
-        products.map((product) => (
-          <div
-            className={classes.products__link}
-            key={product.id}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(event) => openDetailHandler(event, product.id)}
-            onClick={(event) => openDetailHandler(event, product.id)}
-          >
-            <Product
-              className={classes.products__item}
-              buy={(event, item) => buyHandler(event, item)}
-              product={product}
-            />
-          </div>
-        ))
-      )}
-    </div>
+        <div>
+          <ProductsList />
+        </div>
+      </div>
+      <div>
+        <Pagination
+          currentPage={currentPage}
+          perPage={perPage}
+          totalItems={totalItems}
+          pageChanged={(page) => pageChanged(page)}
+        />
+      </div>
+    </>
   );
 };
 
 Products.propTypes = {
-  products: PropTypes.arrayOf(productType).isRequired,
-  purchasing: PropTypes.arrayOf(productType).isRequired,
-  fetchProducts: PropTypes.func.isRequired,
-  onAddToBasketProduct: PropTypes.func.isRequired,
-  history: historyType.isRequired,
-  serverError: PropTypes.string,
-};
-
-Products.defaultProps = {
-  serverError: null,
+  fetchOrigins: PropTypes.func.isRequired,
+  manageOrigins: PropTypes.func.isRequired,
+  setOriginQueryToStore: PropTypes.func.isRequired,
+  productOrigins: PropTypes.arrayOf(originType).isRequired,
+  currentPage: PropTypes.number.isRequired,
+  perPage: PropTypes.number.isRequired,
+  totalItems: PropTypes.number.isRequired,
 };

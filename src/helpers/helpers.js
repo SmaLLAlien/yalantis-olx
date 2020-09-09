@@ -1,3 +1,5 @@
+import { MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT } from '../global/constants';
+
 const groupingArrayById = (array) => {
   return array.reduce((acc, obj) => {
     const index = acc.findIndex((elm) => {
@@ -11,7 +13,7 @@ const groupingArrayById = (array) => {
   }, []);
 };
 
-const countPrice = (arr) => {
+export const countPrice = (arr) => {
   return arr.reduce((acc, obj) => {
     let temp = acc;
     temp += obj.price * obj.pieces;
@@ -44,4 +46,94 @@ export const changePiecesCount = (id, array, type) => {
     result: temp,
     price,
   };
+};
+
+export const normalizeOrigins = (origins) =>
+  origins.map((origin) => {
+    return { ...origin, checked: false };
+  });
+
+export const getQueryVariable = (variable) => {
+  const query = window.location.search.substring(1);
+  const vars = query.split('&');
+  for (let i = 0; i < vars.length; i += 1) {
+    const pair = vars[i].split('=');
+    if (decodeURIComponent(pair[0]) === variable) {
+      return decodeURIComponent(pair[1]);
+    }
+  }
+  return null;
+};
+
+export const checkOrigins = (state, payload) => {
+  const temp = [...state.origins];
+  const index = temp.findIndex((origin) => origin.value === payload.value);
+  const origin = { ...temp[index] };
+  origin.checked = !origin.checked;
+  temp[index] = origin;
+
+  return temp;
+};
+
+export const makePages = (length) => {
+  const temp = [];
+  if (length) {
+    for (let i = 1; i <= length; i += 1) {
+      temp[i] = i;
+    }
+  }
+  return temp;
+};
+
+export const makeParams = () => {
+  const newQuery = {};
+  const origins = getQueryVariable('origins');
+  const minPrice = getQueryVariable('minPrice');
+  const maxPrice = getQueryVariable('maxPrice');
+  const perPage = getQueryVariable('perPage');
+
+  if (origins) {
+    newQuery.origins = origins;
+  }
+
+  if (minPrice) {
+    newQuery.minPrice = minPrice;
+    newQuery.maxPrice = maxPrice;
+  }
+
+  if (perPage) {
+    newQuery.perPage = perPage;
+  }
+
+  return newQuery;
+};
+
+const isMinPriceChanged = (minPrice, maxPrice) => {
+  return (
+    minPrice !== MIN_PRICE_DEFAULT && +minPrice > 0 && +minPrice < +maxPrice
+  );
+};
+
+const isMaxPriceChanged = (minPrice, maxPrice) => {
+  return (
+    maxPrice !== MAX_PRICE_DEFAULT && +maxPrice > 0 && +minPrice < +maxPrice
+  );
+};
+
+export const isDisabledPriceRange = (minPrice, maxPrice) => {
+  return !(
+    isMinPriceChanged(minPrice, maxPrice) ||
+    isMaxPriceChanged(minPrice, maxPrice)
+  );
+};
+
+export const refactorOriginsSearch = (newOrigin, originsArray) => {
+  if (originsArray.includes(newOrigin.value)) {
+    const index = originsArray.findIndex(
+      (search) => search === newOrigin.value,
+    );
+    originsArray.splice(index, 1);
+  } else {
+    originsArray.push(newOrigin.value);
+  }
 };

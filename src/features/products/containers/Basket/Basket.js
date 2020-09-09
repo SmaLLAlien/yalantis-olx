@@ -13,6 +13,7 @@ export const Basket = (props) => {
     decreaseProductPieces,
     increaseProductPieces,
     total,
+    deleteProductFromBasket,
   } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
@@ -51,6 +52,13 @@ export const Basket = (props) => {
               {product.pieces * product.price} {CURRENCY}
             </div>
           </div>
+          <button
+            type="button"
+            className={classes.product__delete}
+            onClick={() => deleteProductFromBasket(product.id)}
+          >
+            x
+          </button>
         </div>
       );
     });
@@ -71,5 +79,6 @@ Basket.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
   increaseProductPieces: PropTypes.func.isRequired,
   decreaseProductPieces: PropTypes.func.isRequired,
+  deleteProductFromBasket: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
 };
