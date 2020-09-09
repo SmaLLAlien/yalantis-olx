@@ -1,0 +1,17 @@
+.submit {
+  border: none;
+  outline: none;
+  padding: 10px 50px;
+  background: var(--yellow-gradient);
+  cursor: pointer;
+  border-radius: 10px;
+  text-transform: capitalize;
+  color: #ccc;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

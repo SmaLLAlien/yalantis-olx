@@ -10,6 +10,7 @@ import { makeParams, refactorOriginsSearch } from '../../../../helpers/helpers';
 import classes from './Products.module.scss';
 import PerPage from '../../components/PerPage/PerPage';
 import { useOriginQuery } from '../../hooks/useOriginQuery';
+import CreateProduct from "../CreateProduct/CreateProduct";
 
 export const Products = (props) => {
   const {
@@ -21,6 +22,7 @@ export const Products = (props) => {
     totalItems,
     setOriginQueryToStore,
   } = props;
+  const open = false;
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();
 
@@ -73,6 +75,7 @@ export const Products = (props) => {
 
   return (
     <>
+      {open && <CreateProduct />}
       <div className={classes.products}>
         <div className={classes.products__controls}>
           <OriginFilter

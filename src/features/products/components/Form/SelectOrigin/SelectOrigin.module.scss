@@ -1,0 +1,33 @@
+.label {
+  font-weight: bold;
+  display: flex;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.input {
+  display: block;
+  width: 400px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--textColor);
+  margin-bottom: 20px;
+}
+
+.option {
+  background-color: var(--backgroundColor);
+  color: var(--textColor);
+  padding: 12px;
+  text-align: center;
+  text-indent: 12px;
+  text-transform: uppercase;
+}
+
+.error {
+  color: var(--error);
+}
