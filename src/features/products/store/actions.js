@@ -13,7 +13,7 @@ import {
   PER_PAGE_CHANGED,
   PAGE_CHANGED,
   TOTAL_ITEMS_CHANGED,
-  GOT_ORIGINS_FROM_URL,
+  GOT_ORIGINS_FROM_URL, OPEN_CREATE_PRODUCT, CLOSE_CREATE_PRODUCT,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -104,6 +104,18 @@ export const totalItemsChanged = (payload) => {
     payload,
   };
 };
+
+export const openCreateProduct = () => {
+  return {
+    type: OPEN_CREATE_PRODUCT,
+  }
+}
+
+export const closeCreateProduct = () => {
+  return {
+    type: CLOSE_CREATE_PRODUCT,
+  }
+}
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
@@ -201,3 +213,11 @@ export const deleteProductFromBasket = (payload) => (dispatch, getState) => {
 export const setOriginQueryToStore = (payload) => (dispatch) => {
   dispatch({ type: GOT_ORIGINS_FROM_URL, payload });
 };
+
+export const openCreateModal = () => dispatch => {
+  dispatch(openCreateProduct());
+}
+
+export const closeCreateModal = () => dispatch => {
+  dispatch(closeCreateProduct());
+}

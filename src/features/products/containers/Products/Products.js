@@ -21,8 +21,8 @@ export const Products = (props) => {
     perPage,
     totalItems,
     setOriginQueryToStore,
+    isCreateModalOpen
   } = props;
-  const open = false;
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();
 
@@ -75,7 +75,7 @@ export const Products = (props) => {
 
   return (
     <>
-      {open && <CreateProduct />}
+      {isCreateModalOpen && <CreateProduct />}
       <div className={classes.products}>
         <div className={classes.products__controls}>
           <OriginFilter
@@ -113,6 +113,7 @@ Products.propTypes = {
   fetchOrigins: PropTypes.func.isRequired,
   manageOrigins: PropTypes.func.isRequired,
   setOriginQueryToStore: PropTypes.func.isRequired,
+  isCreateModalOpen: PropTypes.bool.isRequired,
   productOrigins: PropTypes.arrayOf(originType).isRequired,
   currentPage: PropTypes.number.isRequired,
   perPage: PropTypes.number.isRequired,

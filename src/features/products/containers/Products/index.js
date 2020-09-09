@@ -11,6 +11,7 @@ import {
   getPerPage,
   getTotalItems,
 } from '../../store/selectors/pageSelectors';
+import {getCreateModalState} from "../../store/selectors/modalSelectors";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,6 +19,7 @@ const mapStateToProps = (state) => {
     currentPage: getCurrentPage(state),
     perPage: getPerPage(state),
     totalItems: getTotalItems(state),
+    isCreateModalOpen: getCreateModalState(state)
   };
 };
 
