@@ -5,6 +5,7 @@ import {getOrigins} from "../../../store/selectors/selectors";
 import FormikControl from "../FormikControl/FormikControl";
 import classes from './ProductForm.module.scss';
 import * as Yup from 'yup'
+import {VALIDATION_MESSAGES} from "../../../../../global/constants";
 
 
 const ProductForm = () => {
@@ -17,9 +18,15 @@ const ProductForm = () => {
   }
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Required'),
-    price: Yup.number().required('Required'),
-    origins: Yup.string().required('Required'),
+    name: Yup.string()
+      .min(3, VALIDATION_MESSAGES.minLength)
+      .max(20, VALIDATION_MESSAGES.maxLength)
+      .required(VALIDATION_MESSAGES.nameRequired),
+    price: Yup.number()
+      .positive(VALIDATION_MESSAGES.positiveNumber)
+      .required(VALIDATION_MESSAGES.priceRequired),
+    origins: Yup.string()
+      .required(VALIDATION_MESSAGES.originRequired),
   })
 
   const onSubmit = values => {
@@ -39,6 +46,8 @@ const ProductForm = () => {
               label='name'
               type='text'
               name='name'
+              touched={formikProps.touched}
+              errors={formikProps.errors}
               placeholder='Product name' />
 
               <FormikControl
@@ -46,6 +55,8 @@ const ProductForm = () => {
                 label='price'
                 type='number'
                 name='price'
+                touched={formikProps.touched}
+                errors={formikProps.errors}
                 placeholder='Product price'/>
 
               <FormikControl
@@ -53,10 +64,12 @@ const ProductForm = () => {
                 label='origins'
                 name='origins'
                 options={origins}
+                touched={formikProps.touched}
+                errors={formikProps.errors}
                 setFieldValue={formikProps.setFieldValue}
                 placeholder='Product origin' />
 
-              <button disabled={!formikProps.isValid} className={classes.submit} type='submit'>Submit</button>
+              <button disabled={!(formikProps.isValid && formikProps.dirty)} className={classes.submit} type='submit'>Submit</button>
             </Form>
           )
         }

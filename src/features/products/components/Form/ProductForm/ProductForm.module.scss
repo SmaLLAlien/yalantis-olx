@@ -9,6 +9,11 @@
   color: #ccc;
 }
 
+.submit:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
 .form {
   display: flex;
   flex-direction: column;
