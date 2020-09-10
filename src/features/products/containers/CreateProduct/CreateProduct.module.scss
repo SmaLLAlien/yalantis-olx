@@ -28,4 +28,9 @@
     margin-bottom: 50px;
     text-transform: uppercase;
   }
+
+  &__error {
+    margin-top: 20px;
+    color: var(--error);
+  }
 }

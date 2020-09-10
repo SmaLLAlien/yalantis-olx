@@ -13,7 +13,7 @@ import {
   PER_PAGE_CHANGED,
   PAGE_CHANGED,
   TOTAL_ITEMS_CHANGED,
-  GOT_ORIGINS_FROM_URL, OPEN_CREATE_PRODUCT, CLOSE_CREATE_PRODUCT,
+  GOT_ORIGINS_FROM_URL, OPEN_CREATE_PRODUCT, CLOSE_CREATE_PRODUCT, SAVE_PRODUCT_ERROR, SAVE_PRODUCT_SUCCESS,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -114,6 +114,19 @@ export const openCreateProduct = () => {
 export const closeCreateProduct = () => {
   return {
     type: CLOSE_CREATE_PRODUCT,
+  }
+}
+
+export const saveProductError = (payload) => {
+  return {
+    type: SAVE_PRODUCT_ERROR,
+    payload
+  }
+}
+
+export const saveProductSuccess = () => {
+  return {
+    type: SAVE_PRODUCT_SUCCESS,
   }
 }
 
@@ -220,4 +233,28 @@ export const openCreateModal = () => dispatch => {
 
 export const closeCreateModal = () => dispatch => {
   dispatch(closeCreateProduct());
+  dispatch(saveProductSuccess());
+}
+
+export const saveProduct = payload => async (dispatch, _, api) => {
+  try {
+      await api.post(URLs.PRODUCTS, {
+        product: payload
+        },
+        {
+        headers: {
+          Authorization:  process.env.REACT_APP_TOKEN/'s'
+        }
+      }
+      );
+    dispatch(saveProductSuccess());
+    dispatch(closeCreateProduct());
+    } catch (error) {
+      if (error.message) {
+        return dispatch(saveProductError(error.message));
+      }
+      return dispatch(
+          loadingFailed('Something is wrong, please try again later'),
+      );
+    }
 }

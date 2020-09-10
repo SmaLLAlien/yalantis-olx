@@ -8,12 +8,12 @@ import * as Yup from 'yup'
 import {VALIDATION_MESSAGES} from "../../../../../global/constants";
 
 
-const ProductForm = () => {
-  const origins = useSelector(getOrigins);
+const ProductForm = (props) => {
+  const {onSave, origins} = props;
 
   const initialValues = {
     name: '',
-    origins: '',
+    origin: '',
     price: ''
   }
 
@@ -25,12 +25,12 @@ const ProductForm = () => {
     price: Yup.number()
       .positive(VALIDATION_MESSAGES.positiveNumber)
       .required(VALIDATION_MESSAGES.priceRequired),
-    origins: Yup.string()
+    origin: Yup.string()
       .required(VALIDATION_MESSAGES.originRequired),
   })
 
-  const onSubmit = values => {
-    console.log(values)
+  const onSubmit = product => {
+    onSave(product);
   }
 
   return (
@@ -62,7 +62,7 @@ const ProductForm = () => {
               <FormikControl
                 control='select'
                 label='origins'
-                name='origins'
+                name='origin'
                 options={origins}
                 touched={formikProps.touched}
                 errors={formikProps.errors}
