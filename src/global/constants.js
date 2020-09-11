@@ -1,5 +1,7 @@
 export const Routes = {
   PRODUCTS: '/products',
+  U: '/products/user',
+  P: '/products/prod',
   PRODUCT: '/products/:id',
   BASKET: '/basket',
 };

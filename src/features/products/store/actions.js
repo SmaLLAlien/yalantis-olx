@@ -13,7 +13,12 @@ import {
   PER_PAGE_CHANGED,
   PAGE_CHANGED,
   TOTAL_ITEMS_CHANGED,
-  GOT_ORIGINS_FROM_URL, OPEN_CREATE_PRODUCT, CLOSE_CREATE_PRODUCT, SAVE_PRODUCT_ERROR, SAVE_PRODUCT_SUCCESS,
+  GOT_ORIGINS_FROM_URL,
+  OPEN_CREATE_PRODUCT,
+  CLOSE_CREATE_PRODUCT,
+  SAVE_PRODUCT_ERROR,
+  SAVE_PRODUCT_SUCCESS,
+  RESET_ORIGIN,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -130,9 +135,18 @@ export const saveProductSuccess = () => {
   }
 }
 
+export const resetOrigin = () => dispatch => {
+  dispatch({type: RESET_ORIGIN})
+}
+
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
-    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`);
+    let headers;
+    if (searchParams.includes('editable')) {
+      headers = {Authorization: process.env.REACT_APP_TOKEN}
+    }
+    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`, {headers});
+
     dispatch(loadingSucceeded());
     dispatch(totalItemsChanged(data.totalItems));
     dispatch(perPageChanged(data.perPage));
@@ -224,6 +238,9 @@ export const deleteProductFromBasket = (payload) => (dispatch, getState) => {
 };
 
 export const setOriginQueryToStore = (payload) => (dispatch) => {
+  if (!payload.length) {
+    dispatch({type: RESET_ORIGIN})
+  }
   dispatch({ type: GOT_ORIGINS_FROM_URL, payload });
 };
 

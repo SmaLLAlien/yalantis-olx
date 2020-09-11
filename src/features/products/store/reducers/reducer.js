@@ -68,6 +68,18 @@ const reducer = (state = initialState, action) => {
         origins: newOrigins,
       };
     }
+    case actionTypes.RESET_ORIGIN: {
+      const newOrigins = state.origins.map(origin => {
+        const newOrigin = {...origin}
+        newOrigin.checked = false;
+        return newOrigin
+      })
+
+      return {
+        ...state,
+        origins: newOrigins,
+      };
+    }
 
     case actionTypes.BASKET_PRODUCT_DELETED: {
       return {

@@ -63,9 +63,9 @@ const ProductsList = (props) => {
 
 ProductsList.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
-  purchasing: PropTypes.arrayOf(productType).isRequired,
+  purchasing: PropTypes.arrayOf(productType),
   fetchProducts: PropTypes.func.isRequired,
-  onAddToBasketProduct: PropTypes.func.isRequired,
+  onAddToBasketProduct: PropTypes.func,
   serverError: PropTypes.string,
 };
 
