@@ -260,7 +260,7 @@ export const saveProduct = payload => async (dispatch, _, api) => {
         },
         {
         headers: {
-          Authorization:  process.env.REACT_APP_TOKEN/'s'
+          Authorization:  process.env.REACT_APP_TOKEN
         }
       }
       );
