@@ -1,8 +1,9 @@
 export const Routes = {
   PRODUCTS: '/products',
-  U: '/products/user',
-  P: '/products/prod',
-  PRODUCT: '/products/:id',
+  CREATED: '/products/created',
+  CATALOG: '/products/catalog',
+  PRODUCT_DETAIL: '/product/:id',
+  PRODUCT: '/product',
   BASKET: '/basket',
 };
 

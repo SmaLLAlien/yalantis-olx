@@ -9,11 +9,11 @@ import Layout from "../../features/products/containers/Layout";
 const AppRoutes = () => (
   <Switch>
     <Route path={Routes.PRODUCTS} component={Layout} />
-    <Route path={Routes.PRODUCT} exact component={FullProduct} />
+    <Route path={Routes.PRODUCT_DETAIL} exact component={FullProduct} />
     <Route path={Routes.BASKET} exact component={Basket} />
 
     <Route exact path="/">
-      <Redirect to={'products'} />
+      <Redirect to={Routes.CATALOG} />
     </Route>
     <Route path="*" component={NotFound} />
   </Switch>

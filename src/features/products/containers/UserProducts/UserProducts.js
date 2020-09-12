@@ -7,12 +7,7 @@ const UserProducts = (props) => {
     products,
     serverError,
     fetchProducts,
-    resetOrigin
   } = props;
-
-  useEffect(() => {
-    // resetOrigin()
-  }, [])
 
   const mixEditable = query => {
     if (query) {
@@ -24,9 +19,9 @@ const UserProducts = (props) => {
 
   return (
     <>
-      <div className={classes.products}>
-        <div className={classes.products__title}>My Products</div>
-        <div>
+      <div className={classes.productsUser}>
+        <div className={classes.productsUser__title}>My Products</div>
+        <div className={classes.productsUser__list}>
           <ProductsList products={products}
                         serverError={serverError}
                         fetchProducts={(queryURL) => mixEditable(queryURL)}/>

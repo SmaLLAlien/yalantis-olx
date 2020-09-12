@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Routes } from '../../../../global/constants';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
@@ -16,6 +16,8 @@ export const FullProduct = (props) => {
     serverError,
   } = props;
 
+  const history = useHistory();
+
   useEffect(() => {
     if (match.params.id) {
       fetchProduct(match.params.id);
@@ -27,6 +29,10 @@ export const FullProduct = (props) => {
     event.stopPropagation();
     onAddToBasketProduct(product, purchasing);
   };
+
+  const returnHandler = () => {
+    history.goBack();
+  }
 
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
 
@@ -54,9 +60,9 @@ export const FullProduct = (props) => {
 
   return (
     <div className={classes.container}>
-      <Link to={Routes.PRODUCTS} className={classes.back}>
+      <button type='button' onClick={returnHandler} className={classes.back}>
         Back to products
-      </Link>
+      </button>
       {product}
     </div>
   );

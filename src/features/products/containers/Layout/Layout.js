@@ -29,16 +29,13 @@ const Layout = props => {
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();
   const params = useLocation().pathname;
-  console.log(params, params);
 
   useEffect(() => {
-    console.log(22);
     resetOrigin()
   }, [params])
 
   useEffect(() => {
     const storeOrigins = () => {
-      console.log(originsArrayFromUrl)
       setOriginQueryToStore(originsArrayFromUrl);
     };
     storeOrigins();
@@ -104,13 +101,10 @@ const Layout = props => {
             perPageClicked={(perPageNumber) => perPageChanged(perPageNumber)}
           />
         </div>
-        <div>
-          {/*<ProductsList />*/}
+        <div className={classes.products__list}>
           <Switch>
-            {/*<Route  path={`${path}/user`} exact  component={UserProducts} />*/}
-            {/*<Route  path={`${path}/prod`} exact component={Products} />} />*/}
-            <Route  path={`${Routes.P}`} exact component={Products} />
-            <Route  path={`${Routes.U}`} exact  component={UserProducts} />
+            <Route path={`${Routes.CATALOG}`} exact component={Products} />
+            <Route path={`${Routes.CREATED}`} exact component={UserProducts} />
           </Switch>
         </div>
       </div>

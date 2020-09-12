@@ -1,6 +1,7 @@
 .header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 
   &__create {
     border: none;
@@ -15,6 +16,34 @@
     box-sizing: border-box;
     margin-top: 10px;
     font-size: 1.2em;
-    margin-right: 35%;
   }
+
+  &__navigation {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__link {
+    width: 150px;
+    text-decoration: none;
+    font-size: 1.5em;
+    color: var(--textColor);
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  &__link:hover {
+    border-bottom: 1px solid orangered;
+  }
+
+  &__link:active {
+    outline: none;
+    border: none;
+  }
+}
+
+.active {
+  border-bottom: 1px solid orangered;
 }

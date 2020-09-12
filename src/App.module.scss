@@ -4,4 +4,9 @@
   min-height: 100vh;
   min-width: 480px;
   background: var(--backgroundColor);
+
+  a:active {
+    outline: none;
+    border: none;
+  }
 }

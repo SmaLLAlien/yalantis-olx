@@ -66,7 +66,7 @@ export const Basket = (props) => {
 
   return (
     <div className={classes.basket}>
-      <Link to={Routes.PRODUCTS} className={classes.back}>
+      <Link to={Routes.CATALOG} className={classes.back}>
         Back to products
       </Link>
       <BasketTotalInfo total={total} products={products} />

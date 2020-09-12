@@ -29,7 +29,7 @@ const ProductsList = (props) => {
       (nativeEvent instanceof KeyboardEvent && event.key === 'Enter') ||
       nativeEvent instanceof MouseEvent
     ) {
-      history.push(`${Routes.PRODUCTS}/${id}`);
+      history.push(`${Routes.PRODUCT}/${id}`);
     }
   };
 

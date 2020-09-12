@@ -7,26 +7,12 @@ import classes from './Products.module.scss';
 
  const Products = (props) => {
   const {
-    // productOrigins,
-    // fetchOrigins,
-    // manageOrigins,
-    // currentPage,
-    // perPage,
-    // totalItems,
-    // setOriginQueryToStore,
-    // isCreateModalOpen
     products,
     purchasing,
     serverError,
     fetchProducts,
     onAddToBasketProduct,
-    resetOrigin
   } = props;
-
-   useEffect(() => {
-     // resetOrigin()
-   }, [])
-
 
   return (
     <>
