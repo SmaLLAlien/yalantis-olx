@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
-import {
-  getProducts,
-} from '../../store/selectors/selectors';
-import {fetchProducts} from '../../store/actions';
+import { getProducts } from '../../store/selectors/selectors';
+import { fetchProducts } from '../../store/actions';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
-import UserProducts from "./UserProducts";
+import UserProducts from './UserProducts';
 
 const mapStateToProps = (state) => {
   return {

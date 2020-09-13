@@ -69,11 +69,11 @@ const reducer = (state = initialState, action) => {
       };
     }
     case actionTypes.RESET_ORIGIN: {
-      const newOrigins = state.origins.map(origin => {
-        const newOrigin = {...origin}
+      const newOrigins = state.origins.map((origin) => {
+        const newOrigin = { ...origin };
         newOrigin.checked = false;
-        return newOrigin
-      })
+        return newOrigin;
+      });
 
       return {
         ...state,

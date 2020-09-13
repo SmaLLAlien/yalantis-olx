@@ -1,32 +1,30 @@
-import React, {useEffect} from "react";
-import {Formik, Form} from "formik";
-import {useSelector} from "react-redux";
-import {getOrigins} from "../../../store/selectors/selectors";
-import FormikControl from "../FormikControl/FormikControl";
+import React, { useEffect } from 'react';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import PropTypes from 'prop-types';
+import FormikControl from '../FormikControl/FormikControl';
 import classes from './ProductForm.module.scss';
-import * as Yup from 'yup'
-import {VALIDATION_MESSAGES} from "../../../../../global/constants";
-
+import { VALIDATION_MESSAGES } from '../../../../../global/constants';
+import { originType, productType } from '../../../types/types';
 
 const ProductForm = (props) => {
-  const {onSave, origins, product=null, fetchOrigins} = props;
+  const { onSave, origins, product = null, fetchOrigins } = props;
 
   let initialValues = {
     name: '',
     origin: '',
-    price: ''
-  }
+    price: '',
+  };
 
   if (product) {
-    initialValues = {...product};
+    initialValues = { ...product };
   }
 
   useEffect(() => {
     if (!origins.length) {
       fetchOrigins();
     }
-  }, [])
-
+  }, []);
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -36,65 +34,93 @@ const ProductForm = (props) => {
     price: Yup.number()
       .positive(VALIDATION_MESSAGES.positiveNumber)
       .required(VALIDATION_MESSAGES.priceRequired),
-    origin: Yup.string()
-      .required(VALIDATION_MESSAGES.originRequired),
-  })
+    origin: Yup.string().required(VALIDATION_MESSAGES.originRequired),
+  });
 
-  const onSubmit = (product, { resetForm }) => {
-    onSave(product);
+  const onSubmit = (value, { resetForm }) => {
+    onSave(value);
     resetForm();
-  }
+  };
 
-  const reset = resetForm => {
+  const reset = (resetForm) => {
     resetForm();
-  }
+  };
 
   return (
-    <Formik initialValues={initialValues}
-            onSubmit={onSubmit}
-            validationSchema={validationSchema}>
-      {
-        (formikProps) => {
-          return (
-            <Form className={classes.form}>
-              <FormikControl
-              control='input'
-              label='name'
-              type='text'
-              name='name'
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {(formikProps) => {
+        return (
+          <Form className={classes.form}>
+            <FormikControl
+              control="input"
+              label="name"
+              type="text"
+              name="name"
               touched={formikProps.touched}
               errors={formikProps.errors}
-              placeholder='Product name' />
+              placeholder="Product name"
+            />
 
-              <FormikControl
-                control='input'
-                label='price'
-                type='number'
-                name='price'
-                touched={formikProps.touched}
-                errors={formikProps.errors}
-                placeholder='Product price'/>
+            <FormikControl
+              control="input"
+              label="price"
+              type="number"
+              name="price"
+              touched={formikProps.touched}
+              errors={formikProps.errors}
+              placeholder="Product price"
+            />
 
-              <FormikControl
-                control='select'
-                label='origins'
-                name='origin'
-                options={origins}
-                touched={formikProps.touched}
-                errors={formikProps.errors}
-                setFieldValue={formikProps.setFieldValue}
-                placeholder='Product origin' />
+            <FormikControl
+              control="select"
+              label="origins"
+              name="origin"
+              options={origins}
+              touched={formikProps.touched}
+              errors={formikProps.errors}
+              setFieldValue={formikProps.setFieldValue}
+              placeholder="Product origin"
+            />
 
-              <div>
-                <button disabled={!(formikProps.isValid && formikProps.dirty)} className={classes.submit} type='submit'>Submit</button>
-                <button disabled={!formikProps.dirty} className={classes.submit} type='submit' onClick={() => reset(formikProps.resetForm)}>Reset</button>
-              </div>
-            </Form>
-          )
-        }
-      }
+            <div>
+              <button
+                disabled={!(formikProps.isValid && formikProps.dirty)}
+                className={classes.submit}
+                type="submit"
+              >
+                Submit
+              </button>
+              <button
+                disabled={!formikProps.dirty}
+                className={classes.submit}
+                type="submit"
+                onClick={() => reset(formikProps.resetForm)}
+              >
+                Reset
+              </button>
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
-  )
-}
+  );
+};
+
+ProductForm.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  origins: PropTypes.arrayOf(originType),
+  product: productType,
+  fetchOrigins: PropTypes.func,
+};
+
+ProductForm.defaultProps = {
+  origins: [],
+  product: null,
+  fetchOrigins: null,
+};
 
 export default ProductForm;

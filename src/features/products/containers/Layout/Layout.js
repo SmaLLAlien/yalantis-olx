@@ -1,20 +1,20 @@
-import React, {useEffect} from "react";
-import {Route, Switch, useHistory, useLocation} from "react-router-dom";
-import {useOriginQuery} from "../../hooks/useOriginQuery";
-import {makeParams, refactorOriginsSearch} from "../../../../helpers/helpers";
-import CreateProduct from "../CreateProduct/CreateProduct";
-import classes from "./Layout.module.scss";
-import OriginFilter from "../../components/OriginFilter/OriginFilter";
-import PriceRange from "../PriceRange/PriceRange";
-import PerPage from "../../components/PerPage/PerPage";
-import Pagination from "../../components/Pagination/Pagination";
-import {Routes} from "../../../../global/constants";
-import Products from "../Products";
-import UserProducts from "../UserProducts";
+import React, { useEffect } from 'react';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {originType} from "../../types/types";
+import { useOriginQuery } from '../../hooks/useOriginQuery';
+import { makeParams, refactorOriginsSearch } from '../../../../helpers/helpers';
+import CreateProduct from '../CreateProduct';
+import classes from './Layout.module.scss';
+import OriginFilter from '../../components/OriginFilter/OriginFilter';
+import PriceRange from '../PriceRange/PriceRange';
+import PerPage from '../../components/PerPage/PerPage';
+import Pagination from '../../components/Pagination/Pagination';
+import { Routes } from '../../../../global/constants';
+import Products from '../Products';
+import UserProducts from '../UserProducts';
+import { originType } from '../../types/types';
 
-const Layout = props => {
+const Layout = (props) => {
   const {
     productOrigins,
     fetchOrigins,
@@ -24,15 +24,15 @@ const Layout = props => {
     totalItems,
     setOriginQueryToStore,
     isCreateModalOpen,
-    resetOrigin
+    resetOrigin,
   } = props;
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();
   const params = useLocation().pathname;
 
   useEffect(() => {
-    resetOrigin()
-  }, [params])
+    resetOrigin();
+  }, [params]);
 
   useEffect(() => {
     const storeOrigins = () => {
@@ -117,18 +117,19 @@ const Layout = props => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
   fetchOrigins: PropTypes.func.isRequired,
   manageOrigins: PropTypes.func.isRequired,
   setOriginQueryToStore: PropTypes.func.isRequired,
+  resetOrigin: PropTypes.func.isRequired,
   isCreateModalOpen: PropTypes.bool.isRequired,
   productOrigins: PropTypes.arrayOf(originType).isRequired,
   currentPage: PropTypes.number.isRequired,
   perPage: PropTypes.number.isRequired,
   totalItems: PropTypes.number.isRequired,
-}
+};
 
 export default Layout;

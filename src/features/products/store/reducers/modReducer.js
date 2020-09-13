@@ -3,8 +3,8 @@ import * as actionTypes from '../actionsTypes';
 const initialState = {
   openCreate: false,
   error: null,
-  success: false
-}
+  success: false,
+};
 
 export const modalReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -12,43 +12,42 @@ export const modalReducer = (state = initialState, action) => {
     case actionTypes.OPEN_CREATE_PRODUCT: {
       return {
         ...state,
-        openCreate: true
-      }
+        openCreate: true,
+      };
     }
 
     case actionTypes.CLOSE_CREATE_PRODUCT: {
       return {
         ...state,
-        openCreate: false
-      }
+        openCreate: false,
+      };
     }
 
     case actionTypes.SAVE_PRODUCT_ERROR: {
       return {
         ...state,
         error: payload,
-        success: false
-      }
+        success: false,
+      };
     }
 
     case actionTypes.SAVE_PRODUCT_SUCCESS: {
       return {
         ...state,
         error: null,
-        success: true
-      }
+        success: true,
+      };
     }
 
     case actionTypes.FORM_OPENED: {
       return {
         ...state,
         error: null,
-        success: false
-      }
+        success: false,
+      };
     }
 
-
     default:
-      return state
+      return state;
   }
-}
+};

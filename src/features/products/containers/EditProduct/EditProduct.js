@@ -1,64 +1,86 @@
-import React, {useEffect} from "react";
-import classes from "../CreateProduct/CreateProduct.module.scss";
-import ProductForm from "../../components/Form/ProductForm/ProductForm";
-import TextError from "../../components/Form/TextError/TextError";
-import Portal from "../../../../components/Portal/Portal";
-import {closeCreateModal, editProduct, fetchOrigins, fetchProduct, resetIsSaved} from "../../store/actions";
-import {getDetailedProduct, getOrigins} from "../../store/selectors/selectors";
-import {connect} from 'react-redux';
-import {useParams, useHistory} from 'react-router-dom';
-import {getErrorModalState, getSavingStatus} from "../../store/selectors/modalSelectors";
+import React, { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import classes from './EditProduct.module.scss';
+import ProductForm from '../../components/Form/ProductForm/ProductForm';
+import TextError from '../../components/Form/TextError/TextError';
+import Portal from '../../../../components/Portal/Portal';
+import { originType, productType } from '../../types/types';
 
-const EditProduct = (props) => {
-  const {product, fetchProduct, closeCreateModal, editProduct, origins, saveError, fetchOrigins, isSaved, resetIsSaved} = props;
+export const EditProduct = (props) => {
+  const {
+    product,
+    fetchProduct,
+    closeCreateModal,
+    editProduct,
+    origins,
+    saveError,
+    fetchOrigins,
+    isSaved,
+    resetIsSaved,
+  } = props;
 
-  const id = useParams().id;
+  const { id } = useParams();
   const history = useHistory();
 
   useEffect(() => {
     resetIsSaved();
     fetchProduct(id);
-  }, [id])
+  }, [id]);
 
-  const saveProductHandler = (product) => {
-    editProduct(product);
+  const saveProductHandler = (value) => {
+    editProduct(value);
     if (isSaved) {
       history.goBack();
     }
-  }
+  };
 
   const closeModal = () => {
     closeCreateModal();
     history.goBack();
-  }
+  };
 
   return (
     <Portal>
       <div className={classes.create}>
-        <button className={classes.create__close} onClick={() => closeModal()}>x</button>
+        <button
+          type="button"
+          className={classes.create__close}
+          onClick={() => closeModal()}
+        >
+          x
+        </button>
         <div className={classes.create__title}>Edit product</div>
-        <ProductForm origins={origins} onSave={(product) => saveProductHandler(product)} product={product} fetchOrigins={fetchOrigins} />
-        {saveError ? <div className={classes.create__error}><TextError>{saveError}</TextError></div> : null}
+        <ProductForm
+          origins={origins}
+          onSave={(value) => saveProductHandler(value)}
+          product={product}
+          fetchOrigins={fetchOrigins}
+        />
+        {saveError ? (
+          <div className={classes.create__error}>
+            <TextError>{saveError}</TextError>
+          </div>
+        ) : null}
       </div>
     </Portal>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => {
- return {
-   origins: getOrigins(state),
-   product: getDetailedProduct(state),
-   saveError: getErrorModalState(state),
-   isSaved: getSavingStatus(state)
- }
-}
+EditProduct.propTypes = {
+  product: productType,
+  fetchProduct: PropTypes.func.isRequired,
+  closeCreateModal: PropTypes.func.isRequired,
+  editProduct: PropTypes.func.isRequired,
+  origins: PropTypes.arrayOf(originType),
+  saveError: PropTypes.string,
+  fetchOrigins: PropTypes.func.isRequired,
+  isSaved: PropTypes.bool.isRequired,
+  resetIsSaved: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = {
-  fetchProduct,
-  closeCreateModal,
-  fetchOrigins,
-  editProduct,
-  resetIsSaved
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditProduct);
+EditProduct.defaultProps = {
+  origins: [],
+  product: null,
+  saveError: null,
+};

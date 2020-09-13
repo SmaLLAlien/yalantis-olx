@@ -4,8 +4,8 @@ import { Routes } from '../../global/constants';
 import FullProduct from '../../features/products/containers/FullProduct';
 import Basket from '../../features/products/containers/Basket';
 import NotFound from '../NotFound/NotFound';
-import Layout from "../../features/products/containers/Layout";
-import EditProduct from "../../features/products/containers/EditProduct/EditProduct";
+import Layout from '../../features/products/containers/Layout';
+import EditProduct from '../../features/products/containers/EditProduct';
 
 const AppRoutes = () => (
   <Switch>

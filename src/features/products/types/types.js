@@ -23,6 +23,18 @@ export const matchType = shape({
   }),
 });
 
+export const productErrorsType = shape({
+  name: string,
+  price: string,
+  origin: string,
+});
+
+export const productTouchedType = shape({
+  name: bool,
+  price: bool,
+  origin: bool,
+});
+
 export const historyType = shape({
   push: func.isRequired,
 });

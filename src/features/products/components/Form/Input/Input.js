@@ -1,28 +1,51 @@
-import React from "react";
+import React from 'react';
 import { FastField, ErrorMessage, getIn } from 'formik';
-import TextError from "../TextError/TextError";
-import classes from './Input.module.scss'
+import PropTypes from 'prop-types';
+import TextError from '../TextError/TextError';
+import classes from './Input.module.scss';
+import { productErrorsType, productTouchedType } from '../../../types/types';
 
-const Input = props => {
-  const {label, name, errors, touched, ...rest} = props;
+const Input = (props) => {
+  const { label, name, errors, touched, ...rest } = props;
 
-  const getStyles = (errors, fieldName, touched) => {
-    if (getIn(errors, fieldName) && getIn(touched, fieldName)) {
+  const getStyles = (errorsControls, fieldName, touchedFields) => {
+    if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
       return {
         border: '1px solid red',
         borderLeftWidth: '5px',
-        transition: '0.5s all'
-      }
+        transition: '0.5s all',
+      };
     }
-  }
+    return null;
+  };
 
   return (
     <div>
-      <label className={classes.label} htmlFor={name}>{label}:</label>
-      <FastField style={getStyles(errors, name, touched)} className={classes.input} id={name} name={name} {...rest} />
+      <label className={classes.label} htmlFor={name}>
+        {label}:
+      </label>
+      <FastField
+        style={getStyles(errors, name, touched)}
+        className={classes.input}
+        id={name}
+        name={name}
+        {...rest}
+      />
       <ErrorMessage name={name} component={TextError} />
     </div>
-  )
-}
+  );
+};
 
-export default Input
+Input.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  touched: productTouchedType,
+  errors: productErrorsType,
+};
+
+Input.defaultProps = {
+  errors: null,
+  touched: null,
+};
+
+export default Input;

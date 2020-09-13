@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { getOrigins } from '../../store/selectors/selectors';
 import {
   fetchOrigins,
-  manageOrigins, resetOrigin,
+  manageOrigins,
+  resetOrigin,
   setOriginQueryToStore,
 } from '../../store/actions';
 import {
@@ -10,8 +11,8 @@ import {
   getPerPage,
   getTotalItems,
 } from '../../store/selectors/pageSelectors';
-import {getCreateModalState} from "../../store/selectors/modalSelectors";
-import Layout from "./Layout";
+import { getCreateModalState } from '../../store/selectors/modalSelectors';
+import Layout from './Layout';
 
 const mapStateToProps = (state) => {
   return {
@@ -19,7 +20,7 @@ const mapStateToProps = (state) => {
     currentPage: getCurrentPage(state),
     perPage: getPerPage(state),
     totalItems: getTotalItems(state),
-    isCreateModalOpen: getCreateModalState(state)
+    isCreateModalOpen: getCreateModalState(state),
   };
 };
 
@@ -27,7 +28,7 @@ const mapDispatchToProps = {
   fetchOrigins,
   manageOrigins,
   setOriginQueryToStore,
-  resetOrigin
+  resetOrigin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

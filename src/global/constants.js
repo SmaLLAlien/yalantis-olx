@@ -6,7 +6,7 @@ export const Routes = {
   PRODUCT: '/product',
   BASKET: '/basket',
   EDIT_PRODUCT: '/edit/:id',
-  EDIT: '/edit'
+  EDIT: '/edit',
 };
 
 export const URLs = {
@@ -28,4 +28,4 @@ export const VALIDATION_MESSAGES = {
   minLength: 'Should be at least 3 characters long',
   maxLength: 'Should be not more 20 characters long',
   positiveNumber: 'Should be positive number',
-}
+};

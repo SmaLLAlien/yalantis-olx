@@ -18,7 +18,8 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN, FORM_OPENED,
+  RESET_ORIGIN,
+  FORM_OPENED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -113,45 +114,47 @@ export const totalItemsChanged = (payload) => {
 export const openCreateProduct = () => {
   return {
     type: OPEN_CREATE_PRODUCT,
-  }
-}
+  };
+};
 
 export const closeCreateProduct = () => {
   return {
     type: CLOSE_CREATE_PRODUCT,
-  }
-}
+  };
+};
 
 export const saveProductError = (payload) => {
   return {
     type: SAVE_PRODUCT_ERROR,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const saveProductSuccess = () => {
   return {
     type: SAVE_PRODUCT_SUCCESS,
-  }
-}
+  };
+};
 
-export const resetOrigin = () => dispatch => {
-  dispatch({type: RESET_ORIGIN})
-}
+export const resetOrigin = () => (dispatch) => {
+  dispatch({ type: RESET_ORIGIN });
+};
 
 export const formOpened = () => {
   return {
-    type: FORM_OPENED
-  }
-}
+    type: FORM_OPENED,
+  };
+};
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
     let headers;
     if (searchParams && searchParams.includes('editable')) {
-      headers = {Authorization: process.env.REACT_APP_TOKEN}
+      headers = { Authorization: process.env.REACT_APP_TOKEN };
     }
-    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`, {headers});
+    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`, {
+      headers,
+    });
 
     dispatch(loadingSucceeded());
     dispatch(totalItemsChanged(data.totalItems));
@@ -171,8 +174,8 @@ export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
 export const fetchProduct = (id) => async (dispatch, _, api) => {
   dispatch(loading());
   try {
-    const headers = {Authorization: process.env.REACT_APP_TOKEN}
-    const { data } = await api.get(`${URLs.PRODUCTS}/${id}`, {headers});
+    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const { data } = await api.get(`${URLs.PRODUCTS}/${id}`, { headers });
     dispatch(loadingSucceeded());
     return dispatch(productDetailLoaded(data));
   } catch (error) {
@@ -246,42 +249,31 @@ export const deleteProductFromBasket = (payload) => (dispatch, getState) => {
 
 export const setOriginQueryToStore = (payload) => (dispatch) => {
   if (!payload.length) {
-    dispatch({type: RESET_ORIGIN})
+    dispatch({ type: RESET_ORIGIN });
   }
   dispatch({ type: GOT_ORIGINS_FROM_URL, payload });
 };
 
-export const openCreateModal = () => dispatch => {
+export const openCreateModal = () => (dispatch) => {
   dispatch(openCreateProduct());
-}
+};
 
-export const closeCreateModal = () => dispatch => {
+export const closeCreateModal = () => (dispatch) => {
   dispatch(closeCreateProduct());
   dispatch(saveProductSuccess());
-}
+};
 
-export const saveProduct = (product, isUserPage) => async (dispatch, _, api) => {
+export const saveProduct = (product, isUserPage) => async (
+  dispatch,
+  _,
+  api,
+) => {
   try {
-    const headers = {Authorization: process.env.REACT_APP_TOKEN};
-      await api.post(URLs.PRODUCTS, {product}, {headers});
-      dispatch(fetchProducts(isUserPage));
+    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    await api.post(URLs.PRODUCTS, { product }, { headers });
+    dispatch(fetchProducts(isUserPage));
     dispatch(saveProductSuccess());
-    dispatch(closeCreateProduct());
-    } catch (error) {
-      if (error.message) {
-        return dispatch(saveProductError(error.message));
-      }
-      return dispatch(
-        saveProductError('Something is wrong, please try again later'),
-      );
-    }
-}
-
-export const editProduct = (product) => async (dispatch, _, api) => {
-  try {
-    const headers = {Authorization: process.env.REACT_APP_TOKEN};
-    await api.patch(`${URLs.PRODUCTS}/${product.id}`, {product}, {headers});
-    dispatch(saveProductSuccess());
+    return dispatch(closeCreateProduct());
   } catch (error) {
     if (error.message) {
       return dispatch(saveProductError(error.message));
@@ -290,8 +282,23 @@ export const editProduct = (product) => async (dispatch, _, api) => {
       saveProductError('Something is wrong, please try again later'),
     );
   }
-}
+};
 
-export const resetIsSaved = () => dispatch => {
+export const editProduct = (product) => async (dispatch, _, api) => {
+  try {
+    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    await api.patch(`${URLs.PRODUCTS}/${product.id}`, { product }, { headers });
+    return dispatch(saveProductSuccess());
+  } catch (error) {
+    if (error.message) {
+      return dispatch(saveProductError(error.message));
+    }
+    return dispatch(
+      saveProductError('Something is wrong, please try again later'),
+    );
+  }
+};
+
+export const resetIsSaved = () => (dispatch) => {
   dispatch(formOpened());
-}
+};

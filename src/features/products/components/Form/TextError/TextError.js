@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './TextError.module.scss';
 
-const TextError = (props) => (
-  <div className={classes.error}>{props.children}</div>
-)
+const TextError = (props) => {
+  const { children } = props;
 
+  return <div className={classes.error}>{children}</div>;
+};
+
+TextError.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 export default TextError;

@@ -7,21 +7,31 @@ import { productType } from '../../types/types';
 const Product = (props) => {
   const { product, buy, openEdit } = props;
 
-  const buyBtn = product.isEditable ? null : <button
-    type="button"
-    className={classes.product__buy}
-    onClick={(event) => buy(event, product)}
-  > buy
-  </button>
+  const buyBtn = product.isEditable ? null : (
+    <button
+      type="button"
+      className={classes.product__buy}
+      onClick={(event) => buy(event, product)}
+    >
+      {' '}
+      buy
+    </button>
+  );
 
   const editOpenHandler = (event) => {
     event.stopPropagation();
     openEdit(product.id);
-  }
+  };
 
-  const editLink = product.isEditable
-    ? <button type='button' className={classes.product__edit} onClick={editOpenHandler}>edit</button>
-    : null;
+  const editLink = product.isEditable ? (
+    <button
+      type="button"
+      className={classes.product__edit}
+      onClick={editOpenHandler}
+    >
+      edit
+    </button>
+  ) : null;
 
   return (
     <div className={classes.product}>

@@ -35,7 +35,7 @@ const ProductsList = (props) => {
 
   const editRedirectHandler = (id) => {
     history.push(`${Routes.EDIT}/${id}`);
-  }
+  };
 
   return (
     <div className={classes.products}>
@@ -56,7 +56,9 @@ const ProductsList = (props) => {
             <Product
               className={classes.products__item}
               buy={(event, item) => buyHandler(event, item)}
-              openEdit={(item) => {editRedirectHandler(item)}}
+              openEdit={(item) => {
+                editRedirectHandler(item);
+              }}
               product={product}
             />
           </div>
@@ -76,6 +78,8 @@ ProductsList.propTypes = {
 
 ProductsList.defaultProps = {
   serverError: null,
+  purchasing: [],
+  onAddToBasketProduct: null,
 };
 
 export default ProductsList;
