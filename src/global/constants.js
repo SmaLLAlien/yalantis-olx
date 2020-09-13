@@ -5,6 +5,8 @@ export const Routes = {
   PRODUCT_DETAIL: '/product/:id',
   PRODUCT: '/product',
   BASKET: '/basket',
+  EDIT_PRODUCT: '/edit/:id',
+  EDIT: '/edit'
 };
 
 export const URLs = {

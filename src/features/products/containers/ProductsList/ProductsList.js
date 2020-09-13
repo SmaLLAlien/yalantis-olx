@@ -33,6 +33,10 @@ const ProductsList = (props) => {
     }
   };
 
+  const editRedirectHandler = (id) => {
+    history.push(`${Routes.EDIT}/${id}`);
+  }
+
   return (
     <div className={classes.products}>
       {serverError ? (
@@ -52,6 +56,7 @@ const ProductsList = (props) => {
             <Product
               className={classes.products__item}
               buy={(event, item) => buyHandler(event, item)}
+              openEdit={(item) => {editRedirectHandler(item)}}
               product={product}
             />
           </div>

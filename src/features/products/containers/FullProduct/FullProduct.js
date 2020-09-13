@@ -5,6 +5,7 @@ import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
 import { matchType, productType } from '../../types/types';
 import Errors from '../../components/Errors/Errors';
+import {Routes} from "../../../../global/constants";
 
 export const FullProduct = (props) => {
   const {
@@ -30,7 +31,11 @@ export const FullProduct = (props) => {
   };
 
   const returnHandler = () => {
-    history.goBack();
+    history.push(Routes.CATALOG);
+  }
+
+  const editRedirectHandler = (id) => {
+    history.push(`${Routes.EDIT}/${id}`);
   }
 
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
@@ -40,6 +45,7 @@ export const FullProduct = (props) => {
       <div className={classes.product}>
         <Product
           buy={(event, item) => buyHandler(event, item)}
+          openEdit={(item) => {editRedirectHandler(item)}}
           product={fullProduct}
         />
       </div>

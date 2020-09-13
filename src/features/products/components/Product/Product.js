@@ -5,17 +5,22 @@ import { CURRENCY } from '../../../../global/constants';
 import { productType } from '../../types/types';
 
 const Product = (props) => {
-  const { product } = props;
+  const { product, buy, openEdit } = props;
 
   const buyBtn = product.isEditable ? null : <button
     type="button"
     className={classes.product__buy}
-    onClick={(event) => props.buy(event, product)}
+    onClick={(event) => buy(event, product)}
   > buy
   </button>
 
+  const editOpenHandler = (event) => {
+    event.stopPropagation();
+    openEdit(product.id);
+  }
+
   const editLink = product.isEditable
-    ? <button className={classes.product__edit}>edit</button>
+    ? <button type='button' className={classes.product__edit} onClick={editOpenHandler}>edit</button>
     : null;
 
   return (
@@ -38,6 +43,7 @@ const Product = (props) => {
 Product.propTypes = {
   product: productType.isRequired,
   buy: PropTypes.func.isRequired,
+  openEdit: PropTypes.func.isRequired,
 };
 
 export default Product;

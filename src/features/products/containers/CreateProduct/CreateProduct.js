@@ -7,12 +7,16 @@ import {connect} from "react-redux";
 import {getOrigins} from "../../store/selectors/selectors";
 import {getErrorModalState} from "../../store/selectors/modalSelectors";
 import TextError from "../../components/Form/TextError/TextError";
+import {useLocation} from 'react-router-dom'
+import {Routes} from "../../../../global/constants";
 
 const CreateProduct = (props) => {
   const {closeCreateModal, origins, saveProduct, saveError} = props;
+  const params = useLocation().pathname;
 
   const saveProductHandler = product => {
-    saveProduct(product);
+    const isUserPage = params.includes(Routes.CREATED) ? '?editable=true' : '';
+    saveProduct(product, isUserPage);
   }
 
   return (

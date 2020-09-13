@@ -18,7 +18,7 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN,
+  RESET_ORIGIN, FORM_OPENED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -139,10 +139,16 @@ export const resetOrigin = () => dispatch => {
   dispatch({type: RESET_ORIGIN})
 }
 
+export const formOpened = () => {
+  return {
+    type: FORM_OPENED
+  }
+}
+
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
     let headers;
-    if (searchParams.includes('editable')) {
+    if (searchParams && searchParams.includes('editable')) {
       headers = {Authorization: process.env.REACT_APP_TOKEN}
     }
     const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`, {headers});
@@ -254,17 +260,11 @@ export const closeCreateModal = () => dispatch => {
   dispatch(saveProductSuccess());
 }
 
-export const saveProduct = payload => async (dispatch, _, api) => {
+export const saveProduct = (product, isUserPage) => async (dispatch, _, api) => {
   try {
-      await api.post(URLs.PRODUCTS, {
-        product: payload
-        },
-        {
-        headers: {
-          Authorization:  process.env.REACT_APP_TOKEN
-        }
-      }
-      );
+    const headers = {Authorization: process.env.REACT_APP_TOKEN};
+      await api.post(URLs.PRODUCTS/'s', {product}, {headers});
+      dispatch(fetchProducts(isUserPage));
     dispatch(saveProductSuccess());
     dispatch(closeCreateProduct());
     } catch (error) {
@@ -272,7 +272,26 @@ export const saveProduct = payload => async (dispatch, _, api) => {
         return dispatch(saveProductError(error.message));
       }
       return dispatch(
-          loadingFailed('Something is wrong, please try again later'),
+        saveProductError('Something is wrong, please try again later'),
       );
     }
+}
+
+export const editProduct = (product) => async (dispatch, _, api) => {
+  try {
+    const headers = {Authorization: process.env.REACT_APP_TOKEN};
+    await api.patch(`${URLs.PRODUCTS}/${product.id}/s`, {product}, {headers});
+    dispatch(saveProductSuccess());
+  } catch (error) {
+    if (error.message) {
+      return dispatch(saveProductError(error.message));
+    }
+    return dispatch(
+      saveProductError('Something is wrong, please try again later'),
+    );
+  }
+}
+
+export const resetIsSaved = () => dispatch => {
+  dispatch(formOpened());
 }

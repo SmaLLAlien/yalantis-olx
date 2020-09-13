@@ -2,7 +2,8 @@ import * as actionTypes from '../actionsTypes';
 
 const initialState = {
   openCreate: false,
-  error: null
+  error: null,
+  success: false
 }
 
 export const modalReducer = (state = initialState, action) => {
@@ -25,15 +26,27 @@ export const modalReducer = (state = initialState, action) => {
     case actionTypes.SAVE_PRODUCT_ERROR: {
       return {
         ...state,
-        error: payload
+        error: payload,
+        success: false
       }
     }
+
     case actionTypes.SAVE_PRODUCT_SUCCESS: {
       return {
         ...state,
-        error: null
+        error: null,
+        success: true
       }
     }
+
+    case actionTypes.FORM_OPENED: {
+      return {
+        ...state,
+        error: null,
+        success: false
+      }
+    }
+
 
     default:
       return state

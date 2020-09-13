@@ -5,12 +5,14 @@ import FullProduct from '../../features/products/containers/FullProduct';
 import Basket from '../../features/products/containers/Basket';
 import NotFound from '../NotFound/NotFound';
 import Layout from "../../features/products/containers/Layout";
+import EditProduct from "../../features/products/containers/EditProduct/EditProduct";
 
 const AppRoutes = () => (
   <Switch>
     <Route path={Routes.PRODUCTS} component={Layout} />
     <Route path={Routes.PRODUCT_DETAIL} exact component={FullProduct} />
     <Route path={Routes.BASKET} exact component={Basket} />
+    <Route path={Routes.EDIT_PRODUCT} exact component={EditProduct} />
 
     <Route exact path="/">
       <Redirect to={Routes.CATALOG} />

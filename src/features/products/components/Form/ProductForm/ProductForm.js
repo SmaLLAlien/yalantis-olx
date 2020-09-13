@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Formik, Form} from "formik";
 import {useSelector} from "react-redux";
 import {getOrigins} from "../../../store/selectors/selectors";
@@ -9,13 +9,24 @@ import {VALIDATION_MESSAGES} from "../../../../../global/constants";
 
 
 const ProductForm = (props) => {
-  const {onSave, origins} = props;
+  const {onSave, origins, product=null, fetchOrigins} = props;
 
-  const initialValues = {
+  let initialValues = {
     name: '',
     origin: '',
     price: ''
   }
+
+  if (product) {
+    initialValues = {...product};
+  }
+
+  useEffect(() => {
+    if (!origins.length) {
+      fetchOrigins();
+    }
+  }, [])
+
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -29,8 +40,13 @@ const ProductForm = (props) => {
       .required(VALIDATION_MESSAGES.originRequired),
   })
 
-  const onSubmit = product => {
+  const onSubmit = (product, { resetForm }) => {
     onSave(product);
+    resetForm();
+  }
+
+  const reset = resetForm => {
+    resetForm();
   }
 
   return (
@@ -69,7 +85,10 @@ const ProductForm = (props) => {
                 setFieldValue={formikProps.setFieldValue}
                 placeholder='Product origin' />
 
-              <button disabled={!(formikProps.isValid && formikProps.dirty)} className={classes.submit} type='submit'>Submit</button>
+              <div>
+                <button disabled={!(formikProps.isValid && formikProps.dirty)} className={classes.submit} type='submit'>Submit</button>
+                <button disabled={!formikProps.dirty} className={classes.submit} type='submit' onClick={() => reset(formikProps.resetForm)}>Reset</button>
+              </div>
             </Form>
           )
         }
