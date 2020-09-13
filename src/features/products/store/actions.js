@@ -165,7 +165,8 @@ export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
 export const fetchProduct = (id) => async (dispatch, _, api) => {
   dispatch(loading());
   try {
-    const { data } = await api.get(`${URLs.PRODUCTS}/${id}`);
+    const headers = {Authorization: process.env.REACT_APP_TOKEN}
+    const { data } = await api.get(`${URLs.PRODUCTS}/${id}`, {headers});
     dispatch(loadingSucceeded());
     return dispatch(productDetailLoaded(data));
   } catch (error) {

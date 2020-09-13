@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
-import { Routes } from '../../../../global/constants';
+import { useHistory } from 'react-router-dom';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
 import { matchType, productType } from '../../types/types';
