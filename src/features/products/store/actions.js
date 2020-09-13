@@ -263,7 +263,7 @@ export const closeCreateModal = () => dispatch => {
 export const saveProduct = (product, isUserPage) => async (dispatch, _, api) => {
   try {
     const headers = {Authorization: process.env.REACT_APP_TOKEN};
-      await api.post(URLs.PRODUCTS/'s', {product}, {headers});
+      await api.post(URLs.PRODUCTS, {product}, {headers});
       dispatch(fetchProducts(isUserPage));
     dispatch(saveProductSuccess());
     dispatch(closeCreateProduct());
@@ -280,7 +280,7 @@ export const saveProduct = (product, isUserPage) => async (dispatch, _, api) => 
 export const editProduct = (product) => async (dispatch, _, api) => {
   try {
     const headers = {Authorization: process.env.REACT_APP_TOKEN};
-    await api.patch(`${URLs.PRODUCTS}/${product.id}/s`, {product}, {headers});
+    await api.patch(`${URLs.PRODUCTS}/${product.id}`, {product}, {headers});
     dispatch(saveProductSuccess());
   } catch (error) {
     if (error.message) {
