@@ -15,7 +15,7 @@ const Product = (props) => {
   </button>
 
   const editLink = product.isEditable
-    ? <div className={classes.product__edit}>edit</div>
+    ? <button className={classes.product__edit}>edit</button>
     : null;
 
   return (
