@@ -12,7 +12,6 @@ import {
   editProduct,
   fetchOrigins,
   fetchProduct,
-  resetIsSaved,
 } from '../../store/actions';
 import { EditProduct } from './EditProduct';
 
@@ -30,7 +29,6 @@ const mapDispatchToProps = {
   closeCreateModal,
   fetchOrigins,
   editProduct,
-  resetIsSaved,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProduct);

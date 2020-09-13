@@ -39,14 +39,6 @@ export const modalReducer = (state = initialState, action) => {
       };
     }
 
-    case actionTypes.FORM_OPENED: {
-      return {
-        ...state,
-        error: null,
-        success: false,
-      };
-    }
-
     default:
       return state;
   }

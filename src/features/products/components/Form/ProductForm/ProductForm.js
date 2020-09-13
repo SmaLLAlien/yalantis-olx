@@ -37,9 +37,8 @@ const ProductForm = (props) => {
     origin: Yup.string().required(VALIDATION_MESSAGES.originRequired),
   });
 
-  const onSubmit = (value, { resetForm }) => {
+  const onSubmit = (value) => {
     onSave(value);
-    resetForm();
   };
 
   const reset = (resetForm) => {

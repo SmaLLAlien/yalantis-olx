@@ -16,23 +16,18 @@ export const EditProduct = (props) => {
     origins,
     saveError,
     fetchOrigins,
-    isSaved,
-    resetIsSaved,
   } = props;
 
   const { id } = useParams();
   const history = useHistory();
 
   useEffect(() => {
-    resetIsSaved();
     fetchProduct(id);
   }, [id]);
 
+
   const saveProductHandler = (value) => {
-    editProduct(value);
-    if (isSaved) {
-      history.goBack();
-    }
+    editProduct(value, history);
   };
 
   const closeModal = () => {
@@ -75,8 +70,6 @@ EditProduct.propTypes = {
   origins: PropTypes.arrayOf(originType),
   saveError: PropTypes.string,
   fetchOrigins: PropTypes.func.isRequired,
-  isSaved: PropTypes.bool.isRequired,
-  resetIsSaved: PropTypes.func.isRequired,
 };
 
 EditProduct.defaultProps = {

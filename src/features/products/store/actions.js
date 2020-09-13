@@ -19,7 +19,6 @@ import {
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
   RESET_ORIGIN,
-  FORM_OPENED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -138,12 +137,6 @@ export const saveProductSuccess = () => {
 
 export const resetOrigin = () => (dispatch) => {
   dispatch({ type: RESET_ORIGIN });
-};
-
-export const formOpened = () => {
-  return {
-    type: FORM_OPENED,
-  };
 };
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
@@ -284,10 +277,11 @@ export const saveProduct = (product, isUserPage) => async (
   }
 };
 
-export const editProduct = (product) => async (dispatch, _, api) => {
+export const editProduct = (product, history) => async (dispatch, _, api) => {
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     await api.patch(`${URLs.PRODUCTS}/${product.id}`, { product }, { headers });
+    history.goBack();
     return dispatch(saveProductSuccess());
   } catch (error) {
     if (error.message) {
@@ -297,8 +291,4 @@ export const editProduct = (product) => async (dispatch, _, api) => {
       saveProductError('Something is wrong, please try again later'),
     );
   }
-};
-
-export const resetIsSaved = () => (dispatch) => {
-  dispatch(formOpened());
 };
