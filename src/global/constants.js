@@ -7,11 +7,13 @@ export const Routes = {
   BASKET: '/basket',
   EDIT_PRODUCT: '/edit/:id',
   EDIT: '/edit',
+  ORDERS: '/orders',
 };
 
 export const URLs = {
   PRODUCTS: '/products',
   ORIGINS: '/products-origins',
+  ORDER: '/orders'
 };
 
 export const CURRENCY = 'UAH';

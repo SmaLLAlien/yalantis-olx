@@ -18,12 +18,12 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN,
+  RESET_ORIGIN, ORDERED, ORDERS_LOADED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
   changePiecesCount,
-  countPrice,
+  countPrice, normalizeOrders,
   normalizeOrigins,
   onProductChosen,
 } from '../../../helpers/helpers';
@@ -138,6 +138,20 @@ export const saveProductSuccess = () => {
 export const resetOrigin = () => (dispatch) => {
   dispatch({ type: RESET_ORIGIN });
 };
+
+export const removeOrdered = payload => {
+  return {
+    type: ORDERED,
+    payload
+  }
+}
+
+export const ordersLoaded = payload => {
+  return {
+    type: ORDERS_LOADED,
+    payload
+  }
+}
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
@@ -292,3 +306,25 @@ export const editProduct = (product, history) => async (dispatch, _, api) => {
     );
   }
 };
+
+export const order = (products) => async (dispatch, _, api) => {
+  try {
+    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const pieces = normalizeOrders(products);
+    const order = {pieces}
+    await api.post(URLs.ORDER, {order}, {headers});
+    return dispatch(removeOrdered(products));
+  } catch(error) {
+
+  }
+}
+
+export const fetchOrders = () => async (dispatch, _, api) =>{
+  try {
+    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const {data} = await api.get(URLs.ORDER, {headers});
+    return dispatch(ordersLoaded(data.items));
+  } catch (error) {
+
+  }
+}

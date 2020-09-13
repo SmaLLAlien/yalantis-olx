@@ -14,12 +14,24 @@ export const Basket = (props) => {
     increaseProductPieces,
     total,
     deleteProductFromBasket,
+    order
   } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
       The basket is empty. But it&apos;s never too late to fix it :)
     </div>
   );
+
+  const orderAllBtn = products.length
+    ? <button
+        type="button"
+        className={classes.product__order}
+        onClick={() => order(products)}
+      >
+        Order All
+      </button>
+    : null;
+
 
   if (products.length) {
     productsElements = products.map((product) => {
@@ -49,7 +61,7 @@ export const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price} 
+              {product.pieces * product.price}
               {' '}
               {CURRENCY}
             </div>
@@ -60,6 +72,13 @@ export const Basket = (props) => {
             onClick={() => deleteProductFromBasket(product.id)}
           >
             x
+          </button>
+          <button
+            type="button"
+            className={classes.product__order}
+            onClick={() => order([product])}
+          >
+            Order
           </button>
         </div>
       );
@@ -73,6 +92,7 @@ export const Basket = (props) => {
       </Link>
       <BasketTotalInfo total={total} products={products} />
       {productsElements}
+      {orderAllBtn}
     </div>
   );
 };
@@ -82,5 +102,6 @@ Basket.propTypes = {
   increaseProductPieces: PropTypes.func.isRequired,
   decreaseProductPieces: PropTypes.func.isRequired,
   deleteProductFromBasket: PropTypes.func.isRequired,
+  order: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
 };

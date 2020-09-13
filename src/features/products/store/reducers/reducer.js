@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionsTypes';
 import { MAX_PRICE_DEFAULT } from '../../../../global/constants';
-import { checkOrigins } from '../../../../helpers/helpers';
+import {checkOrigins, countPrice} from '../../../../helpers/helpers';
 
 const initialState = {
   products: [],
@@ -87,6 +87,18 @@ const reducer = (state = initialState, action) => {
         purchasing: payload.purchasing,
         totalPurchasingPrice: payload.price,
       };
+    }
+
+    case actionTypes.ORDERED: {
+      const newPurchasing = state.purchasing.filter(product => {
+        return !payload.find(ordered => ordered.id === product.id)
+      })
+
+      return {
+        ...state,
+        purchasing: newPurchasing,
+        totalPurchasingPrice: countPrice(newPurchasing)
+      }
     }
 
     default:

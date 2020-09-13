@@ -35,6 +35,13 @@ export const Header = (props) => {
           >
             Products
           </NavLink>
+          <NavLink
+            className={classes.header__link}
+            to={Routes.ORDERS}
+            activeClassName={classes.active}
+          >
+            Orders
+          </NavLink>
         </nav>
         {basket}
       </div>

@@ -7,7 +7,7 @@ import {
 import {
   decreaseProductPieces,
   deleteProductFromBasket,
-  increaseProductPieces,
+  increaseProductPieces, order
 } from '../../store/actions';
 
 const mapStateToProps = (state) => {
@@ -21,6 +21,7 @@ const mapDispatchToProps = {
   decreaseProductPieces,
   increaseProductPieces,
   deleteProductFromBasket,
+  order
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);

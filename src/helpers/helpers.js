@@ -137,3 +137,10 @@ export const refactorOriginsSearch = (newOrigin, originsArray) => {
     originsArray.push(newOrigin.value);
   }
 };
+
+export const normalizeOrders = arr => {
+  return arr.map(product => {
+    return {productId: product.id, count: product.pieces}
+  })
+}
+
