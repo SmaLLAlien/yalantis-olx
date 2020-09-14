@@ -7,7 +7,7 @@ import {
 import {
   decreaseProductPieces,
   deleteProductFromBasket,
-  increaseProductPieces, order
+  increaseProductPieces, orderProduct
 } from '../../store/actions';
 import {getPostOrderError} from "../../store/selectors/ordersSelectors";
 
@@ -23,7 +23,7 @@ const mapDispatchToProps = {
   decreaseProductPieces,
   increaseProductPieces,
   deleteProductFromBasket,
-  order
+  order: orderProduct
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);

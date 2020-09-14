@@ -17,9 +17,11 @@ export const Orders = props => {
   let orderElements =  'Loading';
 
   if (fetchOrdersError) {
-    orderElements = <div className={classes.error}>
-      <Errors error={fetchOrdersError} showError={fetchOrders} />
-    </div>;
+    orderElements = (
+      <div className={classes.error}>
+        <Errors error={fetchOrdersError} showError={fetchOrders} />
+      </div>
+);
   }
 
   if (orders.length && !fetchOrdersError) {

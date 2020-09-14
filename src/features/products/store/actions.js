@@ -369,7 +369,7 @@ export const editProduct = (product, history) => async (dispatch, _, api) => {
   }
 };
 
-export const order = (products) => async (dispatch, _, api) => {
+export const orderProduct = (products) => async (dispatch, _, api) => {
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     const pieces = normalizeOrders(products);

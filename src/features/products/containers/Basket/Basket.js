@@ -114,6 +114,6 @@ Basket.propTypes = {
   postOrderError: PropTypes.string,
 };
 
-BasketTotalInfo.defaultProps = {
+Basket.defaultProps = {
   postOrderError: null
 }

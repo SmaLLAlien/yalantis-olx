@@ -6,13 +6,15 @@ const Errors = (props) => {
   const { error, showError } = props;
 
   const tryAgain = showError
-    ? <button
-      type="button"
-      className={classes.error__button}
-      onClick={() => showError()}
+    ? (
+      <button
+        type="button"
+        className={classes.error__button}
+        onClick={() => showError()}
       >
         Try again
       </button>
+)
     : null
 
   return (
