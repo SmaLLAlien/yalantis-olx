@@ -36,7 +36,6 @@ const Layout = (props) => {
     resetOrigin();
     resetPerPage();
     resetPage();
-    resetPrice();
   }, [params]);
 
   useEffect(() => {
@@ -49,10 +48,6 @@ const Layout = (props) => {
   useEffect(() => {
     fetchOrigins();
   }, []);
-
-  const resetPrice = () => {
-
-  }
 
   const onOriginCheckedHandler = (origin) => {
     refactorOriginsSearch(origin, originsArrayFromUrl);
