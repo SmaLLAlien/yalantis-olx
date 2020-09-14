@@ -1,11 +1,12 @@
 import {connect} from "react-redux";
 import {fetchOrder} from "../../store/actions";
 import {Order} from "./Order";
-import {getOrder} from "../../store/selectors/ordersSelectors";
+import {getFetchOrderError, getOrder} from "../../store/selectors/ordersSelectors";
 
 const mapStateToProps = state => {
   return {
-    order: getOrder(state)
+    order: getOrder(state),
+    fetchOrderError: getFetchOrderError(state)
   }
 }
 

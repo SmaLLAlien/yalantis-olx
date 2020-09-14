@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  color: var(--textColor);
+  text-align: center;
 
   &__text {
     margin-bottom: 20px;

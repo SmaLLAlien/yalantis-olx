@@ -8,7 +8,7 @@ import {orderType} from "../../types/types";
 import Errors from "../../components/Errors/Errors";
 
 export const Orders = props => {
-  const {fetchOrders, orders, fetchOrderError} = props;
+  const {fetchOrders, orders, fetchOrdersError} = props;
 
   useEffect(() => {
     fetchOrders();
@@ -16,13 +16,13 @@ export const Orders = props => {
 
   let orderElements =  'Loading';
 
-  if (fetchOrderError) {
+  if (fetchOrdersError) {
     orderElements = <div className={classes.error}>
-      <Errors error={fetchOrderError} showError={fetchOrders} />
+      <Errors error={fetchOrdersError} showError={fetchOrders} />
     </div>;
   }
 
-  if (orders.length && !fetchOrderError) {
+  if (orders.length && !fetchOrdersError) {
     orderElements = orders.map(order => {
       return (
         <Link to={`${Routes.ORDER}/${order.id}`} key={order.id} className={classes.order}>
@@ -67,9 +67,9 @@ export const Orders = props => {
 Orders.propTypes = {
   fetchOrders: PropTypes.func.isRequired,
   orders: PropTypes.arrayOf(orderType).isRequired,
-  fetchOrderError: PropTypes.string
+  fetchOrdersError: PropTypes.string
 }
 
 Orders.defaultProps = {
-  fetchOrderError: null
+  fetchOrdersError: null
 }

@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import classes from "./Order.module.scss";
 import {formatDate} from "../../../../helpers/helpers";
 import {orderType} from "../../types/types";
+import Errors from "../../components/Errors/Errors";
 
 export const Order = props => {
-  const {fetchOrder, order} = props;
+  const {fetchOrder, order, fetchOrderError} = props;
   const {id} = useParams();
 
   useEffect(() => {
@@ -15,7 +16,13 @@ export const Order = props => {
 
   let orderDetail = 'Loading';
 
-  if (order) {
+  if (fetchOrderError) {
+    orderDetail = <div className={classes.error}>
+      <Errors error={fetchOrderError} showError={() => fetchOrder(id)} />
+    </div>;
+  }
+
+  if (order && !fetchOrderError) {
     orderDetail = (
       <div className={classes.order}>
         <div className={classes.order__info}>Order info:</div>
@@ -50,9 +57,11 @@ export const Order = props => {
 
 Order.propTypes = {
   fetchOrder: PropTypes.func.isRequired,
+  fetchOrderError: PropTypes.string,
   order: orderType
 }
 
 Order.defaultProps = {
-  order: null
+  order: null,
+  fetchOrderError: null
 }

@@ -26,7 +26,7 @@ import {
   ORDER_LOADED,
   POST_ORDER_ERROR,
   POST_ORDER_SUCCESS,
-  FETCH_ORDERS_ERROR, FETCH_ORDERS_SUCCESS,
+  FETCH_ORDERS_ERROR, FETCH_ORDERS_SUCCESS, FETCH_ORDER_ERROR, FETCH_ORDER_SUCCESS,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -199,6 +199,19 @@ export const fetchOrdersError = (payload) => {
 export const fetchOrdersSuccess = () => {
   return {
     type: FETCH_ORDERS_SUCCESS,
+  };
+};
+
+export const fetchOrderError = (payload) => {
+  return {
+    type: FETCH_ORDER_ERROR,
+    payload,
+  };
+};
+
+export const fetchOrderSuccess = () => {
+  return {
+    type: FETCH_ORDER_SUCCESS,
   };
 };
 
@@ -394,8 +407,14 @@ export const fetchOrder = (id) =>  async (dispatch, _, api) =>{
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     const {data} = await api.get(`${URLs.ORDER}/${id}`, {headers});
+    dispatch(fetchOrderSuccess());
     return dispatch(orderLoaded(data));
   } catch (error) {
-
+    if (error.message) {
+      return dispatch(fetchOrderError(error.message));
+    }
+    return dispatch(
+      fetchOrderError('Something is wrong, please try again later'),
+    );
   }
 }

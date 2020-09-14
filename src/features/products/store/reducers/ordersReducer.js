@@ -4,7 +4,8 @@ const initialState = {
   orders: [],
   order: null,
   postError: null,
-  fetchOrdersError: null
+  fetchOrdersError: null,
+  fetchOrderError: null
 }
 
 const ordersReducer = (state = initialState, action) => {
@@ -49,6 +50,20 @@ const ordersReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchOrdersError: payload
+      }
+    }
+
+    case actionTypes.FETCH_ORDER_SUCCESS: {
+      return {
+        ...state,
+        fetchOrderError: null,
+      }
+    }
+
+    case actionTypes.FETCH_ORDER_ERROR: {
+      return {
+        ...state,
+        fetchOrderError: payload
       }
     }
 
