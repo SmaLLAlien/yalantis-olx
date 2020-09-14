@@ -18,7 +18,15 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN, ORDERED, ORDERS_LOADED, RESET_PER_PAGE, RESET_PAGE, ORDER_LOADED, POST_ORDER_ERROR, POST_ORDER_SUCCESS,
+  RESET_ORIGIN,
+  ORDERED,
+  ORDERS_LOADED,
+  RESET_PER_PAGE,
+  RESET_PAGE,
+  ORDER_LOADED,
+  POST_ORDER_ERROR,
+  POST_ORDER_SUCCESS,
+  FETCH_ORDERS_ERROR, FETCH_ORDERS_SUCCESS,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -178,6 +186,19 @@ export const postOrderError = (payload) => {
 export const postOrderSuccess = () => {
   return {
     type: POST_ORDER_SUCCESS,
+  };
+};
+
+export const fetchOrdersError = (payload) => {
+  return {
+    type: FETCH_ORDERS_ERROR,
+    payload,
+  };
+};
+
+export const fetchOrdersSuccess = () => {
+  return {
+    type: FETCH_ORDERS_SUCCESS,
   };
 };
 
@@ -357,9 +378,15 @@ export const fetchOrders = () => async (dispatch, _, api) =>{
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     const {data} = await api.get(URLs.ORDER, {headers});
+    dispatch(fetchOrdersSuccess());
     return dispatch(ordersLoaded(data.items));
   } catch (error) {
-
+    if (error.message) {
+      return dispatch(fetchOrdersError(error.message));
+    }
+    return dispatch(
+      fetchOrdersError('Something is wrong, please try again later'),
+    );
   }
 }
 

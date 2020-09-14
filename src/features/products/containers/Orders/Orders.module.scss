@@ -52,6 +52,11 @@
   }
 }
 
+.error {
+  width: 50%;
+  margin: auto;
+}
+
 @media all and (max-width: 1500px) {
   .product {
     &__name {
