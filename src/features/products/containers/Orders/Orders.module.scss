@@ -15,7 +15,14 @@
   }
 }
 
-.product {
+.products {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.order {
   box-sizing: border-box;
   height: 100%;
   min-height: 200px;
@@ -31,8 +38,17 @@
   width: 80%;
   margin: 10px auto;
 
-  &__name {
+  &__info {
     font-size: 2em;
+  }
+
+  &__price {
+   align-self: flex-start;
+  }
+
+  &__name {
+    font-size: 1.2em;
+    align-self: flex-start;
   }
 }
 

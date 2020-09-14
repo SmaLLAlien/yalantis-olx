@@ -1,4 +1,4 @@
-import { MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT } from '../global/constants';
+import {MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT, OPTIONS} from '../global/constants';
 
 const groupingArrayById = (array) => {
   return array.reduce((acc, obj) => {
@@ -144,3 +144,7 @@ export const normalizeOrders = arr => {
   })
 }
 
+export const formatDate = (isoString) => {
+  const date = new Date(Date.parse(isoString));
+  return date.toLocaleDateString('en-us', OPTIONS);
+}

@@ -31,3 +31,5 @@ export const VALIDATION_MESSAGES = {
   maxLength: 'Should be not more 20 characters long',
   positiveNumber: 'Should be positive number',
 };
+
+export const OPTIONS = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };

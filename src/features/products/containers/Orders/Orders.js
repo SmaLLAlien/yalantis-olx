@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import classes from "./Orders.module.scss";
-import {CURRENCY} from "../../../../global/constants";
 import PropTypes from 'prop-types';
+import {formatDate} from "../../../../helpers/helpers";
 
 export const Orders = props => {
   const {fetchOrders, orders} = props;
@@ -15,22 +15,17 @@ export const Orders = props => {
   if (orders.length) {
     orderElements = orders.map(order => {
       return (
-        <div key={order.id}>
+        <div key={order.id} className={classes.order} >
+          <div className={classes.order__info}>Order info:</div>
+          <div className={classes.order__date}>Ordered: {formatDate(order.createdAt)}</div>
           {
             order.pieces.map(product => {
-              return <div className={classes.product} key={product.id}>
-                <div className={classes.product__name}>{product.product.name}</div>
-                <div className={classes.product__origin}>
-                  Country:
-                  {product.product.origin.toUpperCase()}
+              return (
+                <div key={product.id} className={classes.products}>
+                  <div className={classes.order__price}>Amount: {product.count}</div>
+                  <div className={classes.order__name}>Item: {product.product.name}</div>
                 </div>
-                <div className={classes.product__price}>
-                  Price:
-                  {product.product.price}
-                  {' '}
-                  {CURRENCY}
-                </div>
-              </div>
+              )
             })
           }
         </div>
