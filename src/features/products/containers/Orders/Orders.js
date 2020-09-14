@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import classes from "./Orders.module.scss";
 import PropTypes from 'prop-types';
-import {formatDate} from "../../../../helpers/helpers";
 import {Link} from "react-router-dom";
+import classes from "./Orders.module.scss";
+import {formatDate} from "../../../../helpers/helpers";
 import {Routes} from "../../../../global/constants";
 import {orderType} from "../../types/types";
 
@@ -18,15 +18,24 @@ export const Orders = props => {
   if (orders.length) {
     orderElements = orders.map(order => {
       return (
-        <Link to={`${Routes.ORDER}/${order.id}`} key={order.id} className={classes.order} >
+        <Link to={`${Routes.ORDER}/${order.id}`} key={order.id} className={classes.order}>
           <div className={classes.order__info}>Order info:</div>
-          <div className={classes.order__date}>Ordered: {formatDate(order.createdAt)}</div>
+          <div className={classes.order__date}>
+            Ordered:
+            {formatDate(order.createdAt)}
+          </div>
           {
             order.pieces.map(product => {
               return (
                 <div key={product.id} className={classes.products}>
-                  <div className={classes.order__price}>Amount: {product.count}</div>
-                  <div className={classes.order__name}>Item: {product.product.name}</div>
+                  <div className={classes.order__price}>
+                    Amount:
+                    {product.count}
+                  </div>
+                  <div className={classes.order__name}>
+                    Item:
+                    {product.product.name}
+                  </div>
                 </div>
               )
             })
@@ -50,5 +59,5 @@ export const Orders = props => {
 
 Orders.propTypes = {
   fetchOrders: PropTypes.func.isRequired,
-  orders: PropTypes.arrayOf(orderType)
+  orders: PropTypes.arrayOf(orderType).isRequired
 }

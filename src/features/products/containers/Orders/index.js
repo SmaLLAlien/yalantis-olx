@@ -1,6 +1,6 @@
+import {connect} from "react-redux";
 import {getOrders} from "../../store/selectors/ordersSelectors";
 import {fetchOrders} from "../../store/actions";
-import {connect} from "react-redux";
 import {Orders} from "./Orders";
 
 const mapStateToProps = state => {

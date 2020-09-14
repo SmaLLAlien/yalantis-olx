@@ -9,11 +9,13 @@ import {
   deleteProductFromBasket,
   increaseProductPieces, order
 } from '../../store/actions';
+import {getPostOrderError} from "../../store/selectors/ordersSelectors";
 
 const mapStateToProps = (state) => {
   return {
     products: getBasketProducts(state),
     total: getTotalBasketPrice(state),
+    postOrderError: getPostOrderError(state)
   };
 };
 

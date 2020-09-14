@@ -18,7 +18,7 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN, ORDERED, ORDERS_LOADED, RESET_PER_PAGE, RESET_PAGE, ORDER_LOADED,
+  RESET_ORIGIN, ORDERED, ORDERS_LOADED, RESET_PER_PAGE, RESET_PAGE, ORDER_LOADED, POST_ORDER_ERROR, POST_ORDER_SUCCESS,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -167,6 +167,19 @@ export const orderLoaded = payload => {
     payload
   }
 }
+
+export const postOrderError = (payload) => {
+  return {
+    type: POST_ORDER_ERROR,
+    payload,
+  };
+};
+
+export const postOrderSuccess = () => {
+  return {
+    type: POST_ORDER_SUCCESS,
+  };
+};
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
@@ -328,9 +341,15 @@ export const order = (products) => async (dispatch, _, api) => {
     const pieces = normalizeOrders(products);
     const order = {pieces}
     await api.post(URLs.ORDER, {order}, {headers});
+    dispatch(postOrderSuccess());
     return dispatch(removeOrdered(products));
   } catch(error) {
-
+    if (error.message) {
+      return dispatch(postOrderError(error.message));
+    }
+    return dispatch(
+      postOrderError('Something is wrong, please try again later'),
+    );
   }
 }
 

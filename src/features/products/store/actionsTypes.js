@@ -23,3 +23,5 @@ export const RESET_PAGE = 'RESET_PAGE';
 export const ORDERED = 'ORDERED';
 export const ORDERS_LOADED = 'ORDERS_LOADED';
 export const ORDER_LOADED = 'ORDER_LOADED';
+export const POST_ORDER_ERROR = 'SAVE_ORDER_ERROR';
+export const POST_ORDER_SUCCESS = 'SAVE_ORDER_SUCCESS';

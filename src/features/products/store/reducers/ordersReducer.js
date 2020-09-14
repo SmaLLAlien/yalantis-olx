@@ -2,7 +2,8 @@ import * as actionTypes from '../actionsTypes';
 
 const initialState = {
   orders: [],
-  order: null
+  order: null,
+  postError: null
 }
 
 const ordersReducer = (state = initialState, action) => {
@@ -11,14 +12,28 @@ const ordersReducer = (state = initialState, action) => {
     case actionTypes.ORDERS_LOADED: {
       return {
         ...state,
-        orders: payload
+        orders: payload,
       }
     }
 
     case actionTypes.ORDER_LOADED: {
       return {
         ...state,
-        order: payload
+        order: payload,
+      }
+    }
+
+    case actionTypes.POST_ORDER_SUCCESS: {
+      return {
+        ...state,
+        postError: null,
+      }
+    }
+
+    case actionTypes.POST_ORDER_ERROR: {
+      return {
+        ...state,
+        postError: payload
       }
     }
 

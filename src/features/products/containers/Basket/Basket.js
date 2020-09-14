@@ -6,6 +6,7 @@ import classes from './Basket.module.scss';
 import { productType } from '../../types/types';
 import BasketTotalInfo from '../../components/BasketTotalInfo/BasketTotalInfo';
 import PiecesControl from '../../components/PiecesControl/PiecesControl';
+import Errors from "../../components/Errors/Errors";
 
 export const Basket = (props) => {
   const {
@@ -14,7 +15,8 @@ export const Basket = (props) => {
     increaseProductPieces,
     total,
     deleteProductFromBasket,
-    order
+    order,
+    postOrderError
   } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
@@ -23,13 +25,15 @@ export const Basket = (props) => {
   );
 
   const orderAllBtn = products.length
-    ? <button
+    ? (
+      <button
         type="button"
         className={classes.product__order}
         onClick={() => order(products)}
       >
         Order All
       </button>
+)
     : null;
 
 
@@ -80,6 +84,9 @@ export const Basket = (props) => {
           >
             Order
           </button>
+          {
+            postOrderError ? <Errors error={postOrderError} /> : null
+          }
         </div>
       );
     });
@@ -104,4 +111,9 @@ Basket.propTypes = {
   deleteProductFromBasket: PropTypes.func.isRequired,
   order: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
+  postOrderError: PropTypes.string,
 };
+
+BasketTotalInfo.defaultProps = {
+  postOrderError: null
+}
