@@ -2,6 +2,9 @@ import React, {useEffect} from "react";
 import classes from "./Orders.module.scss";
 import PropTypes from 'prop-types';
 import {formatDate} from "../../../../helpers/helpers";
+import {Link} from "react-router-dom";
+import {Routes} from "../../../../global/constants";
+import {orderType} from "../../types/types";
 
 export const Orders = props => {
   const {fetchOrders, orders} = props;
@@ -15,7 +18,7 @@ export const Orders = props => {
   if (orders.length) {
     orderElements = orders.map(order => {
       return (
-        <div key={order.id} className={classes.order} >
+        <Link to={`${Routes.ORDER}/${order.id}`} key={order.id} className={classes.order} >
           <div className={classes.order__info}>Order info:</div>
           <div className={classes.order__date}>Ordered: {formatDate(order.createdAt)}</div>
           {
@@ -28,7 +31,7 @@ export const Orders = props => {
               )
             })
           }
-        </div>
+        </Link>
       )
     })
   }
@@ -47,5 +50,5 @@ export const Orders = props => {
 
 Orders.propTypes = {
   fetchOrders: PropTypes.func.isRequired,
-  orders: PropTypes.array
+  orders: PropTypes.arrayOf(orderType)
 }

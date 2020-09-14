@@ -1,7 +1,8 @@
 import * as actionTypes from '../actionsTypes';
 
 const initialState = {
-  orders: []
+  orders: [],
+  order: null
 }
 
 const ordersReducer = (state = initialState, action) => {
@@ -11,6 +12,13 @@ const ordersReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: payload
+      }
+    }
+
+    case actionTypes.ORDER_LOADED: {
+      return {
+        ...state,
+        order: payload
       }
     }
 

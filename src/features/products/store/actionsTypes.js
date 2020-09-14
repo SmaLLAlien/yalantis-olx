@@ -22,3 +22,4 @@ export const RESET_PER_PAGE = 'RESET_PER_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
 export const ORDERED = 'ORDERED';
 export const ORDERS_LOADED = 'ORDERS_LOADED';
+export const ORDER_LOADED = 'ORDER_LOADED';

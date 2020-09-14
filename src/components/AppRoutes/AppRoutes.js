@@ -7,6 +7,7 @@ import NotFound from '../NotFound/NotFound';
 import Layout from '../../features/products/containers/Layout';
 import EditProduct from '../../features/products/containers/EditProduct';
 import Orders from "../../features/products/containers/Orders";
+import Order from "../../features/products/containers/Order";
 
 const AppRoutes = () => (
   <Switch>
@@ -15,6 +16,7 @@ const AppRoutes = () => (
     <Route path={Routes.BASKET} exact component={Basket} />
     <Route path={Routes.EDIT_PRODUCT} exact component={EditProduct} />
     <Route path={Routes.ORDERS} exact component={Orders} />
+    <Route path={Routes.ORDER_DETAIL} exact component={Order} />
 
     <Route exact path="/">
       <Redirect to={Routes.CATALOG} />

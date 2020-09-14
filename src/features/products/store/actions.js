@@ -18,7 +18,7 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN, ORDERED, ORDERS_LOADED, RESET_PER_PAGE, RESET_PAGE,
+  RESET_ORIGIN, ORDERED, ORDERS_LOADED, RESET_PER_PAGE, RESET_PAGE, ORDER_LOADED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -157,6 +157,13 @@ export const removeOrdered = payload => {
 export const ordersLoaded = payload => {
   return {
     type: ORDERS_LOADED,
+    payload
+  }
+}
+
+export const orderLoaded = payload => {
+  return {
+    type: ORDER_LOADED,
     payload
   }
 }
@@ -332,6 +339,16 @@ export const fetchOrders = () => async (dispatch, _, api) =>{
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     const {data} = await api.get(URLs.ORDER, {headers});
     return dispatch(ordersLoaded(data.items));
+  } catch (error) {
+
+  }
+}
+
+export const fetchOrder = (id) =>  async (dispatch, _, api) =>{
+  try {
+    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const {data} = await api.get(`${URLs.ORDER}/${id}`, {headers});
+    return dispatch(orderLoaded(data));
   } catch (error) {
 
   }
