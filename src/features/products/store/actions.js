@@ -18,7 +18,7 @@ import {
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN, ORDERED, ORDERS_LOADED,
+  RESET_ORIGIN, ORDERED, ORDERS_LOADED, RESET_PER_PAGE, RESET_PAGE,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -137,6 +137,14 @@ export const saveProductSuccess = () => {
 
 export const resetOrigin = () => (dispatch) => {
   dispatch({ type: RESET_ORIGIN });
+};
+
+export const resetPerPage = () => (dispatch) => {
+  dispatch({ type: RESET_PER_PAGE });
+};
+
+export const resetPage = () => (dispatch) => {
+  dispatch({ type: RESET_PAGE });
 };
 
 export const removeOrdered = payload => {

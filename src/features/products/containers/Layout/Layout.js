@@ -25,6 +25,8 @@ const Layout = (props) => {
     setOriginQueryToStore,
     isCreateModalOpen,
     resetOrigin,
+    resetPerPage,
+    resetPage
   } = props;
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();
@@ -32,6 +34,9 @@ const Layout = (props) => {
 
   useEffect(() => {
     resetOrigin();
+    resetPerPage();
+    resetPage();
+    resetPrice();
   }, [params]);
 
   useEffect(() => {
@@ -44,6 +49,10 @@ const Layout = (props) => {
   useEffect(() => {
     fetchOrigins();
   }, []);
+
+  const resetPrice = () => {
+
+  }
 
   const onOriginCheckedHandler = (origin) => {
     refactorOriginsSearch(origin, originsArrayFromUrl);
@@ -125,6 +134,8 @@ Layout.propTypes = {
   manageOrigins: PropTypes.func.isRequired,
   setOriginQueryToStore: PropTypes.func.isRequired,
   resetOrigin: PropTypes.func.isRequired,
+  resetPerPage: PropTypes.func.isRequired,
+  resetPage: PropTypes.func.isRequired,
   isCreateModalOpen: PropTypes.bool.isRequired,
   productOrigins: PropTypes.arrayOf(originType).isRequired,
   currentPage: PropTypes.number.isRequired,
