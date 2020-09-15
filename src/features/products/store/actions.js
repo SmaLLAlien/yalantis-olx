@@ -33,7 +33,7 @@ import {
   SAVING_PRODUCT_STARTS,
   SAVING_PRODUCT_FINISHED,
 } from './actionsTypes';
-import {TOKEN, URLs} from '../../../global/constants';
+import { TOKEN, URLs } from '../../../global/constants';
 import {
   changePiecesCount,
   countPrice,
