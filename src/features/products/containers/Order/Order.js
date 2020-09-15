@@ -36,11 +36,11 @@ export const Order = props => {
         order.pieces.map(product => {
           return (
             <div key={product.id} className={classes.products}>
-              <div className={classes.order__price}>
+              <div className={classes.products__price}>
                 Amount:
                 {product.count}
               </div>
-              <div className={classes.order__name}>
+              <div className={classes.products__name}>
                 Item:
                 {product.product.name}
               </div>
@@ -53,7 +53,7 @@ export const Order = props => {
   }
 
   return (
-    <div>{orderDetail}</div>
+    <div className={classes.container}>{orderDetail}</div>
   )
 }
 

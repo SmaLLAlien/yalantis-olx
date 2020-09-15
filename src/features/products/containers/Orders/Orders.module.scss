@@ -20,6 +20,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 80%;
+  box-sizing: border-box;
+  border-left: 1px solid orange;
+  border-right: 1px solid orange;
+  margin-bottom: 20px;
+  padding: 10px;
 }
 
 .order {
@@ -36,9 +42,14 @@
   color: var(--textColor);
   width: 80%;
   margin: 10px auto;
+  text-decoration: none;
 
   &__info {
     font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  &__date  {
     margin-bottom: 20px;
   }
 
@@ -50,7 +61,7 @@
   &__name {
     font-size: 1.2em;
     align-self: flex-start;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
   }
 }
 

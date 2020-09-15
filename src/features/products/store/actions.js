@@ -344,8 +344,8 @@ export const saveProduct = (product, isUserPage) => async (
     dispatch(saveProductSuccess());
     return dispatch(closeCreateProduct());
   } catch (error) {
-    if (error.message) {
-      return dispatch(saveProductError(error.message));
+    if (error.response.data.error.message) {
+      return dispatch(saveProductError(error.response.data.error.message));
     }
     return dispatch(
       saveProductError('Something is wrong, please try again later'),
@@ -360,8 +360,8 @@ export const editProduct = (product, history) => async (dispatch, _, api) => {
     history.goBack();
     return dispatch(saveProductSuccess());
   } catch (error) {
-    if (error.message) {
-      return dispatch(saveProductError(error.message));
+    if (error.response.data.error.message) {
+      return dispatch(saveProductError(error.response.data.error.message));
     }
     return dispatch(
       saveProductError('Something is wrong, please try again later'),
