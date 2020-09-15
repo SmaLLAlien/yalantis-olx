@@ -6,8 +6,8 @@ import Basket from '../../features/products/containers/Basket';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../../features/products/containers/Layout';
 import EditProduct from '../../features/products/containers/EditProduct';
-import Orders from "../../features/products/containers/Orders";
-import Order from "../../features/products/containers/Order";
+import Orders from '../../features/products/containers/Orders';
+import Order from '../../features/products/containers/Order';
 
 const AppRoutes = () => (
   <Switch>

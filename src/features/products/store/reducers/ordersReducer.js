@@ -5,8 +5,8 @@ const initialState = {
   order: null,
   postError: null,
   fetchOrdersError: null,
-  fetchOrderError: null
-}
+  fetchOrderError: null,
+};
 
 const ordersReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -15,61 +15,61 @@ const ordersReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: payload,
-      }
+      };
     }
 
     case actionTypes.ORDER_LOADED: {
       return {
         ...state,
         order: payload,
-      }
+      };
     }
 
     case actionTypes.POST_ORDER_SUCCESS: {
       return {
         ...state,
         postError: null,
-      }
+      };
     }
 
     case actionTypes.POST_ORDER_ERROR: {
       return {
         ...state,
-        postError: payload
-      }
+        postError: payload,
+      };
     }
 
     case actionTypes.FETCH_ORDERS_SUCCESS: {
       return {
         ...state,
         fetchOrdersError: null,
-      }
+      };
     }
 
     case actionTypes.FETCH_ORDERS_ERROR: {
       return {
         ...state,
-        fetchOrdersError: payload
-      }
+        fetchOrdersError: payload,
+      };
     }
 
     case actionTypes.FETCH_ORDER_SUCCESS: {
       return {
         ...state,
         fetchOrderError: null,
-      }
+      };
     }
 
     case actionTypes.FETCH_ORDER_ERROR: {
       return {
         ...state,
-        fetchOrderError: payload
-      }
+        fetchOrderError: payload,
+      };
     }
 
     default:
       return state;
   }
-}
+};
 
 export default ordersReducer;

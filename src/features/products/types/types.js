@@ -1,4 +1,4 @@
-import {shape, number, string, bool, func, arrayOf} from 'prop-types';
+import { shape, number, string, bool, func, arrayOf } from 'prop-types';
 
 export const productType = shape({
   id: string.isRequired,
@@ -43,18 +43,19 @@ export const locationType = shape({
   pathname: string,
 });
 
-export const piecesType = arrayOf(shape({
-  count: number,
-  id: string,
-  product: productType
-}));
+export const piecesType = arrayOf(
+  shape({
+    count: number,
+    id: string,
+    product: productType,
+  }),
+);
 
 export const orderType = shape({
   createdAt: string,
   id: string,
-  pieces: piecesType
+  pieces: piecesType,
 });
-
 
 /*
 createdAt: "2020-09-13T19:28:19.144Z"

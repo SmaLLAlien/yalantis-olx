@@ -3,7 +3,9 @@ import { getOrigins } from '../../store/selectors/selectors';
 import {
   fetchOrigins,
   manageOrigins,
-  resetOrigin, resetPage, resetPerPage,
+  resetOrigin,
+  resetPage,
+  resetPerPage,
   setOriginQueryToStore,
 } from '../../store/actions';
 import {
@@ -30,7 +32,7 @@ const mapDispatchToProps = {
   setOriginQueryToStore,
   resetOrigin,
   resetPerPage,
-  resetPage
+  resetPage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

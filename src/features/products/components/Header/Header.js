@@ -11,15 +11,16 @@ export const Header = (props) => {
   const matchProduct = useRouteMatch(Routes.CATALOG);
   const matchUserProduct = useRouteMatch(Routes.CREATED);
   const basket = matchBasket ? null : <BasketWidget />;
-  const createBtn = (matchProduct || matchUserProduct)
-    ? <button
+  const createBtn =
+    matchProduct || matchUserProduct ? (
+      <button
         type="button"
         className={classes.header__create}
         onClick={openCreateModal}
       >
         Create product
       </button>
-    : null
+    ) : null;
 
   return (
     <>

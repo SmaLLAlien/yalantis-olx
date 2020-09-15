@@ -26,7 +26,7 @@ const Layout = (props) => {
     isCreateModalOpen,
     resetOrigin,
     resetPerPage,
-    resetPage
+    resetPage,
   } = props;
   const history = useHistory();
   const originsArrayFromUrl = useOriginQuery();

@@ -9,15 +9,12 @@ const BasketTotalInfo = (props) => {
   return (
     <>
       <div className={classes.basket__info}>
-        Number of products:
-        {' '}
+        Number of products:{' '}
         {products.reduce((acc, product) => acc + product.pieces, 0)}
       </div>
       <div className={classes.basket__info}>
         Total price:
-        {total} 
-        {' '}
-        {CURRENCY}
+        {total} {CURRENCY}
       </div>
     </>
   );

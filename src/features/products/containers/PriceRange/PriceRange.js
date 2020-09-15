@@ -19,13 +19,12 @@ const PriceRange = (props) => {
   const [minPrice, setMinPrice] = useState(minUrlPrice);
 
   useEffect(() => {
-    setMaxPrice( maxUrlPrice );
+    setMaxPrice(maxUrlPrice);
   }, [maxUrlPrice]);
 
   useEffect(() => {
     setMinPrice(minUrlPrice);
   }, [minUrlPrice]);
-
 
   const maxPriceHandler = (event) => {
     const { target } = event;

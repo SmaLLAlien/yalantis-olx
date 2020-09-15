@@ -9,7 +9,13 @@ import { Routes } from '../../../../global/constants';
 import { originType } from '../../types/types';
 
 export const CreateProduct = (props) => {
-  const { closeCreateModal, origins, saveProduct, saveError, isSavingInProgress } = props;
+  const {
+    closeCreateModal,
+    origins,
+    saveProduct,
+    saveError,
+    isSavingInProgress,
+  } = props;
   const params = useLocation().pathname;
 
   const saveProductHandler = (product) => {
@@ -48,7 +54,7 @@ CreateProduct.propTypes = {
   origins: PropTypes.arrayOf(originType).isRequired,
   saveProduct: PropTypes.func.isRequired,
   saveError: PropTypes.string,
-  isSavingInProgress: PropTypes.bool.isRequired
+  isSavingInProgress: PropTypes.bool.isRequired,
 };
 
 CreateProduct.defaultProps = {

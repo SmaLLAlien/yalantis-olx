@@ -8,7 +8,13 @@ import { VALIDATION_MESSAGES } from '../../../../../global/constants';
 import { originType, productType } from '../../../types/types';
 
 const ProductForm = (props) => {
-  const { onSave, origins, product = null, fetchOrigins, isSavingInProgress } = props;
+  const {
+    onSave,
+    origins,
+    product = null,
+    fetchOrigins,
+    isSavingInProgress,
+  } = props;
 
   let initialValues = {
     name: '',
@@ -48,7 +54,7 @@ const ProductForm = (props) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={e=>onSubmit(e)}
+      onSubmit={(e) => onSubmit(e)}
       validationSchema={validationSchema}
     >
       {(formikProps) => {
@@ -90,7 +96,10 @@ const ProductForm = (props) => {
 
             <div>
               <button
-                disabled={!(formikProps.isValid && formikProps.dirty) || isSavingInProgress}
+                disabled={
+                  !(formikProps.isValid && formikProps.dirty) ||
+                  isSavingInProgress
+                }
                 className={classes.submit}
                 type="submit"
               >
@@ -99,7 +108,7 @@ const ProductForm = (props) => {
               <button
                 disabled={!formikProps.dirty || isSavingInProgress}
                 className={classes.submit}
-                type="reset"
+                type="button"
                 onClick={() => reset(formikProps.resetForm)}
               >
                 Reset
@@ -117,7 +126,7 @@ ProductForm.propTypes = {
   origins: PropTypes.arrayOf(originType),
   product: productType,
   fetchOrigins: PropTypes.func,
-  isSavingInProgress: PropTypes.bool
+  isSavingInProgress: PropTypes.bool.isRequired,
 };
 
 ProductForm.defaultProps = {

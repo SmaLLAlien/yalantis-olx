@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import { getOrigins } from '../../store/selectors/selectors';
-import {getErrorModalState, getLoading} from '../../store/selectors/modalSelectors';
+import {
+  getErrorModalState,
+  getLoading,
+} from '../../store/selectors/modalSelectors';
 import { closeCreateModal, saveProduct } from '../../store/actions';
 import { CreateProduct } from './CreateProduct';
 
@@ -8,7 +11,7 @@ const mapStateToProps = (state) => {
   return {
     origins: getOrigins(state),
     saveError: getErrorModalState(state),
-    isSavingInProgress: getLoading(state)
+    isSavingInProgress: getLoading(state),
   };
 };
 

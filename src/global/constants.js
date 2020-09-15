@@ -15,7 +15,7 @@ export const Routes = {
 export const URLs = {
   PRODUCTS: '/products',
   ORIGINS: '/products-origins',
-  ORDER: '/orders'
+  ORDER: '/orders',
 };
 
 export const CURRENCY = 'UAH';
@@ -34,4 +34,9 @@ export const VALIDATION_MESSAGES = {
   positiveNumber: 'Should be positive number',
 };
 
-export const OPTIONS = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+export const OPTIONS = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};

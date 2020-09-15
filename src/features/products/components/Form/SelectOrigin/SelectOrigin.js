@@ -26,8 +26,7 @@ const SelectOrigin = (props) => {
   return (
     <div>
       <label className={classes.label} htmlFor={name}>
-        {label}
-        :
+        {label}:
       </label>
       <FastField
         style={getStyles(errors, name, touched)}
@@ -35,7 +34,7 @@ const SelectOrigin = (props) => {
         as="select"
         id={name}
         name={name}
-       disabled={disabled}
+        disabled={disabled}
       >
         <option hidden className={classes.option} defaultValue>
           Select origin
@@ -61,7 +60,7 @@ SelectOrigin.propTypes = {
   options: PropTypes.arrayOf(originType).isRequired,
   touched: productTouchedType,
   errors: productErrorsType,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
 };
 
 SelectOrigin.defaultProps = {

@@ -1,18 +1,18 @@
-import React, {useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classes from "./Order.module.scss";
-import {formatDate} from "../../../../helpers/helpers";
-import {orderType} from "../../types/types";
-import Errors from "../../components/Errors/Errors";
+import classes from './Order.module.scss';
+import { formatDate } from '../../../../helpers/helpers';
+import { orderType } from '../../types/types';
+import Errors from '../../components/Errors/Errors';
 
-export const Order = props => {
-  const {fetchOrder, order, fetchOrderError} = props;
-  const {id} = useParams();
+export const Order = (props) => {
+  const { fetchOrder, order, fetchOrderError } = props;
+  const { id } = useParams();
 
   useEffect(() => {
     fetchOrder(id);
-  }, [id])
+  }, [id]);
 
   let orderDetail = 'Loading';
 
@@ -21,7 +21,7 @@ export const Order = props => {
       <div className={classes.error}>
         <Errors error={fetchOrderError} showError={() => fetchOrder(id)} />
       </div>
-);
+    );
   }
 
   if (order && !fetchOrderError) {
@@ -32,8 +32,7 @@ export const Order = props => {
           Ordered:
           {formatDate(order.createdAt)}
         </div>
-        {
-        order.pieces.map(product => {
+        {order.pieces.map((product) => {
           return (
             <div key={product.id} className={classes.products}>
               <div className={classes.products__price}>
@@ -45,25 +44,22 @@ export const Order = props => {
                 {product.product.name}
               </div>
             </div>
-          )
-        })
-      }
+          );
+        })}
       </div>
-)
+    );
   }
 
-  return (
-    <div className={classes.container}>{orderDetail}</div>
-  )
-}
+  return <div className={classes.container}>{orderDetail}</div>;
+};
 
 Order.propTypes = {
   fetchOrder: PropTypes.func.isRequired,
   fetchOrderError: PropTypes.string,
-  order: orderType
-}
+  order: orderType,
+};
 
 Order.defaultProps = {
   order: null,
-  fetchOrderError: null
-}
+  fetchOrderError: null,
+};

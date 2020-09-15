@@ -7,15 +7,16 @@ import {
 import {
   decreaseProductPieces,
   deleteProductFromBasket,
-  increaseProductPieces, orderProduct
+  increaseProductPieces,
+  orderProduct,
 } from '../../store/actions';
-import {getPostOrderError} from "../../store/selectors/ordersSelectors";
+import { getPostOrderError } from '../../store/selectors/ordersSelectors';
 
 const mapStateToProps = (state) => {
   return {
     products: getBasketProducts(state),
     total: getTotalBasketPrice(state),
-    postOrderError: getPostOrderError(state)
+    postOrderError: getPostOrderError(state),
   };
 };
 
@@ -23,7 +24,7 @@ const mapDispatchToProps = {
   decreaseProductPieces,
   increaseProductPieces,
   deleteProductFromBasket,
-  order: orderProduct
+  order: orderProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);

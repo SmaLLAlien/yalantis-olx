@@ -22,8 +22,7 @@ const Input = (props) => {
   return (
     <div>
       <label className={classes.label} htmlFor={name}>
-        {label}
-        :
+        {label}:
       </label>
       <FastField
         style={getStyles(errors, name, touched)}

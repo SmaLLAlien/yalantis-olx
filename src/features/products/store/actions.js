@@ -36,7 +36,8 @@ import {
 import { URLs } from '../../../global/constants';
 import {
   changePiecesCount,
-  countPrice, normalizeOrders,
+  countPrice,
+  normalizeOrders,
   normalizeOrigins,
   onProductChosen,
 } from '../../../helpers/helpers';
@@ -160,26 +161,26 @@ export const resetPage = () => (dispatch) => {
   dispatch({ type: RESET_PAGE });
 };
 
-export const removeOrdered = payload => {
+export const removeOrdered = (payload) => {
   return {
     type: ORDERED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const ordersLoaded = payload => {
+export const ordersLoaded = (payload) => {
   return {
     type: ORDERS_LOADED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
-export const orderLoaded = payload => {
+export const orderLoaded = (payload) => {
   return {
     type: ORDER_LOADED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const postOrderError = (payload) => {
   return {
@@ -222,15 +223,15 @@ export const fetchOrderSuccess = () => {
 
 export const savingProductStarts = () => {
   return {
-    type: SAVING_PRODUCT_STARTS
-  }
-}
+    type: SAVING_PRODUCT_STARTS,
+  };
+};
 
 export const savingProductFinished = () => {
   return {
-    type: SAVING_PRODUCT_FINISHED
-  }
-}
+    type: SAVING_PRODUCT_FINISHED,
+  };
+};
 
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
@@ -396,11 +397,11 @@ export const orderProduct = (products) => async (dispatch, _, api) => {
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     const pieces = normalizeOrders(products);
-    const order = {pieces}
-    await api.post(URLs.ORDER, {order}, {headers});
+    const order = { pieces };
+    await api.post(URLs.ORDER, { order }, { headers });
     dispatch(postOrderSuccess());
     return dispatch(removeOrdered(products));
-  } catch(error) {
+  } catch (error) {
     if (error.message) {
       return dispatch(postOrderError(error.message));
     }
@@ -408,12 +409,12 @@ export const orderProduct = (products) => async (dispatch, _, api) => {
       postOrderError('Something is wrong, please try again later'),
     );
   }
-}
+};
 
-export const fetchOrders = () => async (dispatch, _, api) =>{
+export const fetchOrders = () => async (dispatch, _, api) => {
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
-    const {data} = await api.get(URLs.ORDER, {headers});
+    const { data } = await api.get(URLs.ORDER, { headers });
     dispatch(fetchOrdersSuccess());
     return dispatch(ordersLoaded(data.items));
   } catch (error) {
@@ -424,12 +425,12 @@ export const fetchOrders = () => async (dispatch, _, api) =>{
       fetchOrdersError('Something is wrong, please try again later'),
     );
   }
-}
+};
 
-export const fetchOrder = (id) =>  async (dispatch, _, api) =>{
+export const fetchOrder = (id) => async (dispatch, _, api) => {
   try {
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
-    const {data} = await api.get(`${URLs.ORDER}/${id}`, {headers});
+    const { data } = await api.get(`${URLs.ORDER}/${id}`, { headers });
     dispatch(fetchOrderSuccess());
     return dispatch(orderLoaded(data));
   } catch (error) {
@@ -440,4 +441,4 @@ export const fetchOrder = (id) =>  async (dispatch, _, api) =>{
       fetchOrderError('Something is wrong, please try again later'),
     );
   }
-}
+};

@@ -6,7 +6,7 @@ import classes from './Basket.module.scss';
 import { productType } from '../../types/types';
 import BasketTotalInfo from '../../components/BasketTotalInfo/BasketTotalInfo';
 import PiecesControl from '../../components/PiecesControl/PiecesControl';
-import Errors from "../../components/Errors/Errors";
+import Errors from '../../components/Errors/Errors';
 
 export const Basket = (props) => {
   const {
@@ -16,7 +16,7 @@ export const Basket = (props) => {
     total,
     deleteProductFromBasket,
     order,
-    postOrderError
+    postOrderError,
   } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
@@ -24,18 +24,15 @@ export const Basket = (props) => {
     </div>
   );
 
-  const orderAllBtn = products.length
-    ? (
-      <button
-        type="button"
-        className={classes.product__order}
-        onClick={() => order(products)}
-      >
-        Order All
-      </button>
-)
-    : null;
-
+  const orderAllBtn = products.length ? (
+    <button
+      type="button"
+      className={classes.product__order}
+      onClick={() => order(products)}
+    >
+      Order All
+    </button>
+  ) : null;
 
   if (products.length) {
     productsElements = products.map((product) => {
@@ -65,9 +62,7 @@ export const Basket = (props) => {
             </div>
             <div className={classes.product__total}>
               Total price:
-              {product.pieces * product.price}
-              {' '}
-              {CURRENCY}
+              {product.pieces * product.price} {CURRENCY}
             </div>
           </div>
           <button
@@ -84,9 +79,7 @@ export const Basket = (props) => {
           >
             Order
           </button>
-          {
-            postOrderError ? <Errors error={postOrderError} /> : null
-          }
+          {postOrderError ? <Errors error={postOrderError} /> : null}
         </div>
       );
     });
@@ -115,5 +108,5 @@ Basket.propTypes = {
 };
 
 Basket.defaultProps = {
-  postOrderError: null
-}
+  postOrderError: null,
+};

@@ -5,17 +5,15 @@ import classes from './Errors.module.scss';
 const Errors = (props) => {
   const { error, showError } = props;
 
-  const tryAgain = showError
-    ? (
-      <button
-        type="button"
-        className={classes.error__button}
-        onClick={() => showError()}
-      >
-        Try again
-      </button>
-)
-    : null
+  const tryAgain = showError ? (
+    <button
+      type="button"
+      className={classes.error__button}
+      onClick={() => showError()}
+    >
+      Try again
+    </button>
+  ) : null;
 
   return (
     <div className={classes.error}>
@@ -31,7 +29,7 @@ Errors.propTypes = {
 };
 
 Errors.defaultProps = {
-  showError: null
-}
+  showError: null,
+};
 
 export default Errors;

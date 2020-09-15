@@ -4,7 +4,7 @@ const initialState = {
   openCreate: false,
   error: null,
   success: false,
-  loading: false
+  loading: false,
 };
 
 export const modalReducer = (state = initialState, action) => {
@@ -43,14 +43,14 @@ export const modalReducer = (state = initialState, action) => {
     case actionTypes.SAVING_PRODUCT_STARTS: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
 
     case actionTypes.SAVING_PRODUCT_FINISHED: {
       return {
         ...state,
-        loading: false
+        loading: false,
       };
     }
 

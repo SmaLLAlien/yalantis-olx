@@ -1,17 +1,20 @@
-import {connect} from "react-redux";
-import {fetchOrder} from "../../store/actions";
-import {Order} from "./Order";
-import {getFetchOrderError, getOrder} from "../../store/selectors/ordersSelectors";
+import { connect } from 'react-redux';
+import { fetchOrder } from '../../store/actions';
+import { Order } from './Order';
+import {
+  getFetchOrderError,
+  getOrder,
+} from '../../store/selectors/ordersSelectors';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     order: getOrder(state),
-    fetchOrderError: getFetchOrderError(state)
-  }
-}
+    fetchOrderError: getFetchOrderError(state),
+  };
+};
 
 const mapDispatchToProps = {
-  fetchOrder
-}
+  fetchOrder,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);

@@ -16,7 +16,7 @@ export const EditProduct = (props) => {
     origins,
     saveError,
     fetchOrigins,
-    isSavingInProgress
+    isSavingInProgress,
   } = props;
 
   const { id } = useParams();
@@ -25,7 +25,6 @@ export const EditProduct = (props) => {
   useEffect(() => {
     fetchProduct(id);
   }, [id]);
-
 
   const saveProductHandler = (value) => {
     editProduct(value, history);
@@ -72,7 +71,7 @@ EditProduct.propTypes = {
   origins: PropTypes.arrayOf(originType),
   saveError: PropTypes.string,
   fetchOrigins: PropTypes.func.isRequired,
-  isSavingInProgress: PropTypes.bool.isRequired
+  isSavingInProgress: PropTypes.bool.isRequired,
 };
 
 EditProduct.defaultProps = {
