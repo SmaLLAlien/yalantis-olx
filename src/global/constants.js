@@ -40,3 +40,5 @@ export const OPTIONS = {
   month: 'long',
   day: 'numeric',
 };
+
+export const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IlZsYWRpc2xhdiBC0ZZsb3Vzb3YiLCJpYXQiOjE1OTkwNzQ4MTcsImV4cCI6MTYwNDI1ODgxN30.0bS88MjIlEZu0jxUfzNZVzi3hh44e3PR9Rs0AuXTL7E';

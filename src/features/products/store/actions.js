@@ -33,7 +33,7 @@ import {
   SAVING_PRODUCT_STARTS,
   SAVING_PRODUCT_FINISHED,
 } from './actionsTypes';
-import { URLs } from '../../../global/constants';
+import {TOKEN, URLs} from '../../../global/constants';
 import {
   changePiecesCount,
   countPrice,
@@ -237,7 +237,7 @@ export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
     let headers;
     if (searchParams && searchParams.includes('editable')) {
-      headers = { Authorization: process.env.REACT_APP_TOKEN };
+      headers = { Authorization: TOKEN };
     }
     const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`, {
       headers,
@@ -261,7 +261,7 @@ export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
 export const fetchProduct = (id) => async (dispatch, _, api) => {
   dispatch(loading());
   try {
-    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const headers = { Authorization: TOKEN };
     const { data } = await api.get(`${URLs.PRODUCTS}/${id}`, { headers });
     dispatch(loadingSucceeded());
     return dispatch(productDetailLoaded(data));
@@ -357,7 +357,7 @@ export const saveProduct = (product, isUserPage) => async (
 ) => {
   try {
     dispatch(savingProductStarts());
-    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const headers = { Authorization: TOKEN };
     await api.post(URLs.PRODUCTS, { product }, { headers });
     dispatch(fetchProducts(isUserPage));
     dispatch(saveProductSuccess());
@@ -377,7 +377,7 @@ export const saveProduct = (product, isUserPage) => async (
 export const editProduct = (product, history) => async (dispatch, _, api) => {
   try {
     dispatch(savingProductStarts());
-    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const headers = { Authorization: TOKEN };
     await api.patch(`${URLs.PRODUCTS}/${product.id}`, { product }, { headers });
     dispatch(savingProductFinished());
     history.goBack();
@@ -395,7 +395,7 @@ export const editProduct = (product, history) => async (dispatch, _, api) => {
 
 export const orderProduct = (products) => async (dispatch, _, api) => {
   try {
-    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const headers = { Authorization: TOKEN };
     const pieces = normalizeOrders(products);
     const order = { pieces };
     await api.post(URLs.ORDER, { order }, { headers });
@@ -413,7 +413,7 @@ export const orderProduct = (products) => async (dispatch, _, api) => {
 
 export const fetchOrders = () => async (dispatch, _, api) => {
   try {
-    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const headers = { Authorization: TOKEN };
     const { data } = await api.get(URLs.ORDER, { headers });
     dispatch(fetchOrdersSuccess());
     return dispatch(ordersLoaded(data.items));
@@ -429,7 +429,7 @@ export const fetchOrders = () => async (dispatch, _, api) => {
 
 export const fetchOrder = (id) => async (dispatch, _, api) => {
   try {
-    const headers = { Authorization: process.env.REACT_APP_TOKEN };
+    const headers = { Authorization: TOKEN };
     const { data } = await api.get(`${URLs.ORDER}/${id}`, { headers });
     dispatch(fetchOrderSuccess());
     return dispatch(orderLoaded(data));
