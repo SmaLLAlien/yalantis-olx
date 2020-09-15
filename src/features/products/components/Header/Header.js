@@ -7,19 +7,24 @@ import classes from './Header.module.scss';
 
 export const Header = (props) => {
   const { openCreateModal } = props;
-  const match = useRouteMatch(Routes.BASKET);
-  const basket = match ? null : <BasketWidget />;
+  const matchBasket = useRouteMatch(Routes.BASKET);
+  const matchProduct = useRouteMatch(Routes.CATALOG);
+  const matchUserProduct = useRouteMatch(Routes.CREATED);
+  const basket = matchBasket ? null : <BasketWidget />;
+  const createBtn = (matchProduct || matchUserProduct)
+    ? <button
+        type="button"
+        className={classes.header__create}
+        onClick={openCreateModal}
+      >
+        Create product
+      </button>
+    : null
 
   return (
     <>
       <div className={classes.header}>
-        <button
-          type="button"
-          className={classes.header__create}
-          onClick={openCreateModal}
-        >
-          Create product
-        </button>
+        {createBtn}
         <nav className={classes.header__navigation}>
           <NavLink
             className={classes.header__link}

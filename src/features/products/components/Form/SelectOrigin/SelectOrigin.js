@@ -10,7 +10,7 @@ import {
 } from '../../../types/types';
 
 const SelectOrigin = (props) => {
-  const { name, label, options, touched, errors } = props;
+  const { name, label, options, touched, errors, disabled } = props;
 
   const getStyles = (errorsControls, fieldName, touchedFields) => {
     if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
@@ -35,6 +35,7 @@ const SelectOrigin = (props) => {
         as="select"
         id={name}
         name={name}
+       disabled={disabled}
       >
         <option hidden className={classes.option} defaultValue>
           Select origin
@@ -60,6 +61,7 @@ SelectOrigin.propTypes = {
   options: PropTypes.arrayOf(originType).isRequired,
   touched: productTouchedType,
   errors: productErrorsType,
+  disabled: PropTypes.bool.isRequired
 };
 
 SelectOrigin.defaultProps = {

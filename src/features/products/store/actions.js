@@ -26,7 +26,12 @@ import {
   ORDER_LOADED,
   POST_ORDER_ERROR,
   POST_ORDER_SUCCESS,
-  FETCH_ORDERS_ERROR, FETCH_ORDERS_SUCCESS, FETCH_ORDER_ERROR, FETCH_ORDER_SUCCESS,
+  FETCH_ORDERS_ERROR,
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDER_ERROR,
+  FETCH_ORDER_SUCCESS,
+  SAVING_PRODUCT_STARTS,
+  SAVING_PRODUCT_FINISHED,
 } from './actionsTypes';
 import { URLs } from '../../../global/constants';
 import {
@@ -215,6 +220,18 @@ export const fetchOrderSuccess = () => {
   };
 };
 
+export const savingProductStarts = () => {
+  return {
+    type: SAVING_PRODUCT_STARTS
+  }
+}
+
+export const savingProductFinished = () => {
+  return {
+    type: SAVING_PRODUCT_FINISHED
+  }
+}
+
 export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
   try {
     let headers;
@@ -338,12 +355,15 @@ export const saveProduct = (product, isUserPage) => async (
   api,
 ) => {
   try {
+    dispatch(savingProductStarts());
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     await api.post(URLs.PRODUCTS, { product }, { headers });
     dispatch(fetchProducts(isUserPage));
     dispatch(saveProductSuccess());
+    dispatch(savingProductFinished());
     return dispatch(closeCreateProduct());
   } catch (error) {
+    dispatch(savingProductFinished());
     if (error.response.data.error.message) {
       return dispatch(saveProductError(error.response.data.error.message));
     }
@@ -355,11 +375,14 @@ export const saveProduct = (product, isUserPage) => async (
 
 export const editProduct = (product, history) => async (dispatch, _, api) => {
   try {
+    dispatch(savingProductStarts());
     const headers = { Authorization: process.env.REACT_APP_TOKEN };
     await api.patch(`${URLs.PRODUCTS}/${product.id}`, { product }, { headers });
+    dispatch(savingProductFinished());
     history.goBack();
     return dispatch(saveProductSuccess());
   } catch (error) {
+    dispatch(savingProductFinished());
     if (error.response.data.error.message) {
       return dispatch(saveProductError(error.response.data.error.message));
     }

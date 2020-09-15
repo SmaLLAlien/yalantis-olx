@@ -9,7 +9,7 @@ import { Routes } from '../../../../global/constants';
 import { originType } from '../../types/types';
 
 export const CreateProduct = (props) => {
-  const { closeCreateModal, origins, saveProduct, saveError } = props;
+  const { closeCreateModal, origins, saveProduct, saveError, isSavingInProgress } = props;
   const params = useLocation().pathname;
 
   const saveProductHandler = (product) => {
@@ -31,6 +31,7 @@ export const CreateProduct = (props) => {
         <ProductForm
           origins={origins}
           onSave={(product) => saveProductHandler(product)}
+          isSavingInProgress={isSavingInProgress}
         />
         {saveError ? (
           <div className={classes.create__error}>
@@ -47,6 +48,7 @@ CreateProduct.propTypes = {
   origins: PropTypes.arrayOf(originType).isRequired,
   saveProduct: PropTypes.func.isRequired,
   saveError: PropTypes.string,
+  isSavingInProgress: PropTypes.bool.isRequired
 };
 
 CreateProduct.defaultProps = {

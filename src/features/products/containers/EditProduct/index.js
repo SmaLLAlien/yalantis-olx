@@ -4,7 +4,7 @@ import {
   getOrigins,
 } from '../../store/selectors/selectors';
 import {
-  getErrorModalState,
+  getErrorModalState, getLoading,
   getSavingStatus,
 } from '../../store/selectors/modalSelectors';
 import {
@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
     product: getDetailedProduct(state),
     saveError: getErrorModalState(state),
     isSaved: getSavingStatus(state),
+    isSavingInProgress: getLoading(state)
   };
 };
 

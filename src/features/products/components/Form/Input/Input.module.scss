@@ -20,6 +20,11 @@
   margin-bottom: 20px;
 }
 
+.input:disabled {
+  color: lightgrey;
+  border-color: lightgrey;
+}
+
 .error {
   color: var(--error);
 }

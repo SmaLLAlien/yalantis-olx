@@ -8,7 +8,7 @@ import { VALIDATION_MESSAGES } from '../../../../../global/constants';
 import { originType, productType } from '../../../types/types';
 
 const ProductForm = (props) => {
-  const { onSave, origins, product = null, fetchOrigins } = props;
+  const { onSave, origins, product = null, fetchOrigins, isSavingInProgress } = props;
 
   let initialValues = {
     name: '',
@@ -48,7 +48,7 @@ const ProductForm = (props) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={e=>onSubmit(e)}
       validationSchema={validationSchema}
     >
       {(formikProps) => {
@@ -62,6 +62,7 @@ const ProductForm = (props) => {
               touched={formikProps.touched}
               errors={formikProps.errors}
               placeholder="Product name"
+              disabled={isSavingInProgress}
             />
 
             <FormikControl
@@ -72,6 +73,7 @@ const ProductForm = (props) => {
               touched={formikProps.touched}
               errors={formikProps.errors}
               placeholder="Product price"
+              disabled={isSavingInProgress}
             />
 
             <FormikControl
@@ -83,20 +85,21 @@ const ProductForm = (props) => {
               errors={formikProps.errors}
               setFieldValue={formikProps.setFieldValue}
               placeholder="Product origin"
+              disabled={isSavingInProgress}
             />
 
             <div>
               <button
-                disabled={!(formikProps.isValid && formikProps.dirty)}
+                disabled={!(formikProps.isValid && formikProps.dirty) || isSavingInProgress}
                 className={classes.submit}
                 type="submit"
               >
                 Submit
               </button>
               <button
-                disabled={!formikProps.dirty}
+                disabled={!formikProps.dirty || isSavingInProgress}
                 className={classes.submit}
-                type="submit"
+                type="reset"
                 onClick={() => reset(formikProps.resetForm)}
               >
                 Reset
@@ -114,6 +117,7 @@ ProductForm.propTypes = {
   origins: PropTypes.arrayOf(originType),
   product: productType,
   fetchOrigins: PropTypes.func,
+  isSavingInProgress: PropTypes.bool
 };
 
 ProductForm.defaultProps = {

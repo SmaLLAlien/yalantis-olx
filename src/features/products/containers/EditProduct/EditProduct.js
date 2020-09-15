@@ -16,6 +16,7 @@ export const EditProduct = (props) => {
     origins,
     saveError,
     fetchOrigins,
+    isSavingInProgress
   } = props;
 
   const { id } = useParams();
@@ -51,6 +52,7 @@ export const EditProduct = (props) => {
           onSave={(value) => saveProductHandler(value)}
           product={product}
           fetchOrigins={fetchOrigins}
+          isSavingInProgress={isSavingInProgress}
         />
         {saveError ? (
           <div className={classes.create__error}>
@@ -70,6 +72,7 @@ EditProduct.propTypes = {
   origins: PropTypes.arrayOf(originType),
   saveError: PropTypes.string,
   fetchOrigins: PropTypes.func.isRequired,
+  isSavingInProgress: PropTypes.bool.isRequired
 };
 
 EditProduct.defaultProps = {
