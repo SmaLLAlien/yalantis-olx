@@ -8,20 +8,21 @@ import {
   productErrorsType,
   productTouchedType,
 } from '../../../types/types';
+import {getStyles} from "../../../../../helpers/helpers";
 
 const SelectOrigin = (props) => {
   const { name, label, options, touched, errors, disabled } = props;
 
-  const getStyles = (errorsControls, fieldName, touchedFields) => {
-    if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
-      return {
-        border: '1px solid red',
-        borderLeftWidth: '5px',
-        transition: '0.5s all',
-      };
-    }
-    return null;
-  };
+  // const getStyles = (errorsControls, fieldName, touchedFields) => {
+  //   if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
+  //     return {
+  //       border: '1px solid red',
+  //       borderLeftWidth: '5px',
+  //       transition: '0.5s all',
+  //     };
+  //   }
+  //   return null;
+  // };
 
   return (
     <div>
@@ -29,7 +30,7 @@ const SelectOrigin = (props) => {
         {label}:
       </label>
       <FastField
-        style={getStyles(errors, name, touched)}
+        style={getStyles(errors, name, touched, getIn)}
         className={classes.input}
         as="select"
         id={name}

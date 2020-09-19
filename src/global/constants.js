@@ -45,3 +45,9 @@ export const TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IlZsYWRpc' +
   '2xhdiBC0ZZsb3Vzb3YiLCJpYXQiOjE1OTkwNzQ4MTcsImV4cCI6MTYwNDI1ODgx' +
   'N30.0bS88MjIlEZu0jxUfzNZVzi3hh44e3PR9Rs0AuXTL7E';
+
+export const createProductInitialValues = {
+  name: '',
+  origin: '',
+  price: '',
+}

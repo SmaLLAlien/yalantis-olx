@@ -39,10 +39,7 @@ const Layout = (props) => {
   }, [params]);
 
   useEffect(() => {
-    const storeOrigins = () => {
-      setOriginQueryToStore(originsArrayFromUrl);
-    };
-    storeOrigins();
+    setOriginQueryToStore(originsArrayFromUrl);
   }, [originsArrayFromUrl]);
 
   useEffect(() => {

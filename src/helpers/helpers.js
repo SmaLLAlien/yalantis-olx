@@ -152,3 +152,14 @@ export const formatDate = (isoString) => {
   const date = new Date(Date.parse(isoString));
   return date.toLocaleDateString('en-us', OPTIONS);
 };
+
+export const getStyles = (errorsControls, fieldName, touchedFields, isInclude) => {
+  if (isInclude(errorsControls, fieldName) && isInclude(touchedFields, fieldName)) {
+    return {
+      border: '1px solid red',
+      borderLeftWidth: '5px',
+      transition: '0.5s all',
+    };
+  }
+  return null;
+};

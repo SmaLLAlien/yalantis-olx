@@ -4,20 +4,21 @@ import PropTypes from 'prop-types';
 import TextError from '../TextError/TextError';
 import classes from './Input.module.scss';
 import { productErrorsType, productTouchedType } from '../../../types/types';
+import {getStyles} from "../../../../../helpers/helpers";
 
 const Input = (props) => {
   const { label, name, errors, touched, ...rest } = props;
 
-  const getStyles = (errorsControls, fieldName, touchedFields) => {
-    if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
-      return {
-        border: '1px solid red',
-        borderLeftWidth: '5px',
-        transition: '0.5s all',
-      };
-    }
-    return null;
-  };
+  // const getStyles = (errorsControls, fieldName, touchedFields) => {
+  //   if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
+  //     return {
+  //       border: '1px solid red',
+  //       borderLeftWidth: '5px',
+  //       transition: '0.5s all',
+  //     };
+  //   }
+  //   return null;
+  // };
 
   return (
     <div>
@@ -25,7 +26,7 @@ const Input = (props) => {
         {label}:
       </label>
       <FastField
-        style={getStyles(errors, name, touched)}
+        style={getStyles(errors, name, touched, getIn)}
         className={classes.input}
         id={name}
         name={name}
