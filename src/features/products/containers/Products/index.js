@@ -1,30 +1,23 @@
 import { connect } from 'react-redux';
-import { Products } from './Products';
-import { getOrigins } from '../../store/selectors/selectors';
 import {
-  fetchOrigins,
-  manageOrigins,
-  setOriginQueryToStore,
-} from '../../store/actions';
-import {
-  getCurrentPage,
-  getPerPage,
-  getTotalItems,
-} from '../../store/selectors/pageSelectors';
+  getBasketProducts,
+  getProducts,
+} from '../../store/selectors/selectors';
+import { fetchProducts, onAddToBasketProduct } from '../../store/actions';
+import { getHttpError } from '../../store/selectors/httpErrorSelectors';
+import Products from './Products';
 
 const mapStateToProps = (state) => {
   return {
-    productOrigins: getOrigins(state),
-    currentPage: getCurrentPage(state),
-    perPage: getPerPage(state),
-    totalItems: getTotalItems(state),
+    products: getProducts(state),
+    purchasing: getBasketProducts(state),
+    serverError: getHttpError(state),
   };
 };
 
 const mapDispatchToProps = {
-  fetchOrigins,
-  manageOrigins,
-  setOriginQueryToStore,
+  fetchProducts,
+  onAddToBasketProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

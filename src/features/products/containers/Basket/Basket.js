@@ -6,6 +6,7 @@ import classes from './Basket.module.scss';
 import { productType } from '../../types/types';
 import BasketTotalInfo from '../../components/BasketTotalInfo/BasketTotalInfo';
 import PiecesControl from '../../components/PiecesControl/PiecesControl';
+import Errors from '../../components/Errors/Errors';
 
 export const Basket = (props) => {
   const {
@@ -14,12 +15,24 @@ export const Basket = (props) => {
     increaseProductPieces,
     total,
     deleteProductFromBasket,
+    order,
+    postOrderError,
   } = props;
   let productsElements = (
     <div className={classes.basket__empty}>
       The basket is empty. But it&apos;s never too late to fix it :)
     </div>
   );
+
+  const orderAllBtn = products.length ? (
+    <button
+      type="button"
+      className={classes.product__order}
+      onClick={() => order(products)}
+    >
+      Order All
+    </button>
+  ) : null;
 
   if (products.length) {
     productsElements = products.map((product) => {
@@ -59,6 +72,14 @@ export const Basket = (props) => {
           >
             x
           </button>
+          <button
+            type="button"
+            className={classes.product__order}
+            onClick={() => order([product])}
+          >
+            Order
+          </button>
+          {postOrderError ? <Errors error={postOrderError} /> : null}
         </div>
       );
     });
@@ -66,11 +87,12 @@ export const Basket = (props) => {
 
   return (
     <div className={classes.basket}>
-      <Link to={Routes.PRODUCTS} className={classes.back}>
+      <Link to={Routes.CATALOG} className={classes.back}>
         Back to products
       </Link>
       <BasketTotalInfo total={total} products={products} />
       {productsElements}
+      {orderAllBtn}
     </div>
   );
 };
@@ -80,5 +102,11 @@ Basket.propTypes = {
   increaseProductPieces: PropTypes.func.isRequired,
   decreaseProductPieces: PropTypes.func.isRequired,
   deleteProductFromBasket: PropTypes.func.isRequired,
+  order: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
+  postOrderError: PropTypes.string,
+};
+
+Basket.defaultProps = {
+  postOrderError: null,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classes from './PriceRange.module.scss';
 import {
@@ -13,9 +13,18 @@ import {
 const PriceRange = (props) => {
   const minUrlPrice = getQueryVariable('minPrice') || 0;
   const maxUrlPrice = getQueryVariable('maxPrice') || MAX_PRICE_DEFAULT;
+
   const { changedPrice } = props;
   const [maxPrice, setMaxPrice] = useState(maxUrlPrice);
   const [minPrice, setMinPrice] = useState(minUrlPrice);
+
+  useEffect(() => {
+    setMaxPrice(maxUrlPrice);
+  }, [maxUrlPrice]);
+
+  useEffect(() => {
+    setMinPrice(minUrlPrice);
+  }, [minUrlPrice]);
 
   const maxPriceHandler = (event) => {
     const { target } = event;

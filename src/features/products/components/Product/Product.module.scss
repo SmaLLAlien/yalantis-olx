@@ -12,6 +12,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  position: relative;
+
+  &__edit {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+    background: var(--yellow-gradient);
+    color: #ccc;
+  }
 
   &__name {
     font-size: 2em;
@@ -26,6 +38,7 @@
     border-radius: 10px;
     text-transform: capitalize;
     color: #ccc;
+    display: block;
   }
 
   &__buy:hover {

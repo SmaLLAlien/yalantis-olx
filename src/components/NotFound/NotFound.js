@@ -4,7 +4,7 @@ import classes from './NotFound.module.scss';
 import { Routes } from '../../global/constants';
 
 const NotFound = () => (
-  <Link to={Routes.PRODUCTS} className={classes.link}>
+  <Link to={Routes.CATALOG} className={classes.link}>
     <div className={classes.container}>
       <p className={classes.text}>404</p>
     </div>

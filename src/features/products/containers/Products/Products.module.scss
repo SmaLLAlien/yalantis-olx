@@ -1,20 +1,13 @@
 .products {
   display: flex;
+  flex-direction: column;
+  color: var(--textColor);
+  justify-content: center;
+  align-items: center;
 
-  &__controls {
-    min-width: 250px;
-    width: 20%;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-}
-
-@media all and (max-width: 960px) {
-  .products {
-    flex-direction: column;
-
-    &__controls {
-      width: 100%;
-    }
+  &__title {
+    margin: 20px 0;
+    font-size: 1.5em;
+    text-transform: uppercase;
   }
 }

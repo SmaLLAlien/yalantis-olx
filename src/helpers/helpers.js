@@ -1,4 +1,8 @@
-import { MAX_PRICE_DEFAULT, MIN_PRICE_DEFAULT } from '../global/constants';
+import {
+  MAX_PRICE_DEFAULT,
+  MIN_PRICE_DEFAULT,
+  OPTIONS,
+} from '../global/constants';
 
 const groupingArrayById = (array) => {
   return array.reduce((acc, obj) => {
@@ -136,4 +140,34 @@ export const refactorOriginsSearch = (newOrigin, originsArray) => {
   } else {
     originsArray.push(newOrigin.value);
   }
+};
+
+export const normalizeOrders = (arr) => {
+  return arr.map((product) => {
+    return { productId: product.id, count: product.pieces };
+  });
+};
+
+export const formatDate = (isoString) => {
+  const date = new Date(Date.parse(isoString));
+  return date.toLocaleDateString('en-us', OPTIONS);
+};
+
+export const getStyles = (
+  errorsControls,
+  fieldName,
+  touchedFields,
+  isInclude,
+) => {
+  if (
+    isInclude(errorsControls, fieldName) &&
+    isInclude(touchedFields, fieldName)
+  ) {
+    return {
+      border: '1px solid red',
+      borderLeftWidth: '5px',
+      transition: '0.5s all',
+    };
+  }
+  return null;
 };

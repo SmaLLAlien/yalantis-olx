@@ -39,6 +39,20 @@ export const pageReducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.RESET_PER_PAGE: {
+      return {
+        ...state,
+        perPage: 50,
+      };
+    }
+
+    case actionTypes.RESET_PAGE: {
+      return {
+        ...state,
+        currentPage: 1,
+      };
+    }
+
     default:
       return state;
   }

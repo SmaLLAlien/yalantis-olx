@@ -1,0 +1,30 @@
+.label {
+  font-weight: bold;
+  display: flex;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.input {
+  display: block;
+  width: 400px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--textColor);
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.input:disabled {
+  color: lightgrey;
+  border-color: lightgrey;
+}
+
+.error {
+  color: var(--error);
+}

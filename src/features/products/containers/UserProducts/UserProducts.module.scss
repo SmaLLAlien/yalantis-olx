@@ -1,0 +1,17 @@
+.productsUser {
+  display: flex;
+  flex-direction: column;
+  color: var(--textColor);
+  justify-content: center;
+  align-items: center;
+
+  &__list {
+    width: 100%;
+  }
+
+  &__title {
+    margin: 20px 0;
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+}

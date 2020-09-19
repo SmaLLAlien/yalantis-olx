@@ -29,8 +29,12 @@ const ProductsList = (props) => {
       (nativeEvent instanceof KeyboardEvent && event.key === 'Enter') ||
       nativeEvent instanceof MouseEvent
     ) {
-      history.push(`${Routes.PRODUCTS}/${id}`);
+      history.push(`${Routes.PRODUCT}/${id}`);
     }
+  };
+
+  const editRedirectHandler = (id) => {
+    history.push(`${Routes.EDIT}/${id}`);
   };
 
   return (
@@ -52,6 +56,9 @@ const ProductsList = (props) => {
             <Product
               className={classes.products__item}
               buy={(event, item) => buyHandler(event, item)}
+              openEdit={(item) => {
+                editRedirectHandler(item);
+              }}
               product={product}
             />
           </div>
@@ -63,14 +70,16 @@ const ProductsList = (props) => {
 
 ProductsList.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
-  purchasing: PropTypes.arrayOf(productType).isRequired,
+  purchasing: PropTypes.arrayOf(productType),
   fetchProducts: PropTypes.func.isRequired,
-  onAddToBasketProduct: PropTypes.func.isRequired,
+  onAddToBasketProduct: PropTypes.func,
   serverError: PropTypes.string,
 };
 
 ProductsList.defaultProps = {
   serverError: null,
+  purchasing: [],
+  onAddToBasketProduct: null,
 };
 
 export default ProductsList;

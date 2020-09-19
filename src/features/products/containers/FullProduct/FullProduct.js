@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Routes } from '../../../../global/constants';
+import { useHistory } from 'react-router-dom';
 import classes from './FullProduct.module.scss';
 import Product from '../../components/Product/Product';
 import { matchType, productType } from '../../types/types';
 import Errors from '../../components/Errors/Errors';
+import { Routes } from '../../../../global/constants';
 
 export const FullProduct = (props) => {
   const {
@@ -15,6 +15,8 @@ export const FullProduct = (props) => {
     onAddToBasketProduct,
     serverError,
   } = props;
+
+  const history = useHistory();
 
   useEffect(() => {
     if (match.params.id) {
@@ -28,6 +30,14 @@ export const FullProduct = (props) => {
     onAddToBasketProduct(product, purchasing);
   };
 
+  const returnHandler = () => {
+    history.push(Routes.CATALOG);
+  };
+
+  const editRedirectHandler = (id) => {
+    history.push(`${Routes.EDIT}/${id}`);
+  };
+
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
 
   if (fullProduct && !serverError) {
@@ -35,6 +45,9 @@ export const FullProduct = (props) => {
       <div className={classes.product}>
         <Product
           buy={(event, item) => buyHandler(event, item)}
+          openEdit={(item) => {
+            editRedirectHandler(item);
+          }}
           product={fullProduct}
         />
       </div>
@@ -54,9 +67,9 @@ export const FullProduct = (props) => {
 
   return (
     <div className={classes.container}>
-      <Link to={Routes.PRODUCTS} className={classes.back}>
+      <button type="button" onClick={returnHandler} className={classes.back}>
         Back to products
-      </Link>
+      </button>
       {product}
     </div>
   );

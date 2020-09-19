@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionsTypes';
 import { MAX_PRICE_DEFAULT } from '../../../../global/constants';
-import { checkOrigins } from '../../../../helpers/helpers';
+import { checkOrigins, countPrice } from '../../../../helpers/helpers';
 
 const initialState = {
   products: [],
@@ -68,12 +68,36 @@ const reducer = (state = initialState, action) => {
         origins: newOrigins,
       };
     }
+    case actionTypes.RESET_ORIGIN: {
+      const newOrigins = state.origins.map((origin) => {
+        const newOrigin = { ...origin };
+        newOrigin.checked = false;
+        return newOrigin;
+      });
+
+      return {
+        ...state,
+        origins: newOrigins,
+      };
+    }
 
     case actionTypes.BASKET_PRODUCT_DELETED: {
       return {
         ...state,
         purchasing: payload.purchasing,
         totalPurchasingPrice: payload.price,
+      };
+    }
+
+    case actionTypes.ORDERED: {
+      const newPurchasing = state.purchasing.filter((product) => {
+        return !payload.find((ordered) => ordered.id === product.id);
+      });
+
+      return {
+        ...state,
+        purchasing: newPurchasing,
+        totalPurchasingPrice: countPrice(newPurchasing),
       };
     }
 
