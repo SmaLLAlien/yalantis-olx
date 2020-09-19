@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TextError from '../TextError/TextError';
 import classes from './Input.module.scss';
 import { productErrorsType, productTouchedType } from '../../../types/types';
-import {getStyles} from "../../../../../helpers/helpers";
+import { getStyles } from '../../../../../helpers/helpers';
 
 const Input = (props) => {
   const { label, name, errors, touched, ...rest } = props;

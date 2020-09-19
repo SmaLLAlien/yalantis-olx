@@ -8,7 +8,7 @@ import {
   productErrorsType,
   productTouchedType,
 } from '../../../types/types';
-import {getStyles} from "../../../../../helpers/helpers";
+import { getStyles } from '../../../../../helpers/helpers';
 
 const SelectOrigin = (props) => {
   const { name, label, options, touched, errors, disabled } = props;

@@ -50,4 +50,4 @@ export const createProductInitialValues = {
   name: '',
   origin: '',
   price: '',
-}
+};

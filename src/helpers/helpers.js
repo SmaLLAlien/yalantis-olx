@@ -153,8 +153,16 @@ export const formatDate = (isoString) => {
   return date.toLocaleDateString('en-us', OPTIONS);
 };
 
-export const getStyles = (errorsControls, fieldName, touchedFields, isInclude) => {
-  if (isInclude(errorsControls, fieldName) && isInclude(touchedFields, fieldName)) {
+export const getStyles = (
+  errorsControls,
+  fieldName,
+  touchedFields,
+  isInclude,
+) => {
+  if (
+    isInclude(errorsControls, fieldName) &&
+    isInclude(touchedFields, fieldName)
+  ) {
     return {
       border: '1px solid red',
       borderLeftWidth: '5px',

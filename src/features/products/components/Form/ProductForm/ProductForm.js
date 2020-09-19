@@ -4,7 +4,10 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import FormikControl from '../FormikControl/FormikControl';
 import classes from './ProductForm.module.scss';
-import {createProductInitialValues, VALIDATION_MESSAGES} from '../../../../../global/constants';
+import {
+  createProductInitialValues,
+  VALIDATION_MESSAGES,
+} from '../../../../../global/constants';
 import { originType, productType } from '../../../types/types';
 
 const ProductForm = (props) => {
@@ -16,7 +19,7 @@ const ProductForm = (props) => {
     isSavingInProgress,
   } = props;
 
-  let initialValues = {...createProductInitialValues};
+  let initialValues = { ...createProductInitialValues };
 
   if (product) {
     initialValues = { ...product };
