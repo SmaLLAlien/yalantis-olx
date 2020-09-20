@@ -82,10 +82,13 @@ const reducer = (state = initialState, action) => {
     }
 
     case actionTypes.BASKET_PRODUCT_DELETED: {
+      const temp = state.purchasing.filter((product) => product.id !== payload);
+      const price = countPrice(temp);
+
       return {
         ...state,
-        purchasing: payload.purchasing,
-        totalPurchasingPrice: payload.price,
+        purchasing: temp,
+        totalPurchasingPrice: price,
       };
     }
 

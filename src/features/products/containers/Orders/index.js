@@ -3,8 +3,8 @@ import {
   getFetchOrdersError,
   getOrders,
 } from '../../store/selectors/ordersSelectors';
-import { fetchOrders } from '../../store/actions';
 import { Orders } from './Orders';
+import {loadOrders} from "../../store/actions/orders";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,8 +13,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  fetchOrders,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchOrders: () => dispatch(loadOrders())
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
