@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  fetchProducts,
-  onAddToBasketProduct,
+    fetchProducts,
+    onAddToBasketProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

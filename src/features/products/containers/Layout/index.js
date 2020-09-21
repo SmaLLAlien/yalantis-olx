@@ -1,12 +1,8 @@
 import { connect } from 'react-redux';
 import { getOrigins } from '../../store/selectors/selectors';
 import {
-  fetchOrigins,
-  manageOrigins,
-  resetOrigin,
   resetPage,
   resetPerPage,
-  setOriginQueryToStore,
 } from '../../store/actions';
 import {
   getCurrentPage,
@@ -15,6 +11,7 @@ import {
 } from '../../store/selectors/pageSelectors';
 import { getCreateModalState } from '../../store/selectors/modalSelectors';
 import Layout from './Layout';
+import {fetchOrigins, manageOrigins, resetOrigin, setOriginQueryToStore} from "../../store/actions/origins";
 
 const mapStateToProps = (state) => {
   return {

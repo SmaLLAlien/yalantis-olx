@@ -15,9 +15,16 @@ const mapStateToProps = (state) => {
   };
 };
 
+// const mapDispatchToProps = dispatch =>  {
+//   return {
+//     closeCreateModal: () => dispatch(closeCreateModal()),
+//     saveProduct: (product, isUserPage) => dispatch(saveProduct(product, isUserPage)),
+//   }
+// };
+
 const mapDispatchToProps = {
-  closeCreateModal,
-  saveProduct,
+    closeCreateModal,
+    saveProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProduct);

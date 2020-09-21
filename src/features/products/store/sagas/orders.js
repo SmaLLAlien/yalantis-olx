@@ -1,4 +1,4 @@
-import {takeEvery, put, call} from 'redux-saga/effects'
+import {takeEvery, put} from 'redux-saga/effects'
 import {LOAD_ORDER_FROM_SERVER, LOAD_ORDERS_FROM_SERVER, ORDER_CREATED} from "../actionsTypes";
 import {TOKEN, URLs} from "../../../../global/constants";
 import {
@@ -27,10 +27,11 @@ function* fetchOrders() {
   } catch (error) {
     if (error.message) {
       yield put(fetchOrdersError(error.message));
-    }
+    } else {
       yield put(
-      fetchOrdersError('Something is wrong, please try again later'),
-    );
+        fetchOrdersError('Something is wrong, please try again later'),
+      );
+    }
   }
 }
 
@@ -43,10 +44,11 @@ function* fetchOrder({id}) {
   } catch (error) {
     if (error.message) {
       yield put(fetchOrderError(error.message));
+    } else {
+      yield put(
+        fetchOrderError('Something is wrong, please try again later'),
+      );
     }
-    return yield put(
-      fetchOrderError('Something is wrong, please try again later'),
-    );
   }
 }
 
@@ -61,9 +63,10 @@ function* orderProduct({products})  {
   } catch (error) {
     if (error.message) {
       yield put(postOrderError(error.message));
+    } else {
+      yield put(
+        postOrderError('Something is wrong, please try again later'),
+      );
     }
-    return yield put(
-      postOrderError('Something is wrong, please try again later'),
-    );
   }
 }

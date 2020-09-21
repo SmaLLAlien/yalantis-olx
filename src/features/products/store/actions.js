@@ -5,25 +5,23 @@ import {
   LOADING_FAILED,
   LOADING_SUCCEEDED,
   LOADING,
-  ORIGINS_LOADED,
-  ORIGINS_CHECKED,
   PER_PAGE_CHANGED,
   PAGE_CHANGED,
   TOTAL_ITEMS_CHANGED,
-  GOT_ORIGINS_FROM_URL,
   OPEN_CREATE_PRODUCT,
   CLOSE_CREATE_PRODUCT,
   SAVE_PRODUCT_ERROR,
   SAVE_PRODUCT_SUCCESS,
-  RESET_ORIGIN,
   RESET_PER_PAGE,
   RESET_PAGE,
   SAVING_PRODUCT_STARTS,
   SAVING_PRODUCT_FINISHED,
+  CALL_SAVE_PRODUCT,
+  PRODUCTS_REQUESTED,
+  PRODUCT_DETAIL_REQUESTED,
+  CALL_SAVE_EDITED_PRODUCT,
 } from './actionsTypes';
-import { TOKEN, URLs } from '../../../global/constants';
 import {
-  normalizeOrigins,
   onProductChosen,
 } from '../../../helpers/helpers';
 
@@ -67,12 +65,6 @@ export const productDetailLoaded = (payload) => {
   };
 };
 
-export const originsLoaded = (payload) => {
-  return {
-    type: ORIGINS_LOADED,
-    payload,
-  };
-};
 
 export const pageChanged = (payload) => {
   return {
@@ -120,16 +112,13 @@ export const saveProductSuccess = () => {
   };
 };
 
-export const resetOrigin = () => (dispatch) => {
-  dispatch({ type: RESET_ORIGIN });
+
+export const resetPerPage = () => {
+  return { type: RESET_PER_PAGE };
 };
 
-export const resetPerPage = () => (dispatch) => {
-  dispatch({ type: RESET_PER_PAGE });
-};
-
-export const resetPage = () => (dispatch) => {
-  dispatch({ type: RESET_PAGE });
+export const resetPage = () => {
+  return { type: RESET_PAGE };
 };
 
 export const savingProductStarts = () => {
@@ -144,141 +133,46 @@ export const savingProductFinished = () => {
   };
 };
 
-export const fetchProducts = (searchParams) => async (dispatch, state, api) => {
-  try {
-    let headers;
-    if (searchParams && searchParams.includes('editable')) {
-      headers = { Authorization: TOKEN };
-    }
-    const { data } = await api.get(`${URLs.PRODUCTS}/${searchParams}`, {
-      headers,
-    });
-
-    dispatch(loadingSucceeded());
-    dispatch(totalItemsChanged(data.totalItems));
-    dispatch(perPageChanged(data.perPage));
-    dispatch(pageChanged(data.page));
-    return dispatch(productsLoaded(data.items));
-  } catch (error) {
-    if (error.message) {
-      return dispatch(loadingFailed(error.message));
-    }
-    return dispatch(
-      loadingFailed('Something is wrong, please try again later'),
-    );
+export const fetchProducts = (searchParams) => {
+  return {
+    type: PRODUCTS_REQUESTED,
+    searchParams
   }
 };
 
-export const fetchProduct = (id) => async (dispatch, _, api) => {
-  dispatch(loading());
-  try {
-    const headers = { Authorization: TOKEN };
-    const { data } = await api.get(`${URLs.PRODUCTS}/${id}`, { headers });
-    dispatch(loadingSucceeded());
-    return dispatch(productDetailLoaded(data));
-  } catch (error) {
-    if (error.message) {
-      return dispatch(loadingFailed(error.message));
-    }
-    return dispatch(
-      loadingFailed('Something is wrong, please try again later'),
-    );
+export const fetchProduct = (id) => {
+  return {
+    type: PRODUCT_DETAIL_REQUESTED,
+    id
   }
 };
 
-export const fetchOrigins = () => async (dispatch, getState, api) => {
-  dispatch(loading());
-  try {
-    const { data } = await api.get(URLs.ORIGINS);
-    dispatch(loadingSucceeded());
-
-    let items = normalizeOrigins(data.items);
-
-    const searchValues = getState().pageState.originUrlState;
-    items = items.map((origin) => {
-      if (searchValues.indexOf(origin.value) !== -1) {
-        const temp = { ...origin };
-        temp.checked = true;
-        return temp;
-      }
-      return origin;
-    });
-
-    return dispatch(originsLoaded(items));
-  } catch (error) {
-    if (error.message) {
-      return dispatch(loadingFailed(error.message));
-    }
-    return dispatch(
-      loadingFailed('Something is wrong, please try again later'),
-    );
-  }
-};
-
-export const onAddToBasketProduct = (product, purchasing) => (dispatch) => {
+export const onAddToBasketProduct = (product, purchasing) => {
   const payload = onProductChosen(product, purchasing);
-  dispatch(productChosen(payload));
+  return productChosen(payload);
 };
 
-export const manageOrigins = (payload) => (dispatch) => {
-  dispatch({ type: ORIGINS_CHECKED, payload });
+export const openCreateModal = () => {
+  return openCreateProduct();
 };
 
-export const setOriginQueryToStore = (payload) => (dispatch) => {
-  if (!payload.length) {
-    dispatch({ type: RESET_ORIGIN });
-  }
-  dispatch({ type: GOT_ORIGINS_FROM_URL, payload });
+export const closeCreateModal = () => {
+  return closeCreateProduct();
 };
 
-export const openCreateModal = () => (dispatch) => {
-  dispatch(openCreateProduct());
-};
-
-export const closeCreateModal = () => (dispatch) => {
-  dispatch(closeCreateProduct());
-  dispatch(saveProductSuccess());
-};
-
-export const saveProduct = (product, isUserPage) => async (
-  dispatch,
-  _,
-  api,
-) => {
-  try {
-    dispatch(savingProductStarts());
-    const headers = { Authorization: TOKEN };
-    await api.post(URLs.PRODUCTS, { product }, { headers });
-    dispatch(fetchProducts(isUserPage));
-    dispatch(saveProductSuccess());
-    dispatch(savingProductFinished());
-    return dispatch(closeCreateProduct());
-  } catch (error) {
-    dispatch(savingProductFinished());
-    if (error.response.data.error.message) {
-      return dispatch(saveProductError(error.response.data.error.message));
-    }
-    return dispatch(
-      saveProductError('Something is wrong, please try again later'),
-    );
+export const saveProduct = (product, isUserPage, history) => {
+  return {
+    type: CALL_SAVE_PRODUCT,
+    product,
+    isUserPage,
+    history
   }
 };
 
-export const editProduct = (product, history) => async (dispatch, _, api) => {
-  try {
-    dispatch(savingProductStarts());
-    const headers = { Authorization: TOKEN };
-    await api.patch(`${URLs.PRODUCTS}/${product.id}`, { product }, { headers });
-    dispatch(savingProductFinished());
-    history.goBack();
-    return dispatch(saveProductSuccess());
-  } catch (error) {
-    dispatch(savingProductFinished());
-    if (error.response.data.error.message) {
-      return dispatch(saveProductError(error.response.data.error.message));
-    }
-    return dispatch(
-      saveProductError('Something is wrong, please try again later'),
-    );
+export const editProduct = (product, history) => {
+  return {
+    type: CALL_SAVE_EDITED_PRODUCT,
+    product,
+    history
   }
 };

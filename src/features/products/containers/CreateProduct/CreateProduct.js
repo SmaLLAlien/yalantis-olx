@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Portal from '../../../../components/Portal/Portal';
 import ProductForm from '../../components/Form/ProductForm/ProductForm';
@@ -17,10 +17,11 @@ export const CreateProduct = (props) => {
     isSavingInProgress,
   } = props;
   const params = useLocation().pathname;
+  const history = useHistory();
 
   const saveProductHandler = (product) => {
     const isUserPage = params.includes(Routes.CREATED) ? '?editable=true' : '';
-    saveProduct(product, isUserPage);
+    saveProduct(product, isUserPage, history);
   };
 
   return (
