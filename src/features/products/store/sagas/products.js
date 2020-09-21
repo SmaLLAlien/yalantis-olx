@@ -1,4 +1,4 @@
-import {takeEvery, put} from 'redux-saga/effects'
+import {takeEvery, put, debounce} from 'redux-saga/effects'
 import {Routes, TOKEN, URLs} from "../../../../global/constants";
 import {
   closeCreateProduct,
@@ -24,7 +24,7 @@ import {
 
 export default function* watcherProductsSaga() {
   yield takeEvery(CALL_SAVE_PRODUCT, saveProduct);
-  yield takeEvery(PRODUCTS_REQUESTED, fetchProducts);
+  yield debounce(450, PRODUCTS_REQUESTED, fetchProducts);
   yield takeEvery(PRODUCT_DETAIL_REQUESTED, fetchProduct);
   yield takeEvery(CALL_SAVE_EDITED_PRODUCT, editProduct);
 }
