@@ -19,7 +19,7 @@ import {
   CALL_SAVE_PRODUCT,
   PRODUCTS_REQUESTED,
   PRODUCT_DETAIL_REQUESTED,
-  CALL_SAVE_EDITED_PRODUCT,
+  CALL_SAVE_EDITED_PRODUCT, DELETE_PRODUCT,
 } from '../actionsTypes';
 import { onProductChosen } from '../../../../helpers/helpers';
 
@@ -156,12 +156,11 @@ export const closeCreateModal = () => {
   return closeCreateProduct();
 };
 
-export const saveProduct = (product, isUserPage, history) => {
+export const saveProduct = (product, searchParams) => {
   return {
     type: CALL_SAVE_PRODUCT,
     product,
-    isUserPage,
-    history,
+    searchParams,
   };
 };
 
@@ -172,3 +171,11 @@ export const editProduct = (product, history) => {
     history,
   };
 };
+
+export const deleteProduct = (id, searchParams) => {
+  return {
+    type: DELETE_PRODUCT,
+    id,
+    searchParams
+  }
+}

@@ -5,7 +5,7 @@ import { CURRENCY } from '../../../../global/constants';
 import { productType } from '../../types/types';
 
 const Product = (props) => {
-  const { product, buy, openEdit } = props;
+  const { product, buy, openEdit, deleteProduct } = props;
 
   const buyBtn = product.isEditable ? null : (
     <button
@@ -23,6 +23,11 @@ const Product = (props) => {
     openEdit(product.id);
   };
 
+  const deleteHandler = (event) => {
+    event.stopPropagation();
+    deleteProduct(product.id);
+  }
+
   const editLink = product.isEditable ? (
     <button
       type="button"
@@ -33,9 +38,22 @@ const Product = (props) => {
     </button>
   ) : null;
 
+  const deleteBtn = product.isEditable ? (
+    <button
+      type="button"
+      className={classes.product__delete}
+      onClick={deleteHandler}
+    >
+      delete
+    </button>
+  ) : null;
+
   return (
     <div className={classes.product}>
-      {editLink}
+      <div className={classes.product__controls}>
+        {editLink}
+        {deleteBtn}
+      </div>
       <div className={classes.product__name}>{product.name}</div>
       <div className={classes.product__origin}>
         Country:
@@ -54,6 +72,7 @@ Product.propTypes = {
   product: productType.isRequired,
   buy: PropTypes.func.isRequired,
   openEdit: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
 };
 
 export default Product;

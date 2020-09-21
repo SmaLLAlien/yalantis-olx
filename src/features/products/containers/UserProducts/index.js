@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getProducts } from '../../store/selectors/selectors';
-import { fetchProducts } from '../../store/actions/products';
+import {deleteProduct, fetchProducts} from '../../store/actions/products';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
 import UserProducts from './UserProducts';
 
@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchProducts,
+  deleteProduct
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProducts);

@@ -1,5 +1,5 @@
 import { takeEvery, put, delay, takeLatest } from 'redux-saga/effects';
-import { Routes, TOKEN, URLs } from '../../../../global/constants';
+import { TOKEN, URLs } from '../../../../global/constants';
 import {
   closeCreateProduct,
   loading,
@@ -18,17 +18,18 @@ import {
 import productInstanceApi from '../../../../core/api';
 import {
   CALL_SAVE_EDITED_PRODUCT,
-  CALL_SAVE_PRODUCT,
+  CALL_SAVE_PRODUCT, DELETE_PRODUCT,
   PRODUCT_DETAIL_REQUESTED,
   PRODUCTS_REQUESTED,
 } from '../actionsTypes';
 
-function* saveProduct({ product, history }) {
+function* saveProduct({ product, searchParams }) {
   try {
     yield put(savingProductStarts());
     const headers = { Authorization: TOKEN };
     yield productInstanceApi.post(URLs.PRODUCTS, { product }, { headers });
-    yield history.push(Routes.CREATED);
+
+    yield fetchProducts({searchParams});
     yield put(saveProductSuccess());
     yield put(savingProductFinished());
     yield put(closeCreateProduct());
@@ -109,6 +110,20 @@ function* editProduct({ product, history }) {
   }
 }
 
+function* deleteProduct({ id, searchParams }) {
+  try {
+    const headers = { Authorization: TOKEN };
+    yield productInstanceApi.delete(
+      `${URLs.PRODUCTS}/${id}`,
+      { headers },
+    );
+    searchParams = searchParams ? `${searchParams}&editable=true` : `${searchParams}?editable=true`
+    yield fetchProducts({searchParams});
+  } catch (error) {
+
+  }
+}
+
 function* checkDebounce({ searchParams }) {
   if (searchParams && searchParams !== '?editable=true') {
     yield delay(500);
@@ -123,4 +138,5 @@ export default function* watcherProductsSaga() {
   yield takeLatest(PRODUCTS_REQUESTED, checkDebounce);
   yield takeEvery(PRODUCT_DETAIL_REQUESTED, fetchProduct);
   yield takeEvery(CALL_SAVE_EDITED_PRODUCT, editProduct);
+  yield takeEvery(DELETE_PRODUCT, deleteProduct);
 }

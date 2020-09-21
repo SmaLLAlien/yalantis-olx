@@ -14,15 +14,20 @@
   justify-content: space-around;
   position: relative;
 
-  &__edit {
+  &__controls {
     position: absolute;
     top: 1%;
     right: 1%;
+  }
+
+  &__edit,
+  &__delete {
     text-transform: capitalize;
     border: none;
     outline: none;
     background: var(--yellow-gradient);
     color: #ccc;
+    margin-right: 5px;
   }
 
   &__name {
