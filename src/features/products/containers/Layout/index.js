@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getOrigins } from '../../store/selectors/selectors';
-import { resetPage, resetPerPage } from '../../store/actions';
+import { resetPage, resetPerPage } from '../../store/actions/products';
 import {
   getCurrentPage,
   getPerPage,

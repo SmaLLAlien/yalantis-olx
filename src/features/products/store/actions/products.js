@@ -20,8 +20,8 @@ import {
   PRODUCTS_REQUESTED,
   PRODUCT_DETAIL_REQUESTED,
   CALL_SAVE_EDITED_PRODUCT,
-} from './actionsTypes';
-import { onProductChosen } from '../../../helpers/helpers';
+} from '../actionsTypes';
+import { onProductChosen } from '../../../../helpers/helpers';
 
 export const productsLoaded = (payload) => {
   return {

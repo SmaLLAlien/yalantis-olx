@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getProducts } from '../../store/selectors/selectors';
-import { fetchProducts } from '../../store/actions';
+import { fetchProducts } from '../../store/actions/products';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
 import UserProducts from './UserProducts';
 

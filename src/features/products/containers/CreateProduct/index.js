@@ -4,7 +4,7 @@ import {
   getErrorModalState,
   getLoading,
 } from '../../store/selectors/modalSelectors';
-import { closeCreateModal, saveProduct } from '../../store/actions';
+import { closeCreateModal, saveProduct } from '../../store/actions/products';
 import { CreateProduct } from './CreateProduct';
 
 const mapStateToProps = (state) => {

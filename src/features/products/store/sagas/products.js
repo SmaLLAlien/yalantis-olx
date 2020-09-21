@@ -14,7 +14,7 @@ import {
   savingProductFinished,
   savingProductStarts,
   totalItemsChanged,
-} from '../actions';
+} from '../actions/products';
 import productInstanceApi from '../../../../core/api';
 import {
   CALL_SAVE_EDITED_PRODUCT,

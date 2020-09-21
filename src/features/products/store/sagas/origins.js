@@ -2,7 +2,7 @@ import { takeEvery, put, select } from 'redux-saga/effects';
 import { ORIGINS_REQUESTED } from '../actionsTypes';
 import { URLs } from '../../../../global/constants';
 import { normalizeOrigins } from '../../../../helpers/helpers';
-import { loading, loadingFailed, loadingSucceeded } from '../actions';
+import { loading, loadingFailed, loadingSucceeded } from '../actions/products';
 import productInstanceApi from '../../../../core/api';
 import { getOriginsUrlState } from '../selectors/pageSelectors';
 import { originsLoaded } from '../actions/origins';

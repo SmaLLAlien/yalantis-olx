@@ -4,7 +4,7 @@ import {
   getBasketProducts,
   getDetailedProduct,
 } from '../../store/selectors/selectors';
-import { fetchProduct, onAddToBasketProduct } from '../../store/actions';
+import { fetchProduct, onAddToBasketProduct } from '../../store/actions/products';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
 
 const mapStateToProps = (state) => {
