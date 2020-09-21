@@ -4,7 +4,7 @@ import {
   getBasketProducts,
   getDetailedProduct,
 } from '../../store/selectors/selectors';
-import { fetchProduct, onAddToBasketProduct } from '../../store/actions/products';
+import {deleteProduct, fetchProduct, onAddToBasketProduct} from '../../store/actions/products';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
 
 const mapStateToProps = (state) => {
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   fetchProduct,
   onAddToBasketProduct,
+  deleteProduct
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullProduct);

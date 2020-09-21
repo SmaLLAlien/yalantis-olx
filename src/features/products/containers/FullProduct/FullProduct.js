@@ -14,6 +14,7 @@ export const FullProduct = (props) => {
     fullProduct,
     onAddToBasketProduct,
     serverError,
+    deleteProduct
   } = props;
 
   const history = useHistory();
@@ -38,6 +39,11 @@ export const FullProduct = (props) => {
     history.push(`${Routes.EDIT}/${id}`);
   };
 
+  const deleteRedirect = id => {
+    deleteProduct(id, '');
+    returnHandler();
+  }
+
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
 
   if (fullProduct && !serverError) {
@@ -48,6 +54,7 @@ export const FullProduct = (props) => {
           openEdit={(item) => {
             editRedirectHandler(item);
           }}
+          deleteProduct={(id) => deleteRedirect(id)}
           product={fullProduct}
         />
       </div>
@@ -78,6 +85,7 @@ export const FullProduct = (props) => {
 FullProduct.propTypes = {
   purchasing: PropTypes.arrayOf(productType).isRequired,
   onAddToBasketProduct: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
   fetchProduct: PropTypes.func.isRequired,
   match: matchType.isRequired,
   serverError: PropTypes.string,
