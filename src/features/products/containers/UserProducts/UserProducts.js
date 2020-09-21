@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import classes from './UserProducts.module.scss';
 import ProductsList from '../ProductsList/ProductsList';
 import { productType } from '../../types/types';
-import {useLocation} from 'react-router-dom';
 
 const UserProducts = (props) => {
   const { products, serverError, fetchProducts, deleteProduct } = props;

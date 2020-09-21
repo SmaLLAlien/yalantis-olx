@@ -26,7 +26,7 @@ const Product = (props) => {
   const deleteHandler = (event) => {
     event.stopPropagation();
     deleteProduct(product.id);
-  }
+  };
 
   const editLink = product.isEditable ? (
     <button

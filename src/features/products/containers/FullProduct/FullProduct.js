@@ -14,7 +14,7 @@ export const FullProduct = (props) => {
     fullProduct,
     onAddToBasketProduct,
     serverError,
-    deleteProduct
+    deleteProduct,
   } = props;
 
   const history = useHistory();
@@ -39,10 +39,10 @@ export const FullProduct = (props) => {
     history.push(`${Routes.EDIT}/${id}`);
   };
 
-  const deleteRedirect = id => {
+  const deleteRedirect = (id) => {
     deleteProduct(id, '');
     returnHandler();
-  }
+  };
 
   let product = <p style={{ textAlign: 'center' }}>Loading...!</p>;
 

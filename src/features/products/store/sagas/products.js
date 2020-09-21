@@ -18,27 +18,26 @@ import {
 import productInstanceApi from '../../../../core/api';
 import {
   CALL_SAVE_EDITED_PRODUCT,
-  CALL_SAVE_PRODUCT, DELETE_PRODUCT,
+  CALL_SAVE_PRODUCT,
+  DELETE_PRODUCT,
   PRODUCT_DETAIL_REQUESTED,
   PRODUCTS_REQUESTED,
 } from '../actionsTypes';
 
-function* saveProduct({ product, searchParams }) {
+function* fetchProduct({ id }) {
+  yield put(loading());
   try {
-    yield put(savingProductStarts());
     const headers = { Authorization: TOKEN };
-    yield productInstanceApi.post(URLs.PRODUCTS, { product }, { headers });
-
-    yield fetchProducts({searchParams});
-    yield put(saveProductSuccess());
-    yield put(savingProductFinished());
-    yield put(closeCreateProduct());
+    const { data } = yield productInstanceApi.get(`${URLs.PRODUCTS}/${id}`, {
+      headers,
+    });
+    yield put(loadingSucceeded());
+    yield put(productDetailLoaded(data));
   } catch (error) {
-    yield put(savingProductFinished());
-    if (error.response.data.error.message) {
-      yield put(saveProductError(error.response.data.error.message));
+    if (error.message) {
+      yield put(loadingFailed(error.message));
     } else {
-      yield put(saveProductError('Something is wrong, please try again later'));
+      yield put(loadingFailed('Something is wrong, please try again later'));
     }
   }
 }
@@ -70,20 +69,22 @@ function* fetchProducts({ searchParams }) {
   }
 }
 
-function* fetchProduct({ id }) {
-  yield put(loading());
+function* saveProduct({ product, searchParams }) {
   try {
+    yield put(savingProductStarts());
     const headers = { Authorization: TOKEN };
-    const { data } = yield productInstanceApi.get(`${URLs.PRODUCTS}/${id}`, {
-      headers,
-    });
-    yield put(loadingSucceeded());
-    yield put(productDetailLoaded(data));
+    yield productInstanceApi.post(URLs.PRODUCTS, { product }, { headers });
+
+    yield fetchProducts({ searchParams });
+    yield put(saveProductSuccess());
+    yield put(savingProductFinished());
+    yield put(closeCreateProduct());
   } catch (error) {
-    if (error.message) {
-      yield put(loadingFailed(error.message));
+    yield put(savingProductFinished());
+    if (error.response.data.error.message) {
+      yield put(saveProductError(error.response.data.error.message));
     } else {
-      yield put(loadingFailed('Something is wrong, please try again later'));
+      yield put(saveProductError('Something is wrong, please try again later'));
     }
   }
 }
@@ -111,17 +112,12 @@ function* editProduct({ product, history }) {
 }
 
 function* deleteProduct({ id, searchParams }) {
-  try {
-    const headers = { Authorization: TOKEN };
-    yield productInstanceApi.delete(
-      `${URLs.PRODUCTS}/${id}`,
-      { headers },
-    );
-    searchParams = searchParams ? `${searchParams}&editable=true` : `${searchParams}?editable=true`
-    yield fetchProducts({searchParams});
-  } catch (error) {
-
-  }
+  const headers = { Authorization: TOKEN };
+  yield productInstanceApi.delete(`${URLs.PRODUCTS}/${id}`, { headers });
+  const newSearchParams = searchParams
+    ? `${searchParams}&editable=true`
+    : `${searchParams}?editable=true`;
+  yield fetchProducts({ searchParams: newSearchParams });
 }
 
 function* checkDebounce({ searchParams }) {

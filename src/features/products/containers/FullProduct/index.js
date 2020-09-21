@@ -4,7 +4,11 @@ import {
   getBasketProducts,
   getDetailedProduct,
 } from '../../store/selectors/selectors';
-import {deleteProduct, fetchProduct, onAddToBasketProduct} from '../../store/actions/products';
+import {
+  deleteProduct,
+  fetchProduct,
+  onAddToBasketProduct,
+} from '../../store/actions/products';
 import { getHttpError } from '../../store/selectors/httpErrorSelectors';
 
 const mapStateToProps = (state) => {
@@ -18,7 +22,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   fetchProduct,
   onAddToBasketProduct,
-  deleteProduct
+  deleteProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullProduct);

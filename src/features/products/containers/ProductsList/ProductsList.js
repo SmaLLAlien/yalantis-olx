@@ -8,7 +8,13 @@ import Product from '../../components/Product/Product';
 import { productType } from '../../types/types';
 
 const ProductsList = (props) => {
-  const { products, onAddToBasketProduct, fetchProducts, serverError, productDelete } = props;
+  const {
+    products,
+    onAddToBasketProduct,
+    fetchProducts,
+    serverError,
+    productDelete,
+  } = props;
   const history = useHistory();
   const params = useLocation();
   const searValue = params.search;
@@ -35,7 +41,7 @@ const ProductsList = (props) => {
 
   const deleteProduct = (productId) => {
     productDelete(productId);
-  }
+  };
 
   const editRedirectHandler = (id) => {
     history.push(`${Routes.EDIT}/${id}`);
@@ -86,7 +92,7 @@ ProductsList.defaultProps = {
   serverError: null,
   purchasing: [],
   onAddToBasketProduct: null,
-  productDelete: null
+  productDelete: null,
 };
 
 export default ProductsList;

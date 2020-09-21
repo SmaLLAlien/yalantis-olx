@@ -21,7 +21,9 @@ export const CreateProduct = (props) => {
 
   const saveProductHandler = (product) => {
     const isUserPage = params.includes(Routes.CREATED) ? 'editable=true' : '';
-    searchParams = searchParams ? `${searchParams}&${isUserPage}` : `?${isUserPage}`;
+    searchParams = searchParams
+      ? `${searchParams}&${isUserPage}`
+      : `?${isUserPage}`;
     saveProduct(product, searchParams);
   };
 
