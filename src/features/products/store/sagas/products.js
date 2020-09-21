@@ -1,4 +1,4 @@
-import {takeEvery, put, debounce} from 'redux-saga/effects'
+import {takeEvery, put, delay, takeLatest} from 'redux-saga/effects'
 import {Routes, TOKEN, URLs} from "../../../../global/constants";
 import {
   closeCreateProduct,
@@ -24,7 +24,7 @@ import {
 
 export default function* watcherProductsSaga() {
   yield takeEvery(CALL_SAVE_PRODUCT, saveProduct);
-  yield debounce(450, PRODUCTS_REQUESTED, fetchProducts);
+  yield takeLatest(PRODUCTS_REQUESTED, checkDebounce);
   yield takeEvery(PRODUCT_DETAIL_REQUESTED, fetchProduct);
   yield takeEvery(CALL_SAVE_EDITED_PRODUCT, editProduct);
 }
@@ -52,6 +52,7 @@ function* saveProduct({product, isUserPage, history}) {
 }
 
 function* fetchProducts({searchParams}) {
+  console.log(searchParams, 'searchParams222');
   try {
     let headers;
     if (searchParams && searchParams.includes('editable')) {
@@ -112,5 +113,14 @@ function* editProduct({product, history}) {
         saveProductError('Something is wrong, please try again later'),
       );
     }
+  }
+}
+
+function* checkDebounce({searchParams}) {
+  if (searchParams && searchParams !== '?editable=true') {
+    yield delay(500);
+    yield fetchProducts({searchParams});
+  } else {
+    yield fetchProducts({searchParams});
   }
 }

@@ -14,7 +14,6 @@ export const fetchOrigins = () => {
 };
 
 export const resetOrigin = () => {
-  console.log(2);
   return {type: RESET_ORIGIN};
 };
 
