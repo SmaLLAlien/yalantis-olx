@@ -14,7 +14,7 @@ import {
   fetchProduct,
 } from '../../store/actions';
 import { EditProduct } from './EditProduct';
-import {fetchOrigins} from "../../store/actions/origins";
+import { fetchOrigins } from '../../store/actions/origins';
 
 const mapStateToProps = (state) => {
   return {

@@ -6,8 +6,12 @@ import {
 } from '../../store/selectors/selectors';
 
 import { getPostOrderError } from '../../store/selectors/ordersSelectors';
-import {decreaseProductPieces, deleteProductFromBasket, increaseProductPieces} from "../../store/actions/basket";
-import {orderCreated} from "../../store/actions/orders";
+import {
+  decreaseProductPieces,
+  deleteProductFromBasket,
+  increaseProductPieces,
+} from '../../store/actions/basket';
+import { orderCreated } from '../../store/actions/orders';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,13 +21,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    decreaseProductPieces: (id, purchasedProducts) => dispatch(decreaseProductPieces(id, purchasedProducts)),
-    increaseProductPieces: (id, purchasedProducts) => dispatch(increaseProductPieces(id, purchasedProducts)),
-    deleteProductFromBasket: (id) => dispatch(deleteProductFromBasket(id)),
-    order: (products) => dispatch(orderCreated(products)),
-  }
+const mapDispatchToProps = {
+  decreaseProductPieces,
+  increaseProductPieces,
+  deleteProductFromBasket,
+  order: orderCreated,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);

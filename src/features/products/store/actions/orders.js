@@ -4,17 +4,22 @@ import {
   FETCH_ORDERS_ERROR,
   FETCH_ORDERS_SUCCESS,
   LOAD_ORDER_FROM_SERVER,
-  LOAD_ORDERS_FROM_SERVER, ORDER_CREATED, ORDER_LOADED, ORDERED,
-  ORDERS_LOADED, POST_ORDER_ERROR, POST_ORDER_SUCCESS
-} from "../actionsTypes";
+  LOAD_ORDERS_FROM_SERVER,
+  ORDER_CREATED,
+  ORDER_LOADED,
+  ORDERED,
+  ORDERS_LOADED,
+  POST_ORDER_ERROR,
+  POST_ORDER_SUCCESS,
+} from '../actionsTypes';
 
 // ORDERS
 
 export const loadOrders = () => {
   return {
-    type: LOAD_ORDERS_FROM_SERVER
-  }
-}
+    type: LOAD_ORDERS_FROM_SERVER,
+  };
+};
 
 export const fetchOrdersSuccess = () => {
   return {
@@ -41,9 +46,9 @@ export const fetchOrdersError = (payload) => {
 export const loadOrder = (id) => {
   return {
     type: LOAD_ORDER_FROM_SERVER,
-    id
-  }
-}
+    id,
+  };
+};
 
 export const fetchOrderSuccess = () => {
   return {
@@ -67,12 +72,12 @@ export const fetchOrderError = (payload) => {
 
 // CREATE ORDER
 
-export const orderCreated = products => {
+export const orderCreated = (products) => {
   return {
     type: ORDER_CREATED,
     products,
   };
-}
+};
 
 export const postOrderSuccess = () => {
   return {

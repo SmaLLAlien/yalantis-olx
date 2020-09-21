@@ -1,25 +1,26 @@
-import {takeEvery, put} from 'redux-saga/effects'
-import {LOAD_ORDER_FROM_SERVER, LOAD_ORDERS_FROM_SERVER, ORDER_CREATED} from "../actionsTypes";
-import {TOKEN, URLs} from "../../../../global/constants";
+import { takeEvery, put } from 'redux-saga/effects';
+import {
+  LOAD_ORDER_FROM_SERVER,
+  LOAD_ORDERS_FROM_SERVER,
+  ORDER_CREATED,
+} from '../actionsTypes';
+import { TOKEN, URLs } from '../../../../global/constants';
 import {
   fetchOrderError,
   fetchOrdersError,
   fetchOrdersSuccess,
   fetchOrderSuccess,
   orderLoaded,
-  ordersLoaded, postOrderError, postOrderSuccess, removeOrdered
-} from "../actions/orders";
-import productInstanceApi from "../../../../core/api";
-import {normalizeOrders} from "../../../../helpers/helpers";
-
-export default function* watcherOrdersSaga() {
-  yield takeEvery(LOAD_ORDERS_FROM_SERVER, fetchOrders)
-  yield takeEvery(LOAD_ORDER_FROM_SERVER, fetchOrder)
-  yield takeEvery(ORDER_CREATED, orderProduct)
-}
+  ordersLoaded,
+  postOrderError,
+  postOrderSuccess,
+  removeOrdered,
+} from '../actions/orders';
+import productInstanceApi from '../../../../core/api';
+import { normalizeOrders } from '../../../../helpers/helpers';
 
 function* fetchOrders() {
-    try {
+  try {
     const headers = { Authorization: TOKEN };
     const { data } = yield productInstanceApi.get(URLs.ORDER, { headers });
     yield put(fetchOrdersSuccess());
@@ -28,31 +29,29 @@ function* fetchOrders() {
     if (error.message) {
       yield put(fetchOrdersError(error.message));
     } else {
-      yield put(
-        fetchOrdersError('Something is wrong, please try again later'),
-      );
+      yield put(fetchOrdersError('Something is wrong, please try again later'));
     }
   }
 }
 
-function* fetchOrder({id}) {
+function* fetchOrder({ id }) {
   try {
     const headers = { Authorization: TOKEN };
-    const { data } = yield productInstanceApi.get(`${URLs.ORDER}/${id}`, { headers });
+    const { data } = yield productInstanceApi.get(`${URLs.ORDER}/${id}`, {
+      headers,
+    });
     yield put(fetchOrderSuccess());
     yield put(orderLoaded(data));
   } catch (error) {
     if (error.message) {
       yield put(fetchOrderError(error.message));
     } else {
-      yield put(
-        fetchOrderError('Something is wrong, please try again later'),
-      );
+      yield put(fetchOrderError('Something is wrong, please try again later'));
     }
   }
 }
 
-function* orderProduct({products})  {
+function* orderProduct({ products }) {
   try {
     const headers = { Authorization: TOKEN };
     const pieces = yield normalizeOrders(products);
@@ -64,9 +63,13 @@ function* orderProduct({products})  {
     if (error.message) {
       yield put(postOrderError(error.message));
     } else {
-      yield put(
-        postOrderError('Something is wrong, please try again later'),
-      );
+      yield put(postOrderError('Something is wrong, please try again later'));
     }
   }
+}
+
+export default function* watcherOrdersSaga() {
+  yield takeEvery(LOAD_ORDERS_FROM_SERVER, fetchOrders);
+  yield takeEvery(LOAD_ORDER_FROM_SERVER, fetchOrder);
+  yield takeEvery(ORDER_CREATED, orderProduct);
 }

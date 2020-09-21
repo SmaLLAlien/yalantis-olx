@@ -23,8 +23,8 @@ const mapStateToProps = (state) => {
 // };
 
 const mapDispatchToProps = {
-    closeCreateModal,
-    saveProduct,
+  closeCreateModal,
+  saveProduct,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProduct);

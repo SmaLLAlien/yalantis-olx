@@ -21,9 +21,7 @@ import {
   PRODUCT_DETAIL_REQUESTED,
   CALL_SAVE_EDITED_PRODUCT,
 } from './actionsTypes';
-import {
-  onProductChosen,
-} from '../../../helpers/helpers';
+import { onProductChosen } from '../../../helpers/helpers';
 
 export const productsLoaded = (payload) => {
   return {
@@ -64,7 +62,6 @@ export const productDetailLoaded = (payload) => {
     payload,
   };
 };
-
 
 export const pageChanged = (payload) => {
   return {
@@ -112,7 +109,6 @@ export const saveProductSuccess = () => {
   };
 };
 
-
 export const resetPerPage = () => {
   return { type: RESET_PER_PAGE };
 };
@@ -136,15 +132,15 @@ export const savingProductFinished = () => {
 export const fetchProducts = (searchParams) => {
   return {
     type: PRODUCTS_REQUESTED,
-    searchParams
-  }
+    searchParams,
+  };
 };
 
 export const fetchProduct = (id) => {
   return {
     type: PRODUCT_DETAIL_REQUESTED,
-    id
-  }
+    id,
+  };
 };
 
 export const onAddToBasketProduct = (product, purchasing) => {
@@ -165,14 +161,14 @@ export const saveProduct = (product, isUserPage, history) => {
     type: CALL_SAVE_PRODUCT,
     product,
     isUserPage,
-    history
-  }
+    history,
+  };
 };
 
 export const editProduct = (product, history) => {
   return {
     type: CALL_SAVE_EDITED_PRODUCT,
     product,
-    history
-  }
+    history,
+  };
 };

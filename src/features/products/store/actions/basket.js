@@ -1,5 +1,9 @@
-import {changePiecesCount} from "../../../../helpers/helpers";
-import {BASKET_PRODUCT_DELETED, DECREASE_CHOSEN, INCREASE_CHOSEN} from "../actionsTypes";
+import { changePiecesCount } from '../../../../helpers/helpers';
+import {
+  BASKET_PRODUCT_DELETED,
+  DECREASE_CHOSEN,
+  INCREASE_CHOSEN,
+} from '../actionsTypes';
 
 export const increaseChosen = (payload) => {
   return {
@@ -20,7 +24,7 @@ export const decreaseProductPieces = (id, purchasedProducts) => {
   return decreaseChosen(payload);
 };
 
-export const increaseProductPieces = (id, purchasedProducts) =>  {
+export const increaseProductPieces = (id, purchasedProducts) => {
   const payload = changePiecesCount(id, purchasedProducts, '+');
   return increaseChosen(payload);
 };

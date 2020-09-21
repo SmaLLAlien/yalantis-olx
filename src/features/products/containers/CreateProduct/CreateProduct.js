@@ -1,5 +1,5 @@
 import React from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Portal from '../../../../components/Portal/Portal';
 import ProductForm from '../../components/Form/ProductForm/ProductForm';

@@ -1,4 +1,10 @@
-import {GOT_ORIGINS_FROM_URL, ORIGINS_CHECKED, ORIGINS_LOADED, ORIGINS_REQUESTED, RESET_ORIGIN} from "../actionsTypes";
+import {
+  GOT_ORIGINS_FROM_URL,
+  ORIGINS_CHECKED,
+  ORIGINS_LOADED,
+  ORIGINS_REQUESTED,
+  RESET_ORIGIN,
+} from '../actionsTypes';
 
 export const originsLoaded = (payload) => {
   return {
@@ -9,21 +15,21 @@ export const originsLoaded = (payload) => {
 
 export const fetchOrigins = () => {
   return {
-    type: ORIGINS_REQUESTED
-  }
+    type: ORIGINS_REQUESTED,
+  };
 };
 
 export const resetOrigin = () => {
-  return {type: RESET_ORIGIN};
+  return { type: RESET_ORIGIN };
 };
 
 export const manageOrigins = (payload) => {
-  return {type: ORIGINS_CHECKED, payload};
+  return { type: ORIGINS_CHECKED, payload };
 };
 
 export const setOriginQueryToStore = (payload) => {
   if (!payload.length) {
-    return {type: RESET_ORIGIN};
+    return { type: RESET_ORIGIN };
   }
-  return {type: GOT_ORIGINS_FROM_URL, payload};
+  return { type: GOT_ORIGINS_FROM_URL, payload };
 };

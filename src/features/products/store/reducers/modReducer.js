@@ -21,7 +21,7 @@ export const modalReducer = (state = initialState, action) => {
       return {
         ...state,
         openCreate: false,
-        error: null
+        error: null,
       };
     }
 
