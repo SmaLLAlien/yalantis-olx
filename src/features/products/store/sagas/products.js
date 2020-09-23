@@ -1,5 +1,5 @@
 import { takeEvery, put, delay, takeLatest } from 'redux-saga/effects';
-import { TOKEN, URLs } from '../../../../global/constants';
+import { URLs } from '../../../../global/constants';
 import {
   closeCreateProduct,
   loading,
@@ -15,7 +15,7 @@ import {
   savingProductStarts,
   totalItemsChanged,
 } from '../actions/products';
-import productInstanceApi from '../../../../core/api';
+import {productInstanceApi, productAuthInstanceApi} from '../../../../core/api';
 import {
   CALL_SAVE_EDITED_PRODUCT,
   CALL_SAVE_PRODUCT,
@@ -27,10 +27,7 @@ import {
 function* fetchProduct({ id }) {
   yield put(loading());
   try {
-    const headers = { Authorization: TOKEN };
-    const { data } = yield productInstanceApi.get(`${URLs.PRODUCTS}/${id}`, {
-      headers,
-    });
+    const { data } = yield productAuthInstanceApi.get(`${URLs.PRODUCTS}/${id}`);
     yield put(loadingSucceeded());
     yield put(productDetailLoaded(data));
   } catch (error) {
@@ -44,16 +41,19 @@ function* fetchProduct({ id }) {
 
 function* fetchProducts({ searchParams }) {
   try {
-    let headers;
+    let data;
     if (searchParams && searchParams.includes('editable')) {
-      headers = { Authorization: TOKEN };
+      const response = yield productAuthInstanceApi.get(
+        `${URLs.PRODUCTS}/${searchParams}`);
+
+      data = response.data;
+    } else {
+      const response = yield productInstanceApi.get(
+        `${URLs.PRODUCTS}/${searchParams}`);
+
+      data = response.data;
     }
-    const { data } = yield productInstanceApi.get(
-      `${URLs.PRODUCTS}/${searchParams}`,
-      {
-        headers,
-      },
-    );
+
 
     yield put(loadingSucceeded());
     yield put(totalItemsChanged(data.totalItems));
@@ -72,8 +72,7 @@ function* fetchProducts({ searchParams }) {
 function* saveProduct({ product, searchParams }) {
   try {
     yield put(savingProductStarts());
-    const headers = { Authorization: TOKEN };
-    yield productInstanceApi.post(URLs.PRODUCTS, { product }, { headers });
+    yield productAuthInstanceApi.post(URLs.PRODUCTS, { product });
 
     yield fetchProducts({ searchParams });
     yield put(saveProductSuccess());
@@ -92,11 +91,9 @@ function* saveProduct({ product, searchParams }) {
 function* editProduct({ product, history }) {
   try {
     yield put(savingProductStarts());
-    const headers = { Authorization: TOKEN };
-    yield productInstanceApi.patch(
+    yield productAuthInstanceApi.patch(
       `${URLs.PRODUCTS}/${product.id}`,
       { product },
-      { headers },
     );
     yield put(savingProductFinished());
     yield history.goBack();
@@ -112,8 +109,7 @@ function* editProduct({ product, history }) {
 }
 
 function* deleteProduct({ id, searchParams }) {
-  const headers = { Authorization: TOKEN };
-  yield productInstanceApi.delete(`${URLs.PRODUCTS}/${id}`, { headers });
+  yield productAuthInstanceApi.delete(`${URLs.PRODUCTS}/${id}`);
   const newSearchParams = searchParams
     ? `${searchParams}&editable=true`
     : `${searchParams}?editable=true`;

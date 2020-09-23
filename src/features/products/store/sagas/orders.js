@@ -4,7 +4,7 @@ import {
   LOAD_ORDERS_FROM_SERVER,
   ORDER_CREATED,
 } from '../actionsTypes';
-import { TOKEN, URLs } from '../../../../global/constants';
+import { URLs } from '../../../../global/constants';
 import {
   fetchOrderError,
   fetchOrdersError,
@@ -16,13 +16,12 @@ import {
   postOrderSuccess,
   removeOrdered,
 } from '../actions/orders';
-import productInstanceApi from '../../../../core/api';
+import {productAuthInstanceApi} from '../../../../core/api';
 import { normalizeOrders } from '../../../../helpers/helpers';
 
 function* fetchOrders() {
   try {
-    const headers = { Authorization: TOKEN };
-    const { data } = yield productInstanceApi.get(URLs.ORDER, { headers });
+    const { data } = yield productAuthInstanceApi.get(URLs.ORDER);
     yield put(fetchOrdersSuccess());
     yield put(ordersLoaded(data.items));
   } catch (error) {
@@ -36,10 +35,7 @@ function* fetchOrders() {
 
 function* fetchOrder({ id }) {
   try {
-    const headers = { Authorization: TOKEN };
-    const { data } = yield productInstanceApi.get(`${URLs.ORDER}/${id}`, {
-      headers,
-    });
+    const { data } = yield productAuthInstanceApi.get(`${URLs.ORDER}/${id}`);
     yield put(fetchOrderSuccess());
     yield put(orderLoaded(data));
   } catch (error) {
@@ -53,10 +49,9 @@ function* fetchOrder({ id }) {
 
 function* orderProduct({ products }) {
   try {
-    const headers = { Authorization: TOKEN };
     const pieces = yield normalizeOrders(products);
     const order = { pieces };
-    yield productInstanceApi.post(URLs.ORDER, { order }, { headers });
+    yield productAuthInstanceApi.post(URLs.ORDER, { order });
     yield put(postOrderSuccess());
     yield put(removeOrdered(products));
   } catch (error) {
