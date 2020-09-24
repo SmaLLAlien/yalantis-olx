@@ -4,7 +4,7 @@ import { errorReducer } from '../features/products/store/reducers/errorReducer';
 import { pageReducer } from '../features/products/store/reducers/pageReducer';
 import { modalReducer } from '../features/products/store/reducers/modReducer';
 import ordersReducer from '../features/products/store/reducers/ordersReducer';
-import spinnerReducer from "../store/reducers/spinnerReducer";
+import spinnerReducer from '../store/reducers/spinnerReducer';
 
 const rootReducer = combineReducers({
   productState: productReducer,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   pageState: pageReducer,
   modalState: modalReducer,
   orderState: ordersReducer,
-  spinnerState: spinnerReducer
+  spinnerState: spinnerReducer,
 });
 
 export default rootReducer;

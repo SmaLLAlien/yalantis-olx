@@ -15,7 +15,10 @@ import {
   savingProductStarts,
   totalItemsChanged,
 } from '../actions/products';
-import {productInstanceApi, productAuthInstanceApi} from '../../../../core/api';
+import {
+  productInstanceApi,
+  productAuthInstanceApi,
+} from '../../../../core/api';
 import {
   CALL_SAVE_EDITED_PRODUCT,
   CALL_SAVE_PRODUCT,
@@ -44,16 +47,17 @@ function* fetchProducts({ searchParams }) {
     let data;
     if (searchParams && searchParams.includes('editable')) {
       const response = yield productAuthInstanceApi.get(
-        `${URLs.PRODUCTS}/${searchParams}`);
+        `${URLs.PRODUCTS}/${searchParams}`,
+      );
 
       data = response.data;
     } else {
       const response = yield productInstanceApi.get(
-        `${URLs.PRODUCTS}/${searchParams}`);
+        `${URLs.PRODUCTS}/${searchParams}`,
+      );
 
       data = response.data;
     }
-
 
     yield put(loadingSucceeded());
     yield put(totalItemsChanged(data.totalItems));
@@ -91,10 +95,9 @@ function* saveProduct({ product, searchParams }) {
 function* editProduct({ product, history }) {
   try {
     yield put(savingProductStarts());
-    yield productAuthInstanceApi.patch(
-      `${URLs.PRODUCTS}/${product.id}`,
-      { product },
-    );
+    yield productAuthInstanceApi.patch(`${URLs.PRODUCTS}/${product.id}`, {
+      product,
+    });
     yield put(savingProductFinished());
     yield history.goBack();
     yield put(saveProductSuccess());

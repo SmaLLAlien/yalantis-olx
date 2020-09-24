@@ -51,7 +51,10 @@ const ProductsList = (props) => {
     <div className={classes.products}>
       {serverError ? (
         <div className={classes.products__error}>
-          <Errors error={serverError} showError={() => fetchProducts(searValue)} />
+          <Errors
+            error={serverError}
+            showError={() => fetchProducts(searValue)}
+          />
         </div>
       ) : (
         products.map((product) => (

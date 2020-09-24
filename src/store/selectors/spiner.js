@@ -1,1 +1,1 @@
-export const isRequestInUse = state => state.spinnerState.visible
+export const isRequestInUse = (state) => state.spinnerState.visible;

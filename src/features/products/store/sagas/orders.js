@@ -16,7 +16,7 @@ import {
   postOrderSuccess,
   removeOrdered,
 } from '../actions/orders';
-import {productAuthInstanceApi} from '../../../../core/api';
+import { productAuthInstanceApi } from '../../../../core/api';
 import { normalizeOrders } from '../../../../helpers/helpers';
 
 function* fetchOrders() {

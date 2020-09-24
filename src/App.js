@@ -6,7 +6,7 @@ import AppRoutes from './components/AppRoutes/AppRoutes';
 import classes from './App.module.scss';
 import { configureStore } from './core/configureStore';
 import ToTop from './features/products/containers/ToTop/ToTop';
-import MainLayout from "./containers/MainLayout";
+import MainLayout from './containers/MainLayout';
 
 const store = configureStore();
 
@@ -25,7 +25,5 @@ function App() {
     </Provider>
   );
 }
-
-
 
 export default App;

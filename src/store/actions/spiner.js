@@ -1,13 +1,13 @@
-import {HIDE_SPINNER, SHOW_SPINNER} from "../actionTypes";
+import { HIDE_SPINNER, SHOW_SPINNER } from '../actionTypes';
 
 export const showSpinner = () => {
   return {
-    type: SHOW_SPINNER
-  }
-}
+    type: SHOW_SPINNER,
+  };
+};
 
 export const hideSpinner = () => {
   return {
-    type: HIDE_SPINNER
-  }
-}
+    type: HIDE_SPINNER,
+  };
+};

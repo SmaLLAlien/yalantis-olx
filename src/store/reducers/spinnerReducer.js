@@ -1,29 +1,29 @@
-import {HIDE_SPINNER, SHOW_SPINNER} from "../actionTypes";
+import { HIDE_SPINNER, SHOW_SPINNER } from '../actionTypes';
 
 const initialState = {
-  visible: false
-}
+  visible: false,
+};
 
 const spinnerReducer = (state = initialState, action) => {
-  const {type} = action;
+  const { type } = action;
 
   switch (type) {
     case HIDE_SPINNER: {
       return {
         ...state,
-        visible: false
-      }
+        visible: false,
+      };
     }
     case SHOW_SPINNER: {
       return {
         ...state,
-        visible: true
-      }
+        visible: true,
+      };
     }
     default: {
-      return state
+      return state;
     }
   }
-}
+};
 
 export default spinnerReducer;

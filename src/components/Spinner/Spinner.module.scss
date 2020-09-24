@@ -3,7 +3,7 @@
   height: 100vh;
   box-sizing: border-box;
   position: fixed;
-  background: rgba(16, 14, 23, 0.95);;
+  background: rgba(16, 14, 23, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +16,7 @@
   height: 80px;
 }
 .lds_dual_ring:after {
-  content: " ";
+  content: ' ';
   display: block;
   width: 64px;
   height: 64px;
