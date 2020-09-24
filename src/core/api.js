@@ -11,4 +11,3 @@ export const productAuthInstanceApi = axios.create({
     'Authorization': TOKEN
   }
 });
-
