@@ -9,17 +9,6 @@ import { getStyles } from '../../../../../helpers/helpers';
 const Input = (props) => {
   const { label, name, errors, touched, ...rest } = props;
 
-  // const getStyles = (errorsControls, fieldName, touchedFields) => {
-  //   if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
-  //     return {
-  //       border: '1px solid red',
-  //       borderLeftWidth: '5px',
-  //       transition: '0.5s all',
-  //     };
-  //   }
-  //   return null;
-  // };
-
   return (
     <div>
       <label className={classes.label} htmlFor={name}>
