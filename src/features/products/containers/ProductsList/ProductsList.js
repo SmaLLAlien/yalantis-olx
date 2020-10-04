@@ -8,7 +8,13 @@ import Product from '../../components/Product/Product';
 import { productType } from '../../types/types';
 
 const ProductsList = (props) => {
-  const { products, onAddToBasketProduct, fetchProducts, serverError } = props;
+  const {
+    products,
+    onAddToBasketProduct,
+    fetchProducts,
+    serverError,
+    productDelete,
+  } = props;
   const history = useHistory();
   const params = useLocation();
   const searValue = params.search;
@@ -33,6 +39,10 @@ const ProductsList = (props) => {
     }
   };
 
+  const deleteProduct = (productId) => {
+    productDelete(productId);
+  };
+
   const editRedirectHandler = (id) => {
     history.push(`${Routes.EDIT}/${id}`);
   };
@@ -41,7 +51,10 @@ const ProductsList = (props) => {
     <div className={classes.products}>
       {serverError ? (
         <div className={classes.products__error}>
-          <Errors error={serverError} showError={() => fetchProducts()} />
+          <Errors
+            error={serverError}
+            showError={() => fetchProducts(searValue)}
+          />
         </div>
       ) : (
         products.map((product) => (
@@ -56,9 +69,10 @@ const ProductsList = (props) => {
             <Product
               className={classes.products__item}
               buy={(event, item) => buyHandler(event, item)}
-              openEdit={(item) => {
-                editRedirectHandler(item);
+              openEdit={(itemId) => {
+                editRedirectHandler(itemId);
               }}
+              deleteProduct={(itemId) => deleteProduct(itemId)}
               product={product}
             />
           </div>
@@ -72,6 +86,7 @@ ProductsList.propTypes = {
   products: PropTypes.arrayOf(productType).isRequired,
   purchasing: PropTypes.arrayOf(productType),
   fetchProducts: PropTypes.func.isRequired,
+  productDelete: PropTypes.func,
   onAddToBasketProduct: PropTypes.func,
   serverError: PropTypes.string,
 };
@@ -80,6 +95,7 @@ ProductsList.defaultProps = {
   serverError: null,
   purchasing: [],
   onAddToBasketProduct: null,
+  productDelete: null,
 };
 
 export default ProductsList;

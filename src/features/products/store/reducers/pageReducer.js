@@ -39,6 +39,13 @@ export const pageReducer = (state = initialState, action) => {
       };
     }
 
+    case actionTypes.RESET_ORIGIN: {
+      return {
+        ...state,
+        originUrlState: [],
+      };
+    }
+
     case actionTypes.RESET_PER_PAGE: {
       return {
         ...state,

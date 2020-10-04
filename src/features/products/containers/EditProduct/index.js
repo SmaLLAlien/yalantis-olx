@@ -11,10 +11,10 @@ import {
 import {
   closeCreateModal,
   editProduct,
-  fetchOrigins,
   fetchProduct,
-} from '../../store/actions';
+} from '../../store/actions/products';
 import { EditProduct } from './EditProduct';
+import { fetchOrigins } from '../../store/actions/origins';
 
 const mapStateToProps = (state) => {
   return {

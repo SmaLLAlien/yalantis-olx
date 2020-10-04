@@ -13,17 +13,6 @@ import { getStyles } from '../../../../../helpers/helpers';
 const SelectOrigin = (props) => {
   const { name, label, options, touched, errors, disabled } = props;
 
-  // const getStyles = (errorsControls, fieldName, touchedFields) => {
-  //   if (getIn(errorsControls, fieldName) && getIn(touchedFields, fieldName)) {
-  //     return {
-  //       border: '1px solid red',
-  //       borderLeftWidth: '5px',
-  //       transition: '0.5s all',
-  //     };
-  //   }
-  //   return null;
-  // };
-
   return (
     <div>
       <label className={classes.label} htmlFor={name}>

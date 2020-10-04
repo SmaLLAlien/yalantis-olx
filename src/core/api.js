@@ -1,7 +1,13 @@
 import axios from 'axios';
+import { TOKEN } from '../global/constants';
 
-const productInstance = axios.create({
+export const productInstanceApi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-export default productInstance;
+export const productAuthInstanceApi = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    Authorization: TOKEN,
+  },
+});

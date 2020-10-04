@@ -51,3 +51,15 @@ export const createProductInitialValues = {
   origin: '',
   price: '',
 };
+
+export const SUCCESS_TOASTER_ID = 'SUCCESS_TOASTER_ID';
+export const ERROR_TOASTER_ID = 'ERROR_TOASTER_ID';
+
+export const METHODS_FOR_TOASTER = ['post', 'patch', 'put', 'delete'];
+
+export const TOASTER_CONFIG = {
+  position: 'top-right',
+  autoClose: 3000,
+  hideProgressBar: true,
+  draggable: false,
+};

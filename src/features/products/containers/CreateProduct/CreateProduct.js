@@ -17,10 +17,14 @@ export const CreateProduct = (props) => {
     isSavingInProgress,
   } = props;
   const params = useLocation().pathname;
+  let searchParams = useLocation().search;
 
   const saveProductHandler = (product) => {
-    const isUserPage = params.includes(Routes.CREATED) ? '?editable=true' : '';
-    saveProduct(product, isUserPage);
+    const isUserPage = params.includes(Routes.CREATED) ? 'editable=true' : '';
+    searchParams = searchParams
+      ? `${searchParams}&${isUserPage}`
+      : `?${isUserPage}`;
+    saveProduct(product, searchParams);
   };
 
   return (
